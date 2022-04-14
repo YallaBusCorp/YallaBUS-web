@@ -10,14 +10,16 @@ import {LocationsComponent} from "./pages/locations/locations.component";
 import {ReportsComponent} from "./pages/reports/reports.component";
 import {UniversitiesComponent} from "./pages/universities/universities.component";
 import {LoginComponent} from "./pages/login/login.component";
+import {IsSignedInGuard} from "./guard/is-signed-in.guard";
+import {AuthGuard} from "./guard/auth.guard";
 
 const routes: Routes = [
-  // { path: '', redirectTo: "login" , pathMatch: 'full'},
-  // { path: 'login', component: LoginComponent},
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'Students', component: StudentsComponent},
-  { path: 'Appointments', component: AppointmentsComponent},
+   { path: '', redirectTo: "/login" , pathMatch: 'full' },
+  { path: 'login', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
+  { path: 'Dashboard', component: HomeComponent ,  canActivate: [IsSignedInGuard]},
+  { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},
+  { path: 'Students', component: StudentsComponent ,  canActivate: [AuthGuard] },
+  { path: 'Appointments', component: AppointmentsComponent ,  canActivate: [AuthGuard]},
   { path: 'Buses', component: BusesComponent},
   { path: 'Complaints', component: ComplaintsComponent},
   { path: 'Employees', component: EmployeesComponent},

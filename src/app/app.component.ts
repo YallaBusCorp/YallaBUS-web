@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'YallaBus';
-//  loginActive : boolean=   localStorage.getItem('token') != null ? true : false ;
+ loginActive : boolean=   localStorage.getItem('token') != null ? true : false ;
+  constructor(
+    public router: Router
+  ) {
 
+  }
 }

@@ -17,7 +17,7 @@ export class StudentService {
     // }).then(function (res) {
     //   if (res.ok)  return res;;
     // });
-    return this.http.get<StudentModule>(`${environment.UrlWebsite}/student/get-by-company-id?id=`+id
+    return this.http.get<StudentModule>(`${environment.UrlWebsite}/student/get-by-company-id?id=`+environment.Token
     ).pipe(
       map((res:any)=>{
       return res;

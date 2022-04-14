@@ -22,6 +22,7 @@ export const environment = {
       'Accept': 'application/json',
     }),
   },
+  Token : localStorage.getItem('token'),
 };
 
 /*

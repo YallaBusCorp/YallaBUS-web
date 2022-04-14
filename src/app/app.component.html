@@ -1,5 +1,5 @@
 <!-- Layout wrapper -->
-<!--<div *ngIf="loginActive">-->
+<div *ngIf="this.router.url != '/login'">
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
       <header></header>
@@ -18,8 +18,8 @@
 
     </div>
   </div>
-<!--</div>-->
+</div>
 
-<!--<div *ngIf="!loginActive">-->
-<!--  <router-outlet></router-outlet>-->
-<!--</div>-->
+<div *ngIf="this.router.url == '/login'">
+  <router-outlet></router-outlet>
+</div>

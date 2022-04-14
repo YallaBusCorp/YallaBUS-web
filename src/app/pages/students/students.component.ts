@@ -135,7 +135,7 @@ export class StudentsComponent implements OnInit {
       }, university: {
         id: this.university?.value
       }, company: {
-        id: 1
+        id:  environment.Token
       },
       endSubscriptionDate: this.endSubscriptionDate.value ?
         pipe.transform(
