@@ -1,0 +1,262 @@
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h2>Employees</h2>
+    <div class="col-lg-12">
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="left-card ">
+            <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 20px;" type="search"placeholder="Search" >
+            <button type="button"
+                    class="btn btn-sm btn-primary " >search</button>
+          </div>
+          <div class="right-card">
+            <button type="button"
+                    class="btn btn-sm btn-info">Add Employee</button>
+          </div>
+
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>NID</th>
+              <th>Salary</th>
+              <th>Type</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr>
+              <td><strong>1</strong></td>
+              <td>Yasser</td>
+              <td>
+                0163565163
+              </td>
+              <td>5616165616516</td>
+              <td>5000</td>
+              <td>Driver</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
+                    <a class="dropdown-item" href="javascript:void(0);"
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td>Mahmoud</td>
+              <td>
+                0144523163
+              </td>
+              <td>5616165616516</td>
+              <td>5000</td>
+              <td>Supervisor</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="orederStatistics1"
+                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics1" style="">
+                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td>Ahmed</td>
+              <td>
+                01643125163
+              </td>
+              <td>5616165616516</td>
+              <td>5000</td>
+              <td>Supervisor</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="orederStatistics3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics3" style="">
+                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td>Moustafa</td>
+              <td>
+                016341265
+              </td>
+              <td>5616165616516</td>
+              <td>5000</td>
+              <td>Driver</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="orederStatistics4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics4" style="">
+                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>5</strong></td>
+              <td>Amr</td>
+              <td>
+                016341265
+              </td>
+              <td>5616165616516</td>
+              <td>5000</td>
+              <td>Supervisor</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="orederStatistics5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics5" style="">
+                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <nav aria-label="Page navigation " class=" d-flex justify-content-center">
+          <ul class="pagination">
+            <li class="page-item prev">
+              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="javascript:void(0);">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0);">2</a>
+            </li>
+            <li class="page-item ">
+              <a class="page-link" href="javascript:void(0);">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0);">4</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:void(0);">5</a>
+            </li>
+            <li class="page-item next">
+              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+  <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">Edit Employee</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-2 mb-3">
+          <div class="col mb-0">
+            <label for="nameExLarge" class="form-label">Name</label>
+            <input type="text" id="nameExLarge" class="form-control"value="Yasser Abd Elghany"
+                   placeholder="Enter Name">
+          </div>
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">code</label>
+            <input type="text" value="165674"  class="form-control" placeholder="code">
+          </div>
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">phone</label>
+            <input type="tel" value="0125466314" id="emailExLarge" class="form-control" placeholder="phone">
+          </div>
+          <div class="col mb-0">
+            <label  class="form-label">TYPE</label>
+            <select  class="form-select">
+              <option value="Admin">Admin</option>
+              <option value="Driver">Driver</option>
+              <option value="Supervisor">Supervisor</option>
+            </select>
+          </div>
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">NID</label>
+            <input type="text"  class="form-control"value="5616165616516"
+                   placeholder="NID">
+          </div>
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">SALARY</label>
+            <input type="text" name="SALARY" class="form-control"value="5000"
+                   placeholder="SALARY">
+          </div>
+        </div>
+        <hr>
+        <div class="row g-2 mb-3">
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">UserName</label>
+            <input type="text"  class="form-control"
+                   placeholder="UserName">
+          </div>
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">Password</label>
+            <input type="password"  class="form-control"
+                   placeholder="password">
+          </div>
+        </div>
+        <!--                <div class="row g-2 mb-3">-->
+        <!--                  <div class="col mb-0">-->
+        <!--                    <label for="emailExLarge" class="form-label">Licence number</label>-->
+        <!--                    <input type="text"  class="form-control"value="6113"-->
+        <!--                           placeholder="Licence number">-->
+        <!--                  </div>-->
+        <!--                  <div class="col mb-0">-->
+        <!--                    <label for="emailExLarge" class="form-label">Licence Expiration</label>-->
+        <!--                    <input type="date"  class="form-control"-->
+        <!--                           placeholder="Licence Expiration">-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

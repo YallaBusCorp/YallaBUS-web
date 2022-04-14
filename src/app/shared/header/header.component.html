@@ -1,0 +1,101 @@
+
+
+    <!-- Menu -->
+
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <img src="assets/img/logo.svg" alt="" >
+
+      <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-item " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="home" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">Dashboard</div>
+          </a>
+        </li>
+
+        <!-- Reports -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="reports"  class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-report"></i>
+            <div data-i18n="Analytics">Reports</div>
+          </a>
+        </li>
+
+        <!-- Student -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Students" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-user-circle"></i>
+            <div data-i18n="Analytics">Students</div>
+          </a>
+        </li>
+
+        <!-- Employees -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Employees" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-user"></i>
+            <div data-i18n="Analytics">Employees</div>
+          </a>
+        </li>
+
+        <!-- buses -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Buses" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-bus"></i>
+            <div data-i18n="Analytics">buses</div>
+          </a>
+        </li>
+
+        <!-- Universities -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Universities" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-home"></i>
+            <div data-i18n="Analytics">Universities</div>
+          </a>
+        </li>
+
+        <!-- Map Locations -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="locations" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-map"></i>
+            <div data-i18n="Analytics">Map Locations</div>
+          </a>
+        </li>
+
+        <!-- Rides -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Appointments" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-time"></i>
+            <div data-i18n="Analytics">Appointments</div>
+          </a>
+        </li>
+
+        <!-- Assignment -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Assignments" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-edit"></i>
+            <div data-i18n="Analytics">Assignment</div>
+          </a>
+        </li>
+
+        <!-- Complaints -->
+        <li class="menu-item" routerLinkActive="active" >
+          <a routerLink="Complaints" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-message-alt"></i>
+            <div data-i18n="Analytics">Complaints</div>
+          </a>
+        </li>
+
+        <!-- Settings -->
+        <li class="menu-item" routerLinkActive="active" (click)="logout()">
+          <a routerLink="login" class="menu-link" (click)="logout()">
+            <i class="menu-icon tf-icons bx bxs-log-out "></i>
+            <div data-i18n="Analytics">Log Out</div>
+          </a>
+        </li>
+
+
+      </ul>
+    </aside>
+    <!-- / Menu -->
+

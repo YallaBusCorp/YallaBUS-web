@@ -1,0 +1,203 @@
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h2>Students</h2>
+    <div class="col-lg-12">
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="left-card ">
+            <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 30px;" type="search"placeholder="Search" >
+            <button type="button" style="width:100px;"
+                    class="btn btn-sm btn-primary " >search</button>
+          </div>
+          <div class="right-card">
+            <button type="button" style="width:100px;"
+                    class="btn btn-sm btn-info" data-bs-target="#exLargeModal"
+                    data-bs-toggle="modal"
+                    (click)="AddStudent()"
+            >Add Student</button>
+          </div>
+
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-hover">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>University</th>
+              <th>End Subscriped Date</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr *ngFor="let student of students;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{student.stdName}}</td>
+              <td>
+                {{student.stdPhone}}
+              </td>
+              <td>{{student.university.universityName}}</td>
+
+              <ng-container [ngSwitch]="true">
+                <td *ngSwitchCase="student.endSubscriptionDate ==null
+                  ||  student.isSubscribed == null
+                  ||  student.endSubscriptionDate == 0
+              " >
+                <span class="badge bg-label-warning me-1">
+                  Not Activated yet</span>
+                </td>
+                <td  *ngSwitchCase="( student.endSubscriptionDate != null  )
+                  && student.isSubscribed == true " >
+                  <span class="badge bg-label-success me-1">
+                    {{ student.endSubscriptionDate | date : "longDate"}}</span>
+
+                </td>
+                <td  *ngSwitchCase="( student.endSubscriptionDate != null
+                  && student.isSubscribed == false)" >
+
+                  <span class="badge bg-label-danger me-11"> SUBSCRIPTION EXPIRED</span>
+                </td>
+              </ng-container>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button" id="orederStatistics"
+                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
+                    <a class="dropdown-item" href="javascript:void(0);"
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">renew Subscription</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+<!--        <nav aria-label="Page navigation " class=" d-flex justify-content-center">-->
+<!--          <ul class="pagination">-->
+<!--            <li class="page-item prev">-->
+<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>-->
+<!--            </li>-->
+<!--            <li class="page-item active">-->
+<!--              <a class="page-link" href="javascript:void(0);">1</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">2</a>-->
+<!--            </li>-->
+<!--            <li class="page-item ">-->
+<!--              <a class="page-link" href="javascript:void(0);">3</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">4</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">5</a>-->
+<!--            </li>-->
+<!--            <li class="page-item next">-->
+<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </nav>-->
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+  <!-- Content wrapper -->
+</div>
+
+
+
+
+
+
+
+
+<!-- class="modal fade"   style="display: none;"-->
+<div class="modal fade" id="exLargeModal"
+     tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValues" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">ADD Student</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col mb-3">
+            <label for="nameExLarge" class="form-label">Name</label>
+            <input type="text" id="nameExLarge" class="form-control"value="Yasser Abd Elghany"
+                   placeholder="Enter Name" formControlName="stdName">
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-7 mb-3">
+            <label for="emailExLarge" class="form-label">phone</label>
+            <input type="tel" value="+02"formControlName="stdPhone"
+                   id="emailExLarge" class="form-control" placeholder="phone">
+          </div>
+          <div class="col-1" style="display: flex;
+                          align-items: center;    margin-top: 17px;
+                          justify-content: center;">
+            <button id="sign-in-button" type="button" class="btn btn-dark btn-sm" (click)="SendOTP()">Send OTP</button>
+          </div>
+          <div class="col-3 mb-3">
+            <label for="emailExLarge" class="form-label">OTP</label>
+            <input type="text" formControlName="OTP"
+                    class="form-control" placeholder="OTP">
+          </div>
+          <div class="col-1" style="display: flex;
+            align-items: center;    margin-top: 17px;
+            justify-content: center;">
+            <button type="button" class="btn btn-success btn-sm" (click)="TestOTP()">Test OTP</button>
+          </div>
+
+        </div>
+        <div class="row g-2">
+          <div class="col mb-3">
+            <label  class="form-label">UNIVERSITY</label>
+            <select  class="form-select"
+                     formControlName="university" >
+              <option [ngValue]="null" disabled>Select university</option>
+              <option *ngFor="let University of Universities"
+                      value="{{University.id}}">
+                {{University.universityName}}
+              </option>
+
+            </select>
+          </div>
+          <div class="col mb-3">
+            <label for="emailExLarge" class="form-label">Town</label>
+            <select  class="form-select" formControlName="town">
+              <option [ngValue]="null" disabled>Select university</option>
+              <option *ngFor="let Town of Towns"
+                      value="{{Town.id}}">
+                {{Town.townName}}
+              </option>
+            </select>    </div>
+          <div class="col mb-3">
+            <label for="dobExLarge" class="form-label">Start SUBSCRIPED DATE</label>
+            <input type="date" formControlName="endSubscriptionDate" id="dobExLarge" class="form-control" placeholder="DD / MM / YY">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary "id="close-button" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
