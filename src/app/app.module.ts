@@ -21,7 +21,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import { LoginComponent } from './pages/login/login.component';
 import {environment} from "../environments/environment";
-
+import * as firebase from "firebase";
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import {environment} from "../environments/environment";
     FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-  ],
+],
   providers: [],
   bootstrap: [
     AppComponent

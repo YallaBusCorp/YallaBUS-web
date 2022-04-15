@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
               history.go(0);
             //  this.router.navigate(['/home']);
             }else{
-              this.toastr.info("Company's Email Not Found");
+              this.toastr.info("Company Not Found");
             }
 
           // },

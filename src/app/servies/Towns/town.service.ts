@@ -10,7 +10,7 @@ export class TownService {
 
   constructor(private http: HttpClient) { }
   getTowns(id : number) {
-    return this.http.get(`${environment.UrlWebsite}/lkTown/get-by-company-id?id=`+environment.Token).pipe(
+    return this.http.get(`${environment.UrlWebsite}/lkTown/company/active?id=`+environment.Token).pipe(
       map((res:any)=>{
           return res;
         }

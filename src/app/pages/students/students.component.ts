@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import * as firebase from 'firebase';
+import {auth} from "firebase";
 
 // import {getAuth} from "@angular/fire/auth";
 // import {signOut} from "@angular/fire/auth";
@@ -31,13 +32,13 @@ export class StudentsComponent implements OnInit {
     private toastr: ToastrService,
     private UniversityApi: UniversityService,
   ) {
-
+    // this.firebaseApp = firebase.initializeApp(environment.firebase);
   }
 
   windowRef: any;
   firebaseApp :any;
   ngOnInit(): void {
-    this.firebaseApp = firebase.initializeApp(environment.firebase);
+
     this.windowRef = this.StudentApi.windowRef;
     this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
       'size': 'invisible'
@@ -51,9 +52,7 @@ export class StudentsComponent implements OnInit {
   getStudents() {
     this.StudentApi.getStudents(1)
       .subscribe(res => {
-          //console.log(res);
           this.students = res;
-          console.log(this.theDateNow);
         },
         err => {
           alert(err);
@@ -140,7 +139,8 @@ export class StudentsComponent implements OnInit {
       endSubscriptionDate: this.endSubscriptionDate.value ?
         pipe.transform(
           (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null,
-      isSubscribed: true
+      isSubscribed: true,
+      // is_active : 1
     }
   }
 
@@ -199,7 +199,7 @@ export class StudentsComponent implements OnInit {
   SendOTP() {
     let appVerifier = this.windowRef.recaptchaVerifier;
     if (this.stdPhone.value != null) {
-      this.firebaseApp.auth().signInWithPhoneNumber("+20" + this.stdPhone.value, appVerifier).then(
+      auth().signInWithPhoneNumber("+20" + this.stdPhone.value, appVerifier).then(
         (result :any) => {
           this.windowRef.confirmationResult = result;
           this.toastr.success('Send SMS To Your Number Successfully');

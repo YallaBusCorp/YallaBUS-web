@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 import {HttpHeaders} from "@angular/common/http";
-
+import * as firebase from "firebase";
 export const environment = {
   production: false,
   firebase : {
@@ -15,7 +15,7 @@ export const environment = {
     appId: "1:403200399686:web:ca1beba529afe23baded47",
     measurementId: "G-N7F1D1KVV5"
   },
-  UrlWebsite:'https://yalla-bus.herokuapp.com',
+  UrlWebsite:'https://yalla-bus.herokuapp.com/api/v1',
   httpOptions : {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -24,6 +24,7 @@ export const environment = {
   },
   Token : localStorage.getItem('token'),
 };
+firebase.initializeApp(environment.firebase);
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -11,7 +11,7 @@ export class UniversityService {
 
   constructor(private http: HttpClient) { }
   getUniversities(id : number) {
-    return this.http.get(`${environment.UrlWebsite}/lkUniversity/get-by-company-id?id=`+environment.Token).pipe(
+    return this.http.get(`${environment.UrlWebsite}/lkUniversity/company/active?id=`+environment.Token).pipe(
       map((res:any)=>{
           return res;
         }
