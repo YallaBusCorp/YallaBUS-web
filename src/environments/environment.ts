@@ -25,7 +25,6 @@ export const environment = {
   Token : localStorage.getItem('token'),
 };
 firebase.initializeApp(environment.firebase);
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

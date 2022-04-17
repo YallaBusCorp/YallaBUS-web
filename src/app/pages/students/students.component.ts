@@ -24,67 +24,70 @@ export class StudentsComponent implements OnInit {
   Towns: any;
   Universities: any;
   theDateNow: any = new Date;
-  StudentModule: StudentInterface | any;
-
+  StudentModule: StudentModule | any;
+  ShowAddbutton : boolean =true;
+  showOTPbutton : boolean = true;
   constructor(
     private StudentApi: StudentService,
     private TownsApi: TownService,
     private toastr: ToastrService,
     private UniversityApi: UniversityService,
   ) {
-    // this.firebaseApp = firebase.initializeApp(environment.firebase);
   }
 
   windowRef: any;
-  firebaseApp :any;
   ngOnInit(): void {
-
-    this.windowRef = this.StudentApi.windowRef;
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-      'size': 'invisible'
-    });
     this.getStudents();
     this.getTwons();
     this.getUniversities();
+
+    this.windowRef = this.StudentApi.windowRef;
+    setTimeout(()=> {
+      this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+        'size': 'invisible'
+      });
+    },2000);
+
   }
 
 
   getStudents() {
-    this.StudentApi.getStudents(1)
+    this.StudentApi.getStudents(Number(environment.Token))
       .subscribe(res => {
           this.students = res;
         },
         err => {
-          alert(err);
+          this.toastr.warning(err);
         }
       )
   }
 
-  AddStudent() {
-
-  }
-
   getTwons() {
-    this.TownsApi.getTowns(1)
+    this.TownsApi.getTowns(Number(environment.Token))
       .subscribe(res => {
           this.Towns = res;
         },
         err => {
-          alert(err);
+          this.toastr.warning(err);
         }
       )
   }
 
   getUniversities() {
-    this.UniversityApi.getUniversities(1)
+    this.UniversityApi.getUniversities(Number(environment.Token))
       .subscribe(res => {
           this.Universities = res;
-          // console.log(this.Universities);
         },
         err => {
-          alert(err);
+          this.toastr.warning(err);
         }
       )
+  }
+
+  AddStudentButton(){
+    this.ShowAddbutton = true;
+    this.showOTPbutton = true;
+    this.formValues.reset();
   }
 
   formValues = new FormGroup({
@@ -120,35 +123,51 @@ export class StudentsComponent implements OnInit {
     return this.formValues.get('endSubscriptionDate');
   }
 
+  validation(Stu: StudentModule) {
+    function validationEmpty(col: string) {
+      return col != null && col.length > 0 ? true : false;
+    }
+    function validationNull(col: any) {
+      return col != null ? true : false;
+    }
+    if (validationEmpty(Stu.stdName) &&
+      validationEmpty(Stu.stdPhone) &&
+      validationEmpty(this.codeUser || Stu.code) &&
+      validationNull(Stu.town.id) &&
+      validationNull(Stu.company.id) &&
+      validationNull(Stu.university.id) &&
+      validationNull(Stu.endSubscriptionDate)
+    ) {
+      return true;
+    }
+    return false;
 
+  }
+
+  //Start Get All Details
   getDetails() {
     let SubscriptionDate = new Date(this.endSubscriptionDate.value);
     let pipe = new DatePipe('en-US');
-    this.StudentModule = {
-      'id': null,
-      'stdName': this.stdName?.value,
-      'code': this.codeUser,
-      'stdPhone': "+2" + this.stdPhone?.value,
-      town: {
-        id: this.town?.value
-      }, university: {
-        id: this.university?.value
-      }, company: {
-        id:  environment.Token
-      },
-      endSubscriptionDate: this.endSubscriptionDate.value ?
-        pipe.transform(
-          (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null,
-      isSubscribed: true,
-      // is_active : 1
-    }
+     this.StudentModule.id = this.StudentModule.id ? this.StudentModule.id :null;
+      this.StudentModule.stdName = this.stdName?.value;
+      this.StudentModule.code = this.StudentModule.code ? this.StudentModule.code : this.codeUser;
+      this.StudentModule.stdPhone = this.stdPhone?.value[0] != '+' &&this.stdPhone?.value[1] != '2'  ?
+                                            "+2" + this.stdPhone?.value : this.stdPhone?.value ;
+      this.StudentModule.town = { "id" : this.town?.value };
+      this.StudentModule.university = { "id" : this.university?.value };
+      this.StudentModule.company = { "id" :  environment.Token };
+      this.StudentModule.endSubscriptionDate = this.endSubscriptionDate.value ?
+            pipe.transform(
+              (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null;
+      this.StudentModule.isSubscribed = true;
+      this.StudentModule.isActive = true;
   }
+  //End Get All Details
 
-
-  onSubmit() {
+  //Start Save Student
+  SaveStudent() {
     this.StudentModule = new StudentModule;
     this.getDetails();
-    // console.log(this.StudentModule);
     if (this.codeUser != null) {
       if (this.validation(this.StudentModule)) {
         this.StudentApi.PostStudents(this.StudentModule)
@@ -156,7 +175,45 @@ export class StudentsComponent implements OnInit {
               this.toastr.success('Added Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.formValues.reset();
+              this.getStudents();
+            },
+            res => {
+              console.log(res);
+              this.toastr.warning(res.error ? res.error.error : "wrong in Server");
+            }
+          )
+      } else {
+        this.toastr.info('Please fill in the data correctly');
+      }
+    } else {
+      this.toastr.info('Please finished Phone Validation correctly');
+    }
+  }
+  //End Save Student
+  PhoneRow : any;
+  onEdit(row: any){
+    this.showOTPbutton = false;
+    this.ShowAddbutton = false;
+    this.StudentModule = new StudentModule;
+    this.StudentModule.id = Number(row.id);
+    this.formValues.controls['stdName'].setValue(row.stdName);
+    this.formValues.controls['stdPhone'].setValue(row.stdPhone);
+    this.PhoneRow = row.stdPhone;
+    this.StudentModule.code = row.code;
+    this.formValues.controls['town'].setValue(row.town.id);
+    this.formValues.controls['university'].setValue(row.university.id);
+    this.formValues.controls['endSubscriptionDate'].setValue(row.endSubscriptionDate);
+  }
+  UpdateStudent() {
+    this.getDetails();
+      // console.log(this.StudentModule.stdPhone, this.PhoneRow);
+    if (this.StudentModule.stdPhone == this.PhoneRow) {
+      if (this.validation(this.StudentModule)) {
+        this.StudentApi.UpdateStudents(this.StudentModule)
+          .subscribe(res => {
+              this.toastr.success('Updated Successfully');
+              let ref = document.getElementById('close-button');
+              ref?.click();
               this.getStudents();
             },
             res => {
@@ -172,30 +229,22 @@ export class StudentsComponent implements OnInit {
     }
   }
 
-  validation(Stu: StudentModule) {
-    function validationEmpty(col: string) {
-      return col != null && col.length > 0 ? true : false;
-    }
-
-    function validationNull(col: any) {
-      return col != null ? true : false;
-    }
-
-    if (validationEmpty(Stu.stdName) &&
-      validationEmpty(Stu.stdPhone) &&
-      validationEmpty(this.codeUser) &&
-      validationNull(Stu.town.id) &&
-      validationNull(Stu.company.id) &&
-      validationNull(Stu.university.id) &&
-      validationNull(Stu.endSubscriptionDate)
-    ) {
-      return true;
-    }
-    return false;
-
+  DeleteStudent(id:number){
+    this.StudentApi.DeleteStudent(id)
+      .subscribe(res =>{
+          this.toastr.success('Delete Successfully');
+          this.getStudents();
+        },
+        (res : any)=>{
+        console.log(res,id);
+          this.toastr.warning(res.statusText);
+        }
+      )
   }
 
 
+
+  codeUser: string | any = null;
   SendOTP() {
     let appVerifier = this.windowRef.recaptchaVerifier;
     if (this.stdPhone.value != null) {
@@ -211,9 +260,6 @@ export class StudentsComponent implements OnInit {
     }
     this.codeUser = null;
   }
-
-  codeUser: string | any = null;
-
   TestOTP() {
     let code: string = this.OTP.value;
     this.windowRef.confirmationResult.confirm(code).then(
@@ -221,6 +267,14 @@ export class StudentsComponent implements OnInit {
         this.codeUser = res.user.uid;
         this.toastr.success('confirmation Result Successfully');
         console.log(res);
+        auth().signOut().then(
+          (result :any) => {
+           // console.log(result, auth());
+          //  this.toastr.success('sign Out Successfully');
+          }).catch((error : any) => {
+            this.toastr.info(error);
+          }
+        )
         // signOut(res.user.uid).then(() => {
         // });
       }).catch((err: any) => {
@@ -230,5 +284,7 @@ export class StudentsComponent implements OnInit {
 
   }
 
-
+  OTPButtonShow() {
+    this.showOTPbutton = true;
+  }
 }

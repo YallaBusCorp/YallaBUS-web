@@ -1,4 +1,5 @@
 export interface StudentInterface {
+  "id" : any | null;
   "stdName": string;
   "stdPhone": string;
   "town": {
@@ -10,7 +11,9 @@ export interface StudentInterface {
   "company":  {
     "id" : number,
   };
-  "endSubscriptionDate": Date;
+  "endSubscriptionDate": Date | null;
+  "isSubscribed" : boolean,
+   "isActive" : boolean
 }
 
 export class StudentModule {
@@ -48,3 +51,5 @@ export interface company {
     "imgURL": string,
     "facebookURL": string
 }
+
+

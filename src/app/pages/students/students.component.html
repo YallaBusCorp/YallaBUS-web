@@ -13,7 +13,7 @@
             <button type="button" style="width:100px;"
                     class="btn btn-sm btn-info" data-bs-target="#exLargeModal"
                     data-bs-toggle="modal"
-                    (click)="AddStudent()"
+                    (click)="AddStudentButton()"
             >Add Student</button>
           </div>
 
@@ -68,9 +68,9 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
                     <a class="dropdown-item" href="javascript:void(0);"
-                       data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(student)">Edit</a>
                     <a class="dropdown-item" href="javascript:void(0);">renew Subscription</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                    <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteStudent(student.id)">Delete</a>
                   </div>
                 </div>
               </td>
@@ -125,10 +125,10 @@
 <div class="modal fade" id="exLargeModal"
      tabindex="-1" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
-    <form [formGroup]="formValues" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formValues" (ngSubmit)="ShowAddbutton ? SaveStudent() : UpdateStudent()">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel4">ADD Student</h5>
+        <h5 class="modal-title" id="exampleModalLabel4">{{(ShowAddbutton) ? "ADD Student" : "Edit Student" }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -140,26 +140,26 @@
           </div>
         </div>
         <div class="row g-2">
-          <div class="col-7 mb-3">
+          <div class="col-md-7 mb-3">
             <label for="emailExLarge" class="form-label">phone</label>
-            <input type="tel" value="+02"formControlName="stdPhone"
+            <input type="tel" value="+02"formControlName="stdPhone" (change)="OTPButtonShow()"
                    id="emailExLarge" class="form-control" placeholder="phone">
           </div>
-          <div class="col-1" style="display: flex;
-                          align-items: center;    margin-top: 17px;
-                          justify-content: center;">
-            <button id="sign-in-button" type="button" class="btn btn-dark btn-sm" (click)="SendOTP()">Send OTP</button>
-          </div>
-          <div class="col-3 mb-3">
-            <label for="emailExLarge" class="form-label">OTP</label>
-            <input type="text" formControlName="OTP"
-                    class="form-control" placeholder="OTP">
-          </div>
-          <div class="col-1" style="display: flex;
-            align-items: center;    margin-top: 17px;
-            justify-content: center;">
-            <button type="button" class="btn btn-success btn-sm" (click)="TestOTP()">Test OTP</button>
-          </div>
+            <div class="col-md-1" style="display: flex;
+                            align-items: center;    margin-top: 17px;
+                            justify-content: center;" *ngIf="showOTPbutton">
+              <button id="sign-in-button" type="button" class="btn btn-dark btn-sm" (click)="SendOTP()">Send OTP</button>
+            </div>
+            <div class="col-md-3 mb-3" *ngIf="showOTPbutton">
+              <label for="emailExLarge" class="form-label">OTP</label>
+              <input type="text" formControlName="OTP"
+                      class="form-control" placeholder="OTP">
+            </div>
+            <div class="col-md-1" style="display: flex;
+              align-items: center;    margin-top: 17px;
+              justify-content: center;" *ngIf="showOTPbutton">
+              <button type="button" class="btn btn-success btn-sm" (click)="TestOTP()">Test OTP</button>
+            </div>
 
         </div>
         <div class="row g-2">
@@ -194,7 +194,7 @@
         <button type="button" class="btn btn-outline-secondary "id="close-button" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">{{(ShowAddbutton) ? "ADD Student" : "Edit Student" }}</button>
       </div>
     </div>
     </form>
