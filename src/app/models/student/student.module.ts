@@ -18,7 +18,7 @@ export interface StudentInterface {
 
 export class StudentModule {
   // "id": any = null;
-  "code": string;
+  "stdUid": string;
   "stdName": string;
   "stdPhone": string;
   "town": Town;
