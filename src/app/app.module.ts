@@ -22,7 +22,8 @@ import {ToastrModule} from "ngx-toastr";
 import { LoginComponent } from './pages/login/login.component';
 import {environment} from "../environments/environment";
 import * as firebase from "firebase";
-
+import { Loader } from "@googlemaps/js-api-loader";
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,8 +49,10 @@ import * as firebase from "firebase";
     FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+
+
 ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [
     AppComponent
   ]

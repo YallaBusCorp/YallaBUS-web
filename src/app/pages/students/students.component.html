@@ -142,22 +142,23 @@
         <div class="row g-2">
           <div class="col-md-7 mb-3">
             <label for="emailExLarge" class="form-label">phone</label>
-            <input type="tel" value="+02"formControlName="stdPhone" (change)="OTPButtonShow()"
+            <input type="tel" value="+02"formControlName="stdPhone"  [readonly]="ShowAddbutton == false"
                    id="emailExLarge" class="form-control" placeholder="phone">
+            <!--  (change)="OTPButtonShow()"-->
           </div>
             <div class="col-md-1" style="display: flex;
                             align-items: center;    margin-top: 17px;
-                            justify-content: center;" *ngIf="showOTPbutton">
+                            justify-content: center;" *ngIf="ShowAddbutton">
               <button id="sign-in-button" type="button" class="btn btn-dark btn-sm" (click)="SendOTP()">Send OTP</button>
             </div>
-            <div class="col-md-3 mb-3" *ngIf="showOTPbutton">
+            <div class="col-md-3 mb-3" *ngIf="ShowAddbutton">
               <label for="emailExLarge" class="form-label">OTP</label>
               <input type="text" formControlName="OTP"
                       class="form-control" placeholder="OTP">
             </div>
             <div class="col-md-1" style="display: flex;
               align-items: center;    margin-top: 17px;
-              justify-content: center;" *ngIf="showOTPbutton">
+              justify-content: center;" *ngIf="ShowAddbutton">
               <button type="button" class="btn btn-success btn-sm" (click)="TestOTP()">Test OTP</button>
             </div>
 

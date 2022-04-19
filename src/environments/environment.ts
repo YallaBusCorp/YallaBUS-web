@@ -4,6 +4,7 @@
 
 import {HttpHeaders} from "@angular/common/http";
 import * as firebase from "firebase";
+import {Loader} from "@googlemaps/js-api-loader";
 export const environment = {
   production: false,
   firebase : {
@@ -23,6 +24,7 @@ export const environment = {
     }),
   },
   Token : localStorage.getItem('token'),
+  MapApiKay : 'AIzaSyBS_3oAyRG-5knJxCi8k-c2vFUexyLWqvA',
 };
 firebase.initializeApp(environment.firebase);
 /*

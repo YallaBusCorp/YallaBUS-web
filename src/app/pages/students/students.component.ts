@@ -49,14 +49,17 @@ export class StudentsComponent implements OnInit {
     },2000);
 
   }
+  isRecaptchaValid() {
+    return (this.windowRef.recaptchaVerifier.getResponse(this.windowRef.recaptchaWidgetId).length > 0);
+  }
 
 
   getStudents() {
     this.StudentApi.getStudents(Number(environment.Token))
-      .subscribe(res => {
+      .subscribe((res : any) => {
           this.students = res;
         },
-        err => {
+        (err : any) => {
           this.toastr.warning(err);
         }
       )
@@ -64,10 +67,10 @@ export class StudentsComponent implements OnInit {
 
   getTwons() {
     this.TownsApi.getTowns(Number(environment.Token))
-      .subscribe(res => {
+      .subscribe((res : any) => {
           this.Towns = res;
         },
-        err => {
+        (err : any) => {
           this.toastr.warning(err);
         }
       )
@@ -75,10 +78,10 @@ export class StudentsComponent implements OnInit {
 
   getUniversities() {
     this.UniversityApi.getUniversities(Number(environment.Token))
-      .subscribe(res => {
+      .subscribe((res : any) => {
           this.Universities = res;
         },
-        err => {
+        (err : any) => {
           this.toastr.warning(err);
         }
       )
@@ -132,7 +135,7 @@ export class StudentsComponent implements OnInit {
     }
     if (validationEmpty(Stu.stdName) &&
       validationEmpty(Stu.stdPhone) &&
-      validationEmpty(this.codeUser || Stu.code) &&
+      validationEmpty(this.codeUser || Stu.stdUid) &&
       validationNull(Stu.town.id) &&
       validationNull(Stu.company.id) &&
       validationNull(Stu.university.id) &&
@@ -150,7 +153,7 @@ export class StudentsComponent implements OnInit {
     let pipe = new DatePipe('en-US');
      this.StudentModule.id = this.StudentModule.id ? this.StudentModule.id :null;
       this.StudentModule.stdName = this.stdName?.value;
-      this.StudentModule.code = this.StudentModule.code ? this.StudentModule.code : this.codeUser;
+      this.StudentModule.stdUid = this.StudentModule.stdUid ? this.StudentModule.stdUid : this.codeUser;
       this.StudentModule.stdPhone = this.stdPhone?.value[0] != '+' &&this.stdPhone?.value[1] != '2'  ?
                                             "+2" + this.stdPhone?.value : this.stdPhone?.value ;
       this.StudentModule.town = { "id" : this.town?.value };
@@ -171,15 +174,15 @@ export class StudentsComponent implements OnInit {
     if (this.codeUser != null) {
       if (this.validation(this.StudentModule)) {
         this.StudentApi.PostStudents(this.StudentModule)
-          .subscribe(res => {
+          .subscribe((res : any) => {
               this.toastr.success('Added Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
               this.getStudents();
             },
-            res => {
-              console.log(res);
-              this.toastr.warning(res.error ? res.error.error : "wrong in Server");
+            (err : any) => {
+              console.log(err);
+              this.toastr.warning(err.error ? err.error.error : "wrong in Server");
             }
           )
       } else {
@@ -199,34 +202,35 @@ export class StudentsComponent implements OnInit {
     this.formValues.controls['stdName'].setValue(row.stdName);
     this.formValues.controls['stdPhone'].setValue(row.stdPhone);
     this.PhoneRow = row.stdPhone;
-    this.StudentModule.code = row.code;
+    this.StudentModule.stdUid = row.stdUid;
     this.formValues.controls['town'].setValue(row.town.id);
     this.formValues.controls['university'].setValue(row.university.id);
-    this.formValues.controls['endSubscriptionDate'].setValue(row.endSubscriptionDate);
+
+    let SubscriptionDate = new Date(row.endSubscriptionDate);
+    let pipe = new DatePipe('en-US');
+    this.formValues.controls['endSubscriptionDate'].setValue( row.endSubscriptionDate !=null ?
+      pipe.transform(
+        (SubscriptionDate.setDate(SubscriptionDate.getDate() - 30)), 'yyyy-MM-dd') : null);
   }
   UpdateStudent() {
     this.getDetails();
-      // console.log(this.StudentModule.stdPhone, this.PhoneRow);
-    if (this.StudentModule.stdPhone == this.PhoneRow) {
+    console.log(this.StudentModule);
       if (this.validation(this.StudentModule)) {
         this.StudentApi.UpdateStudents(this.StudentModule)
-          .subscribe(res => {
+          .subscribe((res : any) => {
               this.toastr.success('Updated Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
               this.getStudents();
             },
-            res => {
-              console.log(res);
-              this.toastr.warning(res.error ? res.error.error : "wrong in Server");
+            (err : any) => {
+              console.log(err);
+              this.toastr.warning(err.error ? err.error.error : "wrong in Server");
             }
           )
       } else {
         this.toastr.info('Please fill in the data correctly');
       }
-    } else {
-      this.toastr.info('Please finished Phone Validation correctly');
-    }
   }
 
   DeleteStudent(id:number){
@@ -235,9 +239,8 @@ export class StudentsComponent implements OnInit {
           this.toastr.success('Delete Successfully');
           this.getStudents();
         },
-        (res : any)=>{
-        console.log(res,id);
-          this.toastr.warning(res.statusText);
+        (err : any)=>{
+          this.toastr.warning(err.statusText);
         }
       )
   }

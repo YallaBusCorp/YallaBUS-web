@@ -1,6 +1,7 @@
+
 <div class="container-xxl flex-grow-1 ">
   <div class="row">
-    <h2>Map Locations  -- google Map</h2>
+    <h2>Map Locations </h2>
     <div class="col-lg-12">
       <div class="card" style="margin-top: 10px">
         <div class="card-header d-flex align-items-center justify-content-between">
@@ -30,8 +31,8 @@
             <tr>
               <td><strong>1</strong></td>
               <td>point 1</td>
-              <td>
-                Pick up
+              <td >
+                <span class="badge  bg-label-primary me-1"> Pick up</span>
               </td>
 
               <td>
@@ -51,7 +52,7 @@
               <td><strong>2</strong></td>
               <td>point 2</td>
               <td>
-                Pick up
+                <span class="badge  bg-label-primary me-1"> Pick up</span>
               </td>
               <td>
                 <div class="dropdown">
@@ -70,7 +71,7 @@
               <td><strong>3</strong></td>
               <td>point 3</td>
               <td>
-                Drop off
+                <span class="badge  bg-label-success me-1"> Drop off</span>
               </td>
               <td>
                 <div class="dropdown">
@@ -88,7 +89,7 @@
               <td><strong>4</strong></td>
               <td>point 4</td>
               <td>
-                Drop off
+                <span class="badge  bg-label-success me-1"> Drop off</span>
               </td>
               <td>
                 <div class="dropdown">
@@ -106,7 +107,7 @@
               <td><strong>5</strong></td>
               <td>point 5</td>
               <td>
-                Drop off
+                <span class="badge  bg-label-success me-1"> Drop off</span>
               </td>
               <td>
                 <div class="dropdown">
@@ -152,14 +153,15 @@
 
     </div>
 
+    <div class="col-md-12" style="margin: 20px 0">
+      <div id="map2"  style="height: 500px;"></div>
+    </div>
 
 
 
   </div>
   <!-- Content wrapper -->
 </div>
-<!-- / Layout page -->
-
 
 
 <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -203,127 +205,268 @@
 </div>
 
 
+<!--<script>-->
+<!--  let map1,map2;-->
+<!--  markerMap =[];-->
+
+<!--  function initMap() {-->
+<!--    const position = [{lat: -34.397, lng: 150.644}, {lat: -34.597, lng: 150.544}, {lat: -34.497, lng: 150.444}];-->
+<!--    const map2 = new google.maps.Map(document.getElementById("map2"),  {-->
+<!--      zoom: 10,-->
+<!--      center: position[0],-->
+<!--      styles: [-->
+<!--        {elementType: "geometry", stylers: [{color: "#242f3e"}]},-->
+<!--        {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},-->
+<!--        {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},-->
+<!--        {-->
+<!--          featureType: "administrative.locality",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#d59563"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "poi",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#d59563"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "poi.park",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#263c3f"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "poi.park",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#6b9a76"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#38414e"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road",-->
+<!--          elementType: "geometry.stroke",-->
+<!--          stylers: [{color: "#212a37"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#9ca5b3"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road.highway",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#746855"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road.highway",-->
+<!--          elementType: "geometry.stroke",-->
+<!--          stylers: [{color: "#1f2835"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road.highway",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#f3d19c"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "transit",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#2f3948"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "transit.station",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#d59563"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "water",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#17263c"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "water",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#515c6d"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "water",-->
+<!--          elementType: "labels.text.stroke",-->
+<!--          stylers: [{color: "#17263c"}],-->
+<!--        },-->
+<!--      ],-->
+
+<!--    });-->
+
+<!--    const map1 = new google.maps.Map(document.getElementById("map"),  {-->
+<!--      zoom: 10,-->
+<!--      center: position[0],-->
+<!--      styles: [-->
+<!--        {elementType: "geometry", stylers: [{color: "#242f3e"}]},-->
+<!--        {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},-->
+<!--        {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},-->
+<!--        {-->
+<!--          featureType: "administrative.locality",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#d59563"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "poi",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#d59563"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "poi.park",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#263c3f"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "poi.park",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#6b9a76"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#38414e"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road",-->
+<!--          elementType: "geometry.stroke",-->
+<!--          stylers: [{color: "#212a37"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#9ca5b3"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road.highway",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#746855"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road.highway",-->
+<!--          elementType: "geometry.stroke",-->
+<!--          stylers: [{color: "#1f2835"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "road.highway",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#f3d19c"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "transit",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#2f3948"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "transit.station",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#d59563"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "water",-->
+<!--          elementType: "geometry",-->
+<!--          stylers: [{color: "#17263c"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "water",-->
+<!--          elementType: "labels.text.fill",-->
+<!--          stylers: [{color: "#515c6d"}],-->
+<!--        },-->
+<!--        {-->
+<!--          featureType: "water",-->
+<!--          elementType: "labels.text.stroke",-->
+<!--          stylers: [{color: "#17263c"}],-->
+<!--        },-->
+<!--      ],-->
+
+<!--    });-->
+<!--    position.map(position => {-->
+<!--      const marker = new google.maps.Marker({-->
+<!--        position,-->
+<!--        map: map2,-->
+<!--      })-->
+<!--    });-->
+<!--    markerMap[0] = new google.maps.Marker({-->
+<!--      position: position[0],-->
+<!--      map: map1,-->
+<!--    });-->
+<!--    google.maps.event.addListener(map1, "click", (event) => {-->
+<!--      markerMap[0].setMap(null);-->
+<!--      addMarker(event.latLng, map1);-->
+<!--      //markerMap.setMap(null);-->
+<!--    });-->
 
 
-<!--
 
-      <script
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS_3oAyRG-5knJxCi8k-c2vFUexyLWqvA&callback=initMap"
-              async
-      ></script>
-      <script>
-        let map;
-        function initMap() {
-          const myLatlng = { lat: -34.397, lng: 150.644  };
-          const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 10,
-            center: myLatlng,
-            styles: [
-              { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-              { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-              { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-              {
-                featureType: "administrative.locality",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#d59563" }],
-              },
-              {
-                featureType: "poi",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#d59563" }],
-              },
-              {
-                featureType: "poi.park",
-                elementType: "geometry",
-                stylers: [{ color: "#263c3f" }],
-              },
-              {
-                featureType: "poi.park",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#6b9a76" }],
-              },
-              {
-                featureType: "road",
-                elementType: "geometry",
-                stylers: [{ color: "#38414e" }],
-              },
-              {
-                featureType: "road",
-                elementType: "geometry.stroke",
-                stylers: [{ color: "#212a37" }],
-              },
-              {
-                featureType: "road",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#9ca5b3" }],
-              },
-              {
-                featureType: "road.highway",
-                elementType: "geometry",
-                stylers: [{ color: "#746855" }],
-              },
-              {
-                featureType: "road.highway",
-                elementType: "geometry.stroke",
-                stylers: [{ color: "#1f2835" }],
-              },
-              {
-                featureType: "road.highway",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#f3d19c" }],
-              },
-              {
-                featureType: "transit",
-                elementType: "geometry",
-                stylers: [{ color: "#2f3948" }],
-              },
-              {
-                featureType: "transit.station",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#d59563" }],
-              },
-              {
-                featureType: "water",
-                elementType: "geometry",
-                stylers: [{ color: "#17263c" }],
-              },
-              {
-                featureType: "water",
-                elementType: "labels.text.fill",
-                stylers: [{ color: "#515c6d" }],
-              },
-              {
-                featureType: "water",
-                elementType: "labels.text.stroke",
-                stylers: [{ color: "#17263c" }],
-              },
-            ],
+<!--    var pointA = new google.maps.LatLng(-34.197,150.644),-->
+<!--      pointB = new google.maps.LatLng(-34.397,150.744);-->
 
-          });
-          const marker = new google.maps.Marker({
-            position: myLatlng,
-            map,
-            title: "Click to zoom",
-          });
 
-          map.addListener("center_changed", () => {
-            window.setTimeout(() => {
-              map.panTo(marker.getPosition());
-            }, 3000);
-          });
-          marker.addListener("click", () => {
-            map.setZoom(8);
-            map.setCenter(marker.getPosition());
-          });
-        }
-      </script>
+<!--    markerA = new google.maps.Marker({-->
+<!--      position: pointA,-->
+<!--      title: "point A",-->
+<!--      label: "A",-->
+<!--      map: map2-->
+<!--    }),-->
+<!--      markerB = new google.maps.Marker({-->
+<!--        position: pointB,-->
+<!--        title: "point B",-->
+<!--        label: "B",-->
+<!--        map: map2-->
+<!--      });-->
+
+<!--    // get route from A to B-->
+<!--    calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);-->
+
+<!--  }-->
+<!--  directionsService = new google.maps.DirectionsService;-->
+<!--  directionsDisplay = new google.maps.DirectionsRenderer({-->
+<!--    map: map2-->
+<!--  });-->
+<!--  function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {-->
+<!--    directionsService.route({-->
+<!--      origin: pointA,-->
+<!--      destination: pointB,-->
+<!--      travelMode: google.maps.TravelMode.DRIVING-->
+<!--    }, function(response, status) {-->
+<!--      if (status == google.maps.DirectionsStatus.OK) {-->
+<!--        directionsDisplay.setDirections(response);-->
+<!--      } else {-->
+<!--        window.alert('Directions request failed due to ' + status);-->
+<!--      }-->
+<!--    });-->
+<!--  }-->
+
+
+<!--  // Adds a marker to the map.-->
+<!--  function addMarker(location, map1) {-->
+
+<!--    markerMap[0] =  new google.maps.Marker({-->
+<!--      position: location,-->
+<!--      map: map1,-->
+<!--    });-->
+
+<!--  }-->
 
 
 
 
+<!--  // const marker = new google.maps.Marker(-->
+<!--  //   {-->
+<!--  //   p,-->
+<!--  //   map : map2,-->
+<!--  //   title: "Click to zoom",-->
+<!--  //    },-->
+<!--  //   {-->
+<!--  //     position: myLatlng,-->
+<!--  //     map : map1,-->
+<!--  //     title: "Click to zoom",-->
+<!--  //   }-->
+<!--  // );-->
 
 
 
 
-
--->
+<!--</script>-->
