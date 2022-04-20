@@ -66,10 +66,13 @@
                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bx bx-dots-vertical-rounded"></i>
                   </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
+                  <div class="dropdown-menu dropdown-menu-end"
+                       aria-labelledby="orederStatistics" style="">
                     <a class="dropdown-item" href="javascript:void(0);"
-                       data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(student)">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">renew Subscription</a>
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal"
+                       (click)="onEdit(student)">Edit</a>
+                    <a class="dropdown-item"  data-bs-target="#exLargeModal2" data-bs-toggle="modal"
+                       href="javascript:void(0);" (click)="onRenew(student.id)">renew Subscription</a>
                     <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteStudent(student.id)">Delete</a>
                   </div>
                 </div>
@@ -119,9 +122,6 @@
 
 
 
-
-
-<!-- class="modal fade"   style="display: none;"-->
 <div class="modal fade" id="exLargeModal"
      tabindex="-1" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
@@ -187,7 +187,7 @@
             </select>    </div>
           <div class="col mb-3">
             <label for="dobExLarge" class="form-label">Start SUBSCRIPED DATE</label>
-            <input type="date" formControlName="endSubscriptionDate" id="dobExLarge" class="form-control" placeholder="DD / MM / YY">
+            <input type="date" [readonly]="ShowAddbutton == false"  formControlName="endSubscriptionDate" id="dobExLarge" class="form-control" placeholder="DD / MM / YY">
           </div>
         </div>
       </div>
@@ -198,6 +198,35 @@
         <button type="submit" class="btn btn-primary">{{(ShowAddbutton) ? "ADD Student" : "Edit Student" }}</button>
       </div>
     </div>
+    </form>
+  </div>
+</div>
+
+<!-- class="modal fade"   style="display: none;"-->
+<div class="modal fade" id="exLargeModal2"
+     tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValuesRenew" (ngSubmit)="RenewStudent()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Renew Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col mb-3">
+              <label for="dobExLarge" class="form-label">Start SUBSCRIPED DATE</label>
+              <input type="date"  formControlName="endSubscriptionDate"  class="form-control" placeholder="DD / MM / YY">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary "id="close-button-Renew" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Renew Student</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

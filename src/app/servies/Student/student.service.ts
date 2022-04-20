@@ -38,6 +38,15 @@ export class StudentService {
       }));
   }
 
+  RenewStudents(data:any) {
+    return this.http.put<StudentModule>(`${environment.UrlWebsite}/student/subscription`,
+      data
+    )
+      .pipe(map((res:any)=>{
+        return res;
+      }));
+  }
+
   DeleteStudent(id:number) {
     return this.http.put(`${environment.UrlWebsite}/student/delete-student?id=`+id,true)
       .pipe(map((res:any)=>{

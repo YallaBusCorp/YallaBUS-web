@@ -126,20 +126,17 @@ export class StudentsComponent implements OnInit {
     return this.formValues.get('endSubscriptionDate');
   }
 
+  codeUser: string | any ;
+
   validation(Stu: StudentModule) {
-    function validationEmpty(col: string) {
+    function validationEmpty(col: any) {
       return col != null && col.length > 0 ? true : false;
     }
     function validationNull(col: any) {
       return col != null ? true : false;
     }
-    if (validationEmpty(Stu.stdName) &&
-      validationEmpty(Stu.stdPhone) &&
-      validationEmpty(this.codeUser || Stu.stdUid) &&
-      validationNull(Stu.town.id) &&
-      validationNull(Stu.company.id) &&
-      validationNull(Stu.university.id) &&
-      validationNull(Stu.endSubscriptionDate)
+    if (this.formValuesRenew.status == "VALID" &&
+      validationEmpty(this.codeUser || Stu.stdUid)
     ) {
       return true;
     }
@@ -247,7 +244,6 @@ export class StudentsComponent implements OnInit {
 
 
 
-  codeUser: string | any = null;
   SendOTP() {
     let appVerifier = this.windowRef.recaptchaVerifier;
     if (this.stdPhone.value != null) {
@@ -289,5 +285,54 @@ export class StudentsComponent implements OnInit {
 
   OTPButtonShow() {
     this.showOTPbutton = true;
+  }
+
+
+
+
+  formValuesRenew = new FormGroup({
+    endSubscriptionDate: new FormControl(null, [Validators.required]),
+  });
+
+  onRenew(id :number){
+    this.StudentModule = new StudentModule;
+    this.StudentModule.id = Number(id);
+  }
+  get endSubscriptionDateRenew(): Date | any {
+    return this.formValuesRenew.get('endSubscriptionDate');
+  }
+
+  private getRenewDetails() {
+    let SubscriptionDate = new Date(this.endSubscriptionDateRenew.value);
+    let pipe = new DatePipe('en-US');
+    this.StudentModule.id = this.StudentModule.id ? this.StudentModule.id :null;
+    // this.StudentModule.company = { "id" :  environment.Token };
+    this.StudentModule.endSubscriptionDate = this.endSubscriptionDateRenew.value ?
+      pipe.transform(
+        (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null;
+    this.StudentModule.isSubscribed = true;
+    this.StudentModule.isActive = true;
+  }
+
+
+  RenewStudent() {
+    this.getRenewDetails();
+    console.log(this.StudentModule);
+    if (this.formValuesRenew.status == "VALID") {
+      this.StudentApi.RenewStudents(this.StudentModule)
+        .subscribe((res : any) => {
+            this.toastr.success('Renew Student Successfully');
+            let ref = document.getElementById('close-button-Renew');
+            ref?.click();
+            this.getStudents();
+          },
+          (err : any) => {
+            console.log(err);
+            this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+          }
+        )
+    } else {
+      this.toastr.info('Please fill in the data correctly');
+    }
   }
 }

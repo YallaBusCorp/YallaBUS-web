@@ -150,7 +150,7 @@ export class SupportsComponent implements OnInit {
             this.toastr.success('Added Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getUniversities();
+            this.getTowns();
           },
           (err : any) => {
             console.log(err);
