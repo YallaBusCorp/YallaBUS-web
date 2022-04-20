@@ -8,7 +8,7 @@ import {ComplaintsComponent} from "./pages/complaints/complaints.component";
 import {EmployeesComponent} from "./pages/employees/employees.component";
 import {LocationsComponent} from "./pages/locations/locations.component";
 import {ReportsComponent} from "./pages/reports/reports.component";
-import {UniversitiesComponent} from "./pages/universities/universities.component";
+import {SupportsComponent} from "./pages/Supports/supports.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {IsSignedInGuard} from "./guard/is-signed-in.guard";
 import {AuthGuard} from "./guard/auth.guard";
@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'Employees', component: EmployeesComponent},
   { path: 'locations', component: LocationsComponent},
   { path: 'reports', component: ReportsComponent},
-  { path: 'Universities', component: UniversitiesComponent},
+  { path: 'Supports', component: SupportsComponent},
   {
     path: '**',
     redirectTo: ''

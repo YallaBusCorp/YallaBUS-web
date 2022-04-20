@@ -8,7 +8,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StudentsComponent } from './pages/students/students.component';
-import { UniversitiesComponent } from './pages/universities/universities.component';
+import {SupportsComponent} from './pages/Supports/supports.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { LocationsComponent } from './pages/locations/locations.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
@@ -32,7 +32,7 @@ import { DatePipe } from '@angular/common';
     NavbarComponent,
     HomeComponent,
     StudentsComponent,
-    UniversitiesComponent,
+    SupportsComponent,
     ReportsComponent,
     LocationsComponent,
     EmployeesComponent,

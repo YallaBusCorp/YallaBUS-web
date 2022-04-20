@@ -1,0 +1,173 @@
+
+
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h4 class="fw-bold">Universities</h4>
+    <div class="col-lg-12">
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="left-card ">
+            <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 20px;" type="search"placeholder="Search" >
+            <button type="button"
+                    class="btn btn-sm btn-primary " >search</button>
+          </div>
+          <div class="right-card">
+            <button type="button"
+                    class="btn btn-sm btn-info"data-bs-target="#exLargeModal"
+                    data-bs-toggle="modal"
+                    (click)="AddButtonUNi()">Add university</button>
+          </div>
+
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr *ngFor="let university of Universities;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{university.universityName}}</td>
+              <td *ngIf="university.isActive == true" >
+                <span class="badge  bg-label-success me-1"> Active </span>
+              </td>
+              <td *ngIf="university.isActive != true">
+                <span class="badge bg-label-danger me-11"> Not Active </span>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn p-0" type="button"
+                          id="orederStatistics"
+                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end"
+                       aria-labelledby="orederStatistics" style="">
+                    <a class="dropdown-item" href="javascript:void(0);"
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- Content wrapper -->
+</div>
+
+<br>
+<br>
+<div class="container-xxl flex-grow-1 ">
+<div class="row">
+  <span></span>   <h4 class="fw-bold">Towns</h4>
+  <div class="col-lg-12">
+    <div class="card" style="margin-top: 10px">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="left-card ">
+          <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 20px;" type="search"placeholder="Search" >
+          <button type="button"
+                  class="btn btn-sm btn-primary " >search</button>
+        </div>
+        <div class="right-card">
+          <button type="button"
+                  class="btn btn-sm btn-info" data-bs-target="#exLargeModal"
+                  data-bs-toggle="modal"
+                  (click)="AddButtonTown()">Add Town</button>
+        </div>
+
+
+      </div>
+      <div class="card-body table-responsive text-nowrap">
+        <table class="table table-borderless">
+          <thead style="border-bottom: 1px solid #b3b3b3">
+          <tr>
+            <th>#id</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody class="table-border-bottom-0">
+          <tr *ngFor="let Town of Towns;let i = index;">
+            <td><strong>{{i+1}}</strong></td>
+            <td>{{Town.townName}}</td>
+            <td *ngIf="Town.isActive == true" >
+              <span class="badge  bg-label-success me-1"> Active </span>
+            </td>
+            <td *ngIf="Town.isActive != true">
+              <span class="badge bg-label-danger me-11"> Not Active </span>
+            </td>
+            <td>
+              <div class="dropdown">
+                <button class="btn p-0" type="button" id="orederStatistics1"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics1" style="">
+                  <a class="dropdown-item" href="javascript:void(0);"
+                     data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
+                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+</div>
+<!-- Content wrapper -->
+
+<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValues" (ngSubmit)="ShowAddbutton ? Save() : Update()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">{{(ShowAddbutton) ?
+          "ADD" + (Town_Uni == 1 ? " University" : " Town") :
+          "Edit" + (Town_Uni == 1 ? " University" : " Town")  }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-2 mb-3">
+          <div class="col mb-0">
+            <label for="nameExLarge" class="form-label">Name</label>
+            <input type="text" id="nameExLarge" class="form-control"
+                   placeholder="Enter Name" formControlName="Name">
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="close-button">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>

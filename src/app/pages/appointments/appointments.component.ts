@@ -113,8 +113,9 @@ export class AppointmentsComponent implements OnInit {
         this.toastr.info('Please fill in the data correctly');
       }
   }
-
   //End Save Appointment
+
+
  public isActiveButton :boolean = true;
   onEdit(row : any){
     this.ShowAddbutton = false;
