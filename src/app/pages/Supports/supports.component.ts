@@ -38,7 +38,9 @@ export class SupportsComponent implements OnInit {
           this.Universities = res;
         },
         (err : any) => {
-          this.toastr.warning(err);
+          console.log(err);
+          this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
+
         }
       )
   }
@@ -49,7 +51,8 @@ export class SupportsComponent implements OnInit {
           this.Towns = res;
         },
         (err : any) => {
-          this.toastr.warning(err);
+          console.log(err.error);
+          this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
         }
       )
   }
@@ -133,8 +136,7 @@ export class SupportsComponent implements OnInit {
             this.getUniversities();
           },
           (err : any) => {
-            console.log(err);
-            this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+            this.toastr.warning(err.error ? err.error : "wrong in Server");
           }
         )
     } else {
@@ -154,7 +156,7 @@ export class SupportsComponent implements OnInit {
           },
           (err : any) => {
             console.log(err);
-            this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+            this.toastr.warning(err.error ? err.error : "wrong in Server");
           }
         )
     } else {

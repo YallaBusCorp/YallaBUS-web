@@ -37,7 +37,8 @@ export class AppointmentsComponent implements OnInit {
           this.Appointments = res;
         },
         (err : any) => {
-          this.toastr.warning(err);
+          this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
+
         }
       )
   }
@@ -81,8 +82,8 @@ export class AppointmentsComponent implements OnInit {
     let timeFormat =  this.datePipe.transform(time, 'HH:MM:SS');
 
     this.AppointmentModule.id = this.AppointmentModule.id ? this.AppointmentModule.id :null;
-    this.AppointmentModule.appointmentStartTime =  this.AppointmentModule.appointmentStartTime ?
-      this.AppointmentModule.appointmentStartTime : timeFormat;
+    this.AppointmentModule.appointmentStartTime =  this.AppointmentModule.appointmentStartTime !=null ?
+      this.AppointmentModule.appointmentStartTime : this.appointmentStartTime.value;
 
     this.AppointmentModule.appointmentType = this.appointmentType?.value;
     this.AppointmentModule.isActive = (this.ShowAddbutton == true) ? true :
@@ -106,7 +107,7 @@ export class AppointmentsComponent implements OnInit {
             },
             (err : any) => {
               console.log(err);
-              this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+              this.toastr.warning(err.error ? err.error : "wrong in Server");
             }
           )
       } else {
@@ -139,7 +140,7 @@ export class AppointmentsComponent implements OnInit {
               this.getAppointments();
             },
             (err:any) => {
-              this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+              this.toastr.warning(err.error ? err.error : "wrong in Server");
             }
           )
       } else {
@@ -163,3 +164,4 @@ export class AppointmentsComponent implements OnInit {
 
 
 }
+

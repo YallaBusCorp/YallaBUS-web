@@ -60,7 +60,9 @@ export class StudentsComponent implements OnInit {
           this.students = res;
         },
         (err : any) => {
-          this.toastr.warning(err);
+          this.toastr.warning((err.statusText ? err.statusText :(err.status ? err.status:
+            (err.error ? err.error : "Internal Server Error"))));
+
         }
       )
   }
@@ -71,7 +73,8 @@ export class StudentsComponent implements OnInit {
           this.Towns = res;
         },
         (err : any) => {
-          this.toastr.warning(err);
+          this.toastr.warning((err.statusText ? err.statusText :(err.status ? err.status:
+            (err.error ? err.error : "Internal Server Error"))));
         }
       )
   }
@@ -82,7 +85,8 @@ export class StudentsComponent implements OnInit {
           this.Universities = res;
         },
         (err : any) => {
-          this.toastr.warning(err);
+          this.toastr.warning((err.statusText ? err.statusText :(err.status ? err.status:
+            (err.error ? err.error : "Internal Server Error"))));
         }
       )
   }
@@ -135,7 +139,7 @@ export class StudentsComponent implements OnInit {
     function validationNull(col: any) {
       return col != null ? true : false;
     }
-    if (this.formValuesRenew.status == "VALID" &&
+    if (this.formValues.status == "VALID" &&
       validationEmpty(this.codeUser || Stu.stdUid)
     ) {
       return true;
@@ -179,7 +183,7 @@ export class StudentsComponent implements OnInit {
             },
             (err : any) => {
               console.log(err);
-              this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+              this.toastr.warning(err.error ? err.error : "wrong in Server");
             }
           )
       } else {
@@ -222,7 +226,7 @@ export class StudentsComponent implements OnInit {
             },
             (err : any) => {
               console.log(err);
-              this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+              this.toastr.warning(err.error ? err.error : "wrong in Server");
             }
           )
       } else {
@@ -328,7 +332,7 @@ export class StudentsComponent implements OnInit {
           },
           (err : any) => {
             console.log(err);
-            this.toastr.warning(err.error ? err.error.error : "wrong in Server");
+            this.toastr.warning(err.error ? err.error : "wrong in Server");
           }
         )
     } else {
