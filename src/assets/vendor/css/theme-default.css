@@ -96,7 +96,7 @@
 }
 
 .text-primary {
-  color: #ffac02 !important
+  color: #EB671A !important
 }
 
 .text-body[href]:hover {
@@ -237,8 +237,8 @@ button.list-group-item-primary.active {
 }
 
 .btn-outline-primary {
-  color: #feaf10;
-  border-color: #feaf10;
+  color: #EB671A;
+  border-color: #EB671A;
   background: transparent;
 }
 .btn-outline-primary:hover {
@@ -748,11 +748,11 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-lin
   color: #696cff;
 }
 .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
-  color: #ffac02;
+  color: #EB671A;
   background-color: rgba(105, 108, 255, 0.16) !important;
 }
 .bg-menu-theme .menu-inner > .menu-item.active:before {
-  background: #ffac02;
+  background: #EB671A;
 }
 .bg-menu-theme .menu-sub > .menu-item > .menu-link:before {
   background-color: #b4bdc6 !important;
