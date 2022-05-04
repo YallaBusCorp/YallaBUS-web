@@ -4,9 +4,8 @@
 
 import {HttpHeaders} from "@angular/common/http";
 import * as firebase from "firebase";
-import {Loader} from "@googlemaps/js-api-loader";
 export const environment = {
-  production: false,
+  production: true,
   firebase : {
     apiKey: "AIzaSyDQRBFYWIgLdrjZSd5ffKQ6CM0iuVr6cyo",
     authDomain: "yallabus-eb5a0.firebaseapp.com",
