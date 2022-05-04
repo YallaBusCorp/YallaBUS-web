@@ -19,4 +19,9 @@ export class HeaderComponent implements OnInit {
        localStorage.removeItem('token');
       this.router.navigate(['/login']);
   }
+
+  removeNav() {
+    let r = document.getElementById("html");
+    r?.classList.remove("layout-menu-expanded");
+  }
 }

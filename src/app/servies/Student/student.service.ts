@@ -11,7 +11,7 @@ import {DatePipe} from "@angular/common";
 export class StudentService {
 
   constructor(private http: HttpClient) { }
-  getStudents(id : number) {
+  getStudents() {
     return this.http.get<StudentModule>(`${environment.UrlWebsite}/student/company/active?id=`
       +environment.Token
     ).pipe(

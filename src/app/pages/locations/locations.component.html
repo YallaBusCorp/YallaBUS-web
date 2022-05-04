@@ -12,7 +12,8 @@
           </div>
           <div class="right-card">
             <button type="button"
-                    class="btn btn-sm btn-info">Add Map Location </button>
+                    class="btn btn-sm btn-info" data-bs-target="#exLargeModal"
+                    data-bs-toggle="modal"(click)="AddButton()">Add Map Location </button>
           </div>
 
 
@@ -24,15 +25,26 @@
               <th>#id</th>
               <th>Title</th>
               <th>Type</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-            <tr>
-              <td><strong>1</strong></td>
-              <td>point 1</td>
-              <td >
-                <span class="badge  bg-label-primary me-1"> Pick up</span>
+            <tr *ngFor="let marker of markers;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{marker.mapPointTitleAr}}</td>
+              <td *ngIf="marker.mapPointType == 'P'" >
+                <span class="badge  bg-label-primary me-1"> Pick up </span>
+              </td>
+              <td *ngIf="marker.mapPointType == 'D'" >
+                <span class="badge  bg-label-success me-1"> Drop off </span>
+              </td>
+
+              <td *ngIf="marker.isActive == true" >
+                <span class="badge  bg-label-success me-1"> Active </span>
+              </td>
+              <td *ngIf="marker.isActive != true">
+                <span class="badge bg-label-danger me-11"> Not Active </span>
               </td>
 
               <td>
@@ -42,119 +54,48 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
                     <a class="dropdown-item" href="javascript:void(0);"
-                       data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(marker)">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteMarker(marker.id)">Delete</a>
                   </div>
                 </div>
               </td>
             </tr>
-            <tr>
-              <td><strong>2</strong></td>
-              <td>point 2</td>
-              <td>
-                <span class="badge  bg-label-primary me-1"> Pick up</span>
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics1"
-                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics1" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>3</strong></td>
-              <td>point 3</td>
-              <td>
-                <span class="badge  bg-label-success me-1"> Drop off</span>
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics3" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>4</strong></td>
-              <td>point 4</td>
-              <td>
-                <span class="badge  bg-label-success me-1"> Drop off</span>
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics4" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>5</strong></td>
-              <td>point 5</td>
-              <td>
-                <span class="badge  bg-label-success me-1"> Drop off</span>
-              </td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics5" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
+
             </tbody>
           </table>
         </div>
-        <nav aria-label="Page navigation " class=" d-flex justify-content-center">
-          <ul class="pagination">
-            <li class="page-item prev">
-              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="javascript:void(0);">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">2</a>
-            </li>
-            <li class="page-item ">
-              <a class="page-link" href="javascript:void(0);">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">5</a>
-            </li>
-            <li class="page-item next">
-              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-            </li>
-          </ul>
-        </nav>
+
+<!--        <nav aria-label="Page navigation " class=" d-flex justify-content-center">-->
+<!--          <ul class="pagination">-->
+<!--            <li class="page-item prev">-->
+<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>-->
+<!--            </li>-->
+<!--            <li class="page-item active">-->
+<!--              <a class="page-link" href="javascript:void(0);">1</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">2</a>-->
+<!--            </li>-->
+<!--            <li class="page-item ">-->
+<!--              <a class="page-link" href="javascript:void(0);">3</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">4</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">5</a>-->
+<!--            </li>-->
+<!--            <li class="page-item next">-->
+<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </nav>-->
       </div>
 
     </div>
 
     <div class="col-md-12" style="margin: 20px 0">
-      <div id="map2"  style="height: 500px;"></div>
+      <div id="mapAll"  style="height: 500px;"></div>
     </div>
 
 
@@ -166,9 +107,11 @@
 
 <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValues" (ngSubmit)="ShowAddbutton ? SavePoint() : UpdatePoint()">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel4">Edit Map Location</h5>
+        <h5 class="modal-title" id="exampleModalLabel4">{{(ShowAddbutton) ?
+          "ADD Point" : "Edit Point" }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -176,14 +119,21 @@
           <div class="col mb-0">
             <label for="nameExLarge" class="form-label">Title</label>
             <input type="text" id="nameExLarge" class="form-control"value="point 1	"
-                   placeholder="Enter Name">
+                   placeholder="Enter Name" formControlName="mapPointTitleAr">
           </div>
           <div class="col mb-0">
             <label for="nameExLarge" class="form-label">TYPE</label>
-            <select  class="form-select">
-              <option>Pick up</option>
-              <option value="1">Drop off </option>
+            <select  class="form-select" formControlName="mapPointType">
+              <option value="P">Pick up</option>
+              <option value="D">Drop off </option>
             </select>
+          </div>
+          <div class="form-check form-switch mb-2" *ngIf="ShowAddbutton == false">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                   formControlName="isActive"
+                   [checked]="isActiveButton == true"
+            >
+            <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
           </div>
         </div>
         <div class="row g-2 mb-3">
@@ -194,279 +144,13 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="close-button">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
     </div>
-
+    </form>
   </div>
 </div>
 
-
-<!--<script>-->
-<!--  let map1,map2;-->
-<!--  markerMap =[];-->
-
-<!--  function initMap() {-->
-<!--    const position = [{lat: -34.397, lng: 150.644}, {lat: -34.597, lng: 150.544}, {lat: -34.497, lng: 150.444}];-->
-<!--    const map2 = new google.maps.Map(document.getElementById("map2"),  {-->
-<!--      zoom: 10,-->
-<!--      center: position[0],-->
-<!--      styles: [-->
-<!--        {elementType: "geometry", stylers: [{color: "#242f3e"}]},-->
-<!--        {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},-->
-<!--        {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},-->
-<!--        {-->
-<!--          featureType: "administrative.locality",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#d59563"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "poi",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#d59563"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "poi.park",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#263c3f"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "poi.park",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#6b9a76"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#38414e"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road",-->
-<!--          elementType: "geometry.stroke",-->
-<!--          stylers: [{color: "#212a37"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#9ca5b3"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road.highway",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#746855"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road.highway",-->
-<!--          elementType: "geometry.stroke",-->
-<!--          stylers: [{color: "#1f2835"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road.highway",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#f3d19c"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "transit",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#2f3948"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "transit.station",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#d59563"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "water",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#17263c"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "water",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#515c6d"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "water",-->
-<!--          elementType: "labels.text.stroke",-->
-<!--          stylers: [{color: "#17263c"}],-->
-<!--        },-->
-<!--      ],-->
-
-<!--    });-->
-
-<!--    const map1 = new google.maps.Map(document.getElementById("map"),  {-->
-<!--      zoom: 10,-->
-<!--      center: position[0],-->
-<!--      styles: [-->
-<!--        {elementType: "geometry", stylers: [{color: "#242f3e"}]},-->
-<!--        {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},-->
-<!--        {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},-->
-<!--        {-->
-<!--          featureType: "administrative.locality",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#d59563"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "poi",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#d59563"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "poi.park",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#263c3f"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "poi.park",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#6b9a76"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#38414e"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road",-->
-<!--          elementType: "geometry.stroke",-->
-<!--          stylers: [{color: "#212a37"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#9ca5b3"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road.highway",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#746855"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road.highway",-->
-<!--          elementType: "geometry.stroke",-->
-<!--          stylers: [{color: "#1f2835"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "road.highway",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#f3d19c"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "transit",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#2f3948"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "transit.station",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#d59563"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "water",-->
-<!--          elementType: "geometry",-->
-<!--          stylers: [{color: "#17263c"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "water",-->
-<!--          elementType: "labels.text.fill",-->
-<!--          stylers: [{color: "#515c6d"}],-->
-<!--        },-->
-<!--        {-->
-<!--          featureType: "water",-->
-<!--          elementType: "labels.text.stroke",-->
-<!--          stylers: [{color: "#17263c"}],-->
-<!--        },-->
-<!--      ],-->
-
-<!--    });-->
-<!--    position.map(position => {-->
-<!--      const marker = new google.maps.Marker({-->
-<!--        position,-->
-<!--        map: map2,-->
-<!--      })-->
-<!--    });-->
-<!--    markerMap[0] = new google.maps.Marker({-->
-<!--      position: position[0],-->
-<!--      map: map1,-->
-<!--    });-->
-<!--    google.maps.event.addListener(map1, "click", (event) => {-->
-<!--      markerMap[0].setMap(null);-->
-<!--      addMarker(event.latLng, map1);-->
-<!--      //markerMap.setMap(null);-->
-<!--    });-->
-
-
-
-<!--    var pointA = new google.maps.LatLng(-34.197,150.644),-->
-<!--      pointB = new google.maps.LatLng(-34.397,150.744);-->
-
-
-<!--    markerA = new google.maps.Marker({-->
-<!--      position: pointA,-->
-<!--      title: "point A",-->
-<!--      label: "A",-->
-<!--      map: map2-->
-<!--    }),-->
-<!--      markerB = new google.maps.Marker({-->
-<!--        position: pointB,-->
-<!--        title: "point B",-->
-<!--        label: "B",-->
-<!--        map: map2-->
-<!--      });-->
-
-<!--    // get route from A to B-->
-<!--    calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);-->
-
-<!--  }-->
-<!--  directionsService = new google.maps.DirectionsService;-->
-<!--  directionsDisplay = new google.maps.DirectionsRenderer({-->
-<!--    map: map2-->
-<!--  });-->
-<!--  function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {-->
-<!--    directionsService.route({-->
-<!--      origin: pointA,-->
-<!--      destination: pointB,-->
-<!--      travelMode: google.maps.TravelMode.DRIVING-->
-<!--    }, function(response, status) {-->
-<!--      if (status == google.maps.DirectionsStatus.OK) {-->
-<!--        directionsDisplay.setDirections(response);-->
-<!--      } else {-->
-<!--        window.alert('Directions request failed due to ' + status);-->
-<!--      }-->
-<!--    });-->
-<!--  }-->
-
-
-<!--  // Adds a marker to the map.-->
-<!--  function addMarker(location, map1) {-->
-
-<!--    markerMap[0] =  new google.maps.Marker({-->
-<!--      position: location,-->
-<!--      map: map1,-->
-<!--    });-->
-
-<!--  }-->
-
-
-
-
-<!--  // const marker = new google.maps.Marker(-->
-<!--  //   {-->
-<!--  //   p,-->
-<!--  //   map : map2,-->
-<!--  //   title: "Click to zoom",-->
-<!--  //    },-->
-<!--  //   {-->
-<!--  //     position: myLatlng,-->
-<!--  //     map : map1,-->
-<!--  //     title: "Click to zoom",-->
-<!--  //   }-->
-<!--  // );-->
-
-
-
-
-<!--</script>-->

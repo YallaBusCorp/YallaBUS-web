@@ -15,4 +15,8 @@ export class NavbarComponent implements OnInit {
   //   let r = document.getElementById("html");
   //   r?.classList.add("layout-menu-expanded");
   // }
+  navShow() {
+       let r = document.getElementById("html");
+       r?.classList.add("layout-menu-expanded");
+  }
 }

@@ -1,3 +1,4 @@
+
 <!-- Layout wrapper -->
 <div *ngIf="this.router.url != '/login'">
   <div class="layout-wrapper layout-content-navbar">
@@ -6,7 +7,7 @@
       <div class="layout-page">
         <navbar></navbar>
 <!--(click)="navRemove()"-->
-        <div class="content-wrapper"  >
+        <div class="content-wrapper">
           <div>
             <router-outlet></router-outlet>
           </div>
@@ -24,3 +25,4 @@
 <div *ngIf="this.router.url == '/login'">
   <router-outlet></router-outlet>
 </div>
+

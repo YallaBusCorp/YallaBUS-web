@@ -40,7 +40,6 @@ export class StudentsComponent implements OnInit {
     this.getStudents();
     this.getTwons();
     this.getUniversities();
-
     this.windowRef = this.StudentApi.windowRef;
     setTimeout(()=> {
       this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
@@ -55,7 +54,7 @@ export class StudentsComponent implements OnInit {
 
 
   getStudents() {
-    this.StudentApi.getStudents(Number(environment.Token))
+    this.StudentApi.getStudents()
       .subscribe((res : any) => {
           this.students = res;
         },

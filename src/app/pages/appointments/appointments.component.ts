@@ -25,16 +25,17 @@ export class AppointmentsComponent implements OnInit {
   ) {
   }
 
-  windowRef: any;
   ngOnInit(): void {
     this.getAppointments();
+
   }
 
 
   getAppointments() {
-    this.AppointmentApi.getAppointments(Number(environment.Token))
+    this.AppointmentApi.getAppointments()
       .subscribe( (res : any) => {
           this.Appointments = res;
+
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
@@ -129,8 +130,6 @@ export class AppointmentsComponent implements OnInit {
   }
   UpdateAppointment() {
     this.getDetails();
-     console.log(this.AppointmentModule,this.formValues);
-
     if (this.validation(this.AppointmentModule)) {
         this.AppointmentApi.UpdateAppointments(this.AppointmentModule)
           .subscribe((res:any) => {
