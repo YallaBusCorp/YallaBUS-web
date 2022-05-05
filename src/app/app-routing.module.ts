@@ -12,23 +12,25 @@ import {SupportsComponent} from "./pages/Supports/supports.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {IsSignedInGuard} from "./guard/is-signed-in.guard";
 import {AuthGuard} from "./guard/auth.guard";
+import {ErrorComponent} from "./component/error/error.component";
 
 const routes: Routes = [
-   { path: '', redirectTo: "/login" , pathMatch: 'full' },
+  { path: '', redirectTo: "/login" , pathMatch: 'full' },
+ // { path: '', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'login', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'Dashboard', component: HomeComponent ,  canActivate: [IsSignedInGuard]},
   { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},
   { path: 'Students', component: StudentsComponent ,  canActivate: [AuthGuard] },
   { path: 'Appointments', component: AppointmentsComponent ,  canActivate: [AuthGuard]},
-  { path: 'Buses', component: BusesComponent},
-  { path: 'Complaints', component: ComplaintsComponent},
-  { path: 'Employees', component: EmployeesComponent},
-  { path: 'locations', component: LocationsComponent},
-  { path: 'reports', component: ReportsComponent},
-  { path: 'Supports', component: SupportsComponent},
+  { path: 'Buses', component: BusesComponent,  canActivate: [AuthGuard]},
+  { path: 'Complaints', component: ComplaintsComponent,  canActivate: [AuthGuard]},
+  { path: 'Employees', component: EmployeesComponent,  canActivate: [AuthGuard]},
+  { path: 'locations', component: LocationsComponent,  canActivate: [AuthGuard]},
+  { path: 'reports', component: ReportsComponent,  canActivate: [AuthGuard]},
+  { path: 'Supports', component: SupportsComponent,  canActivate: [AuthGuard]},
   {
     path: '**',
-    redirectTo: ''
+   component: ErrorComponent
   }
 ];
 

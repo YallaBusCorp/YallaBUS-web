@@ -25,6 +25,7 @@ import * as firebase from "firebase";
 import { Loader } from "@googlemaps/js-api-loader";
 import { DatePipe } from '@angular/common';
 import {MapPointService} from "./servies/mapPoint/map-point.service";
+import { ErrorComponent } from './component/error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import {MapPointService} from "./servies/mapPoint/map-point.service";
     ComplaintsComponent,
     BusesComponent,
     AppointmentsComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  text-align: center !important;
+  flex-wrap: wrap;
+}
+@media (max-width: 575.98px) {
+  .card-header {
+    justify-content: center !important;
+  }
+  .card-header div{
+    width: 100%;
+  }
+  .card-header div input{
+    display: block;
+    width: 100% !important;
+    margin-top: 10px;
+  }
+  .card-header div button{
+    display: block;
+    width: 100% !important;
+    margin-top: 10px;
+  }
+
+}
