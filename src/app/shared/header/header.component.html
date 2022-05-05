@@ -119,14 +119,14 @@
             <ul class="menu-inner py-1">
               <!-- Dashboard -->
               <li class="menu-item " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a routerLink="home" class="menu-link">
+                <a routerLink="home" class="menu-link"  (click)="removeNav()">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Dashboard</div>
                 </a>
               </li>
 
               <!-- Reports -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active" (click)="removeNav()" >
                 <a routerLink="reports"  class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-report"></i>
                   <div data-i18n="Analytics">Reports</div>
@@ -134,7 +134,7 @@
               </li>
 
               <!-- Student -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"   (click)="removeNav()">
                 <a routerLink="Students" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-user-circle"></i>
                   <div data-i18n="Analytics">Students</div>
@@ -142,7 +142,7 @@
               </li>
 
               <!-- Employees -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="Employees" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-user"></i>
                   <div data-i18n="Analytics">Employees</div>
@@ -150,7 +150,7 @@
               </li>
 
               <!-- buses -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="Buses" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-bus"></i>
                   <div data-i18n="Analytics">buses</div>
@@ -158,7 +158,7 @@
               </li>
 
               <!-- Universities -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="Supports" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-user-voice"></i>
                   <div data-i18n="Analytics">Who has support?</div>
@@ -167,7 +167,7 @@
               </li>
 
               <!-- Map Locations -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="locations" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-map"></i>
                   <div data-i18n="Analytics">Map Locations</div>
@@ -175,7 +175,7 @@
               </li>
 
               <!-- Rides -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="Appointments" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-time"></i>
                   <div data-i18n="Analytics">Appointments</div>
@@ -183,7 +183,7 @@
               </li>
 
               <!-- Assignment -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="Assignments" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-edit"></i>
                   <div data-i18n="Analytics">Assignment</div>
@@ -191,7 +191,7 @@
               </li>
 
               <!-- Complaints -->
-              <li class="menu-item" routerLinkActive="active" >
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
                 <a routerLink="Complaints" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-message-alt"></i>
                   <div data-i18n="Analytics">Complaints</div>
