@@ -3,8 +3,9 @@
     <h2>Reports</h2>
     <div class="col-lg-12">
       <div class="card" style="margin-top: 10px">
-        <div class="card-header d-flex align-items-center ">
-          <select style="width:200px;margin-right: 30px; " class="form-select">
+        <div class="card-header d-flex justify-content-between">
+          <div class="left-card " style="flex-grow: 1;display: flex;">
+          <select  class="form-select search-card-style"  >
             <option>Daily Report</option>
             <option value="1">Subscribed Student</option>
             <option value="2">Town Report</option>
@@ -13,10 +14,13 @@
             <option value="3">bus Report -- fees</option>
             <option value="3">Montly Profit</option>
           </select>
-          <input class="form-control"style="width:200px;margin-right: 10px;" type="date" value="2021-06-18">
+          <input class="form-control search-card-style" type="date" value="2021-06-18"
+                 >
+          </div>
+          <div class="right-card">
           <button type="button" style="width:100px;"
                   class="btn btn-sm btn-primary">search</button>
-
+          </div>
         </div>
         <div class="card-body table-responsive text-nowrap">
           <table class="table table-borderless">

@@ -1,0 +1,11 @@
+
+
+@media (max-width: 700px) {
+  .left-card{
+    display: block !important;
+  }
+  .report-card-style{
+    width: 100%;
+    display: block;
+  }
+}

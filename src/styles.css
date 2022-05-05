@@ -5,27 +5,34 @@
   text-align: center !important;
   flex-wrap: wrap;
 }
+.search-card-style{
+  width:300px;
+  display: inline-block;
+  margin-right: 30px;
+}
 @media (max-width: 575.98px) {
+
+
+}
+@media (max-width: 700px) {
   .card-header {
     justify-content: center !important;
   }
   .card-header div{
     width: 100%;
   }
-  .card-header div input{
+  .card-header div input,
+  .card-header div button,
+  .card-header div select{
     display: block;
     width: 100% !important;
     margin-top: 10px;
   }
-  .card-header div button{
-    display: block;
-    width: 100% !important;
-    margin-top: 10px;
-  }
+
   button {
     display: block;
     width: 100%;
     margin-bottom: 10px;
   }
-
 }
+
