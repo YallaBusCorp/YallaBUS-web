@@ -165,12 +165,20 @@
           </div>
           <div class="col mb-0">
             <label  class="form-label">TYPE</label>
-            <select  class="form-select" formControlName="empLk" (change)="changeempLk()">
+            <select *ngIf="ShowAddbutton == true"  class="form-select" formControlName="empLk" (change)="changeempLk()">
               <option *ngFor="let LK_Employee of LK_Employees"
                       value="{{LK_Employee.id}}">
                 {{LK_Employee.lkName}}
               </option>
             </select>
+            <input class="form-control"  formControlName="empLk"
+                   [hidden]="ShowAddbutton == false">
+            <span *ngFor="let LK_Employee of LK_Employees">
+                    <input class="form-control" type="text"
+                           [readOnly]="ShowAddbutton == false" *ngIf="LK_Employee.id == this.empLk.value"
+                           value="{{ LK_Employee.lkName }}">
+            </span>
+
           </div>
         </div>
         <div class="row g-2 mb-3">

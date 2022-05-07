@@ -109,7 +109,7 @@ export class EmployeesComponent implements OnInit {
   get empName(): any {
     return this.formValues.get('empName');
   }
-  get empLk(): any {
+ public get empLk(): any {
     return this.formValues.get('empLk');
   }
   get empNationalId(): any {
@@ -255,7 +255,6 @@ export class EmployeesComponent implements OnInit {
 
 
   onEdit(row : any){
-    console.log(row);
     this.ShowAddbutton = false;
     this.EmployeeModule = new EmployeeModule();
     if(row.empLk && row.empLk.id ==2){
@@ -304,15 +303,11 @@ export class EmployeesComponent implements OnInit {
       if(this.empLk.value ==1){
         this.getAdminDetails();
         this.UpdateAdmin();
-        console.log(this.AdminModule);
-
       }else  if(this.empLk.value ==2){
         this.UpdateSupervisor();
-        console.log(this.EmployeeModule);
       }else  if(this.empLk.value ==3){
         this.getDriverDetails();
         this.UpdateDriver();
-        console.log(this.DriverModule);
       }else{
         this.toastr.info('Please fill in the data correctly');
       }
