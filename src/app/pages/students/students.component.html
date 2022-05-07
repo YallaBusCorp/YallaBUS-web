@@ -168,7 +168,6 @@
             <label  class="form-label">UNIVERSITY</label>
             <select  class="form-select"
                      formControlName="university" >
-              <option [ngValue]="null" disabled>Select university</option>
               <option *ngFor="let University of Universities"
                       value="{{University.id}}">
                 {{University.universityName}}
@@ -179,7 +178,6 @@
           <div class="col mb-3">
             <label for="emailExLarge" class="form-label">Town</label>
             <select  class="form-select" formControlName="town">
-              <option [ngValue]="null" disabled>Select university</option>
               <option *ngFor="let Town of Towns"
                       value="{{Town.id}}">
                 {{Town.townName}}

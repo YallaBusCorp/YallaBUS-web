@@ -17,10 +17,12 @@
             - Salary details
             - Add Employee (Admin - driver - supervisor)
 
+
 5- buses Page
        - Table All buses
        - Add buses
        - Edit buses
+       - Fees View approved
 
 7- Points Page
           - Table All Points -- Map
@@ -47,6 +49,10 @@
           - Add Daily Scheduled ride  (bus And Appointment And Driver Name)
 
 12- Complaints Page
+
+13 - Fees Page
+
+
 
 
 

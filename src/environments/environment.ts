@@ -15,7 +15,7 @@ export const environment = {
     appId: "1:403200399686:web:ca1beba529afe23baded47",
     measurementId: "G-N7F1D1KVV5"
   },
-  UrlWebsite:'https://yalla-bus.herokuapp.com/api/v1',
+  UrlWebsite:'http://localhost:9000/api/v1',
   // UrlWebsite:'https://yalla-bus.herokuapp.com/api/v1',
   //UrlWebsite:'https://yallabus.live/api/v1',
   httpOptions : {
@@ -25,8 +25,8 @@ export const environment = {
     }),
   },
   Token : localStorage.getItem('token'),
-  MapApiKay : 'AIzaSyBFjNIXpDszS-KIK_jstYtMgCoNc4Gfneg',
-  // MapApiKay : 'AIzaSyBS_3oAyRG-5knJxCi8k-c2vFUexyLWqvA',
+ // MapApiKay : 'AIzaSyBFjNIXpDszS-KIK_jstYtMgCoNc4Gfneg',
+   MapApiKay : 'AIzaSyBS_3oAyRG-5knJxCi8k-c2vFUexyLWqvA',
   Mapstyles:   [
     {elementType: "geometry", stylers: [{color: "#242f3e"}]},
     {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},

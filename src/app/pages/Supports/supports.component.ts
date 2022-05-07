@@ -39,7 +39,7 @@ export class SupportsComponent implements OnInit {
         },
         (err : any) => {
           console.log(err);
-          this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
+          this.toastr.warning((err.statusText ? "Internal Server Error" : (err.error ? err.error : "Internal Server Error")));
 
         }
       )
@@ -52,7 +52,7 @@ export class SupportsComponent implements OnInit {
         },
         (err : any) => {
           console.log(err.error);
-          this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
+          this.toastr.warning((err.statusText ? "Internal Server Error" : (err.error ? err.error : "Internal Server Error")));
         }
       )
   }

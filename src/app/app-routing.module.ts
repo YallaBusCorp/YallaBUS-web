@@ -16,7 +16,7 @@ import {ErrorComponent} from "./component/error/error.component";
 
 const routes: Routes = [
   { path: '', redirectTo: "/login" , pathMatch: 'full' },
- // { path: '', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
+  // { path: '', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'login', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'Dashboard', component: HomeComponent ,  canActivate: [IsSignedInGuard]},
   { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},

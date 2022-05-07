@@ -1,24 +1,17 @@
+import {CompanyModule} from "../company/company.module";
+
 export class AppointmentModule {
   "id" : any | null;
-  "appointmentStartTime": String;
+  "appointmentStartTime": string;
   "appointmentType": string;
   "isActive" : boolean;
-  "company": company;
+  "company": CompanyModule;
 }
 export interface AppointmentInterface {
   "id" : any | null;
-  "appointmentStartTime": String;
+  "appointmentStartTime": string;
   "appointmentType": string;
   "isActive" : boolean;
-  "company": company;
+  "company": CompanyModule;
 }
 
-export interface company {
-  "id": number,
-  "companyName": string,
-  "companyPhone": string,
-  "description": string,
-  "companyLocation": string,
-  "imgURL": string,
-  "facebookURL": string
-}

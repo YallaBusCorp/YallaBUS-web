@@ -1,27 +1,58 @@
-# YallaBusAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+1- Login Page                                                            --Finished
 
-## Development server
+2- Home Page
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+3- Students Page                                                          --Finished
+Students table
+- Edit Student
+- Delete Student
+- Renew subscription
+- Add Student
 
-## Code scaffolding
+4- employees Page
+employees Table
+- Edit Employee
+- Delete Employee
+- Salary details
+- Add Employee (Admin - driver - supervisor)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+5- buses Page
+- Table All buses
+- Add buses
+- Edit buses
+- Fees View approved
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+7- Points Page
+- Table All Points -- Map
+- Add Points (longitude and latitude and Title)
+- Edit Points
 
-## Running unit tests
+8- Appointment Page                                                           --Finished
+- Table All Appointments
+- Add Appointment
+- Edit Appointment
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+9- Who has support? Page
+- Table All universities And Towns       --Finished
+- Add University OR Town       --Finished
+- Edit University OR Town      --not
+- Delete
 
-## Running end-to-end tests
+10- Appointment Page
+- Table All Appointments
+- Add Appointment
+- Edit Appointment
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+11- Suggestion Page
+- Add Daily Scheduled ride  (bus And Appointment And Driver Name)
 
-## Further help
+12- Complaints Page
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+13 - Fees Page
+
+
+
+
+

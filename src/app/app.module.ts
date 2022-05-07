@@ -20,11 +20,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import { LoginComponent } from './pages/login/login.component';
-import {environment} from "../environments/environment";
-import * as firebase from "firebase";
-import { Loader } from "@googlemaps/js-api-loader";
 import { DatePipe } from '@angular/common';
-import {MapPointService} from "./servies/mapPoint/map-point.service";
 import { ErrorComponent } from './component/error/error.component';
 @NgModule({
   declarations: [

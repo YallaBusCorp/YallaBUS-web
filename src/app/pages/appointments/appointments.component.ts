@@ -68,7 +68,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
 
-  validation(Stu: AppointmentModule) {
+  validation() {
 
     if (this.formValues.status == "VALID") {
       return true;
@@ -98,7 +98,7 @@ export class AppointmentsComponent implements OnInit {
     this.AppointmentModule = new AppointmentModule;
     this.getDetails();
      console.log(this.AppointmentModule);
-      if (this.validation(this.AppointmentModule)) {
+      if (this.validation()) {
         this.AppointmentApi.PostAppointments(this.AppointmentModule)
           .subscribe((res : any) => {
               this.toastr.success('Added Successfully');
@@ -130,7 +130,7 @@ export class AppointmentsComponent implements OnInit {
   }
   UpdateAppointment() {
     this.getDetails();
-    if (this.validation(this.AppointmentModule)) {
+    if (this.validation()) {
         this.AppointmentApi.UpdateAppointments(this.AppointmentModule)
           .subscribe((res:any) => {
               this.toastr.success('Updated Successfully');
