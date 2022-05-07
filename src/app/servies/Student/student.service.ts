@@ -59,8 +59,6 @@ export class StudentService {
       );
   }
 
-  get windowRef(){
-    return window;
-  }
+
 
 }

@@ -9,6 +9,7 @@ import {DatePipe} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import * as firebase from 'firebase';
 import {auth} from "firebase";
+import {FirebaseService} from "../../servies/firebase/firebase.service";
 
 // import {getAuth} from "@angular/fire/auth";
 // import {signOut} from "@angular/fire/auth";
@@ -29,6 +30,7 @@ export class StudentsComponent implements OnInit {
   showOTPbutton : boolean = true;
   constructor(
     private StudentApi: StudentService,
+    private FirebaseService : FirebaseService,
     private TownsApi: TownService,
     private toastr: ToastrService,
     private UniversityApi: UniversityService,
@@ -40,7 +42,7 @@ export class StudentsComponent implements OnInit {
     this.getStudents();
     this.getTwons();
     this.getUniversities();
-    this.windowRef = this.StudentApi.windowRef;
+    this.windowRef = this.FirebaseService.windowRef;
     setTimeout(()=> {
       this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
         'size': 'invisible'

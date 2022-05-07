@@ -11,7 +11,9 @@
           </div>
           <div class="right-card">
             <button type="button"
-                    class="btn btn-sm btn-info">Add Bus</button>
+                    class="btn btn-sm btn-info" data-bs-target="#exLargeModal"
+                    data-bs-toggle="modal"
+                    (click)="AddBusButton()">Add Bus</button>
           </div>
 
 
@@ -21,22 +23,20 @@
             <thead style="border-bottom: 1px solid #b3b3b3">
             <tr>
               <th>#id</th>
-              <th>Name</th>
-              <th>Phone</th>
               <th>Model</th>
+              <th>Phone</th>
               <th>Capacity</th>
               <th>Actions</th>
             </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-            <tr>
-              <td><strong>1</strong></td>
-              <td>Bus 1</td>
+            <tr *ngFor="let bus of buses;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{bus.model}}</td>
               <td>
-                0163565163
+                {{bus.phone}}
               </td>
-              <td>dsadsa</td>
-              <td>50</td>
+            <td> {{bus.capacity }}</td>
               <td>
                 <div class="dropdown">
                   <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,121 +44,41 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
                     <a class="dropdown-item" href="javascript:void(0);"
-                       data-bs-target="#exLargeModal" data-bs-toggle="modal">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                       data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(bus)">Edit</a>
+                    <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteBus(bus.id)">Delete</a>
                   </div>
                 </div>
               </td>
             </tr>
-            <tr>
-              <td><strong>2</strong></td>
-              <td>bus 2</td>
-              <td>
-                0144523163
-              </td>
-              <td>dsadsa</td>
-              <td>50</td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics1"
-                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics1" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>3</strong></td>
-              <td>bus 3</td>
-              <td>
-                0144523163
-              </td>
-              <td>dsadsa</td>
-              <td>50</td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics3" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>4</strong></td>
-              <td>bus 4</td>
-              <td>
-                0144523163
-              </td>
-              <td>dsadsa</td>
-              <td>50</td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics4" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>5</strong></td>
-              <td>bus 5</td>
-              <td>
-                0144523163
-              </td>
-              <td>dsadsa</td>
-              <td>50</td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics5" style="">
-                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                  </div>
-                </div>
-              </td>
-            </tr>
+
             </tbody>
           </table>
         </div>
-        <nav aria-label="Page navigation " class=" d-flex justify-content-center">
-          <ul class="pagination">
-            <li class="page-item prev">
-              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="javascript:void(0);">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">2</a>
-            </li>
-            <li class="page-item ">
-              <a class="page-link" href="javascript:void(0);">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">5</a>
-            </li>
-            <li class="page-item next">
-              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-            </li>
-          </ul>
-        </nav>
+<!--        <nav aria-label="Page navigation " class=" d-flex justify-content-center">-->
+<!--          <ul class="pagination">-->
+<!--            <li class="page-item prev">-->
+<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>-->
+<!--            </li>-->
+<!--            <li class="page-item active">-->
+<!--              <a class="page-link" href="javascript:void(0);">1</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">2</a>-->
+<!--            </li>-->
+<!--            <li class="page-item ">-->
+<!--              <a class="page-link" href="javascript:void(0);">3</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">4</a>-->
+<!--            </li>-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="javascript:void(0);">5</a>-->
+<!--            </li>-->
+<!--            <li class="page-item next">-->
+<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </nav>-->
       </div>
 
     </div>
@@ -174,38 +94,69 @@
 
 <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValues" (ngSubmit)="ShowAddbutton ? SaveBus() : UpdateBus()">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel4">Edit Appointment</h5>
+        <h5 class="modal-title" id="exampleModalLabel4">
+          {{(ShowAddbutton) ? "ADD eBus" : "Edit eBus" }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row g-2 mb-3">
           <div class="col mb-0">
-            <label for="nameExLarge" class="form-label">START TIME	</label>
-            <input type="time" id="nameExLarge" class="form-control">
+            <label for="emailExLarge" class="form-label">MODEL</label>
+            <input type="text" formControlName="model"  class="form-control" placeholder="MODEL">
           </div>
           <div class="col mb-0">
-            <label for="nameExLarge" class="form-label">TYPE</label>
-            <select  class="form-select">
-              <option>go Trip</option>
-              <option value="1">Away Trip</option>
-            </select>
+            <label for="emailExLarge" class="form-label">CAPACITY</label>
+            <input type="text"  class="form-control"formControlName="capacity"
+                   placeholder="CAPACITY">
           </div>
         </div>
+        <div class="row g-2">
+          <div class="col-md-7 mb-3">
+            <label for="emailExLarge" class="form-label">phone</label>
+            <input type="tel" value="+02"formControlName="phone"  [readonly]="ShowAddbutton == false"
+                   id="emailExLarge" class="form-control" placeholder="phone">
+            <!--  (change)="OTPButtonShow()"-->
+          </div>
+          <div class="col-md-1" style="display: flex;
+                            align-items: center;    margin-top: 17px;
+                            justify-content: center;" *ngIf="ShowAddbutton">
+            <button id="sign-in-button" type="button" class="btn btn-dark btn-sm" (click)="SendOTP()">Send OTP</button>
+          </div>
+          <div class="col-md-3 mb-3" *ngIf="ShowAddbutton">
+            <label for="emailExLarge" class="form-label">OTP</label>
+            <input type="text" formControlName="OTP"
+                   class="form-control" placeholder="OTP">
+          </div>
+          <div class="col-md-1" style="display: flex;
+              align-items: center;    margin-top: 17px;
+              justify-content: center;" *ngIf="ShowAddbutton">
+            <button type="button" class="btn btn-success btn-sm" (click)="TestOTP()">Test OTP</button>
+          </div>
+
+        </div>
+        <hr>
         <div class="row g-2 mb-3">
           <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">Licence number</label>
+            <input type="text"  class="form-control"formControlName="busLicenceNumber"
+                   placeholder="Licence number">
+          </div>
+          <div class="col mb-0">
+            <label for="emailExLarge" class="form-label">Licence Expiration</label>
+            <input type="date"formControlName="busLicenceExpirationDate"  class="form-control"
+                   placeholder="Licence Expiration">
           </div>
         </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+      </div> <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"id="close-button">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">{{(ShowAddbutton) ? "ADD Bus" : "Edit Bus" }}</button>
       </div>
     </div>
-
+    </form>
   </div>
 </div>

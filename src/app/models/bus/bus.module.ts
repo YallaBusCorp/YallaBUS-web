@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CompanyModule} from "../company/company.module";
 
+export class BusModule {
+  "id" : any | null;
+  "busCode": string;
+  "phone": string;
+  "model" : string;
+  "capacity": string;
+  "busLicenceExpirationDate": Date;
+  "busLicenceNumber" : string;
+  "company": CompanyModule;
+  "isActive" : boolean;
+  "active" : boolean;
 
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-export class BusModule { }
+}
