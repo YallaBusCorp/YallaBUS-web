@@ -169,7 +169,7 @@ export class BusesComponent implements OnInit {
   }
   UpdateBus() {
     this.getDetails();
-    console.log(this.BusModule);
+   // console.log(this.BusModule);
     if (this.validation(this.BusModule)) {
       this.BusApi.UpdateBus(this.BusModule)
         .subscribe((res : any) => {
@@ -223,10 +223,10 @@ export class BusesComponent implements OnInit {
       (res: any) => {
         this.codeUser = res.user.uid;
         this.toastr.success('confirmation Result Successfully');
-        console.log(res);
+        //console.log(res);
         auth().signOut().then(
           (result :any) => {
-             console.log(result, auth());
+            // console.log(result, auth());
             //  this.toastr.success('sign Out Successfully');
           }).catch((error : any) => {
             this.toastr.info(error);

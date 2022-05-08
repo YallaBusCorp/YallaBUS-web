@@ -167,8 +167,8 @@ button.list-group-item-primary.active {
 }
 
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-  border-color: #696cff;
-  background-color: #696cff;
+  border-color: #EB671A;
+  background-color: #EB671A;
 }
 
 .alert-primary {

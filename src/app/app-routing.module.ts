@@ -13,6 +13,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {IsSignedInGuard} from "./guard/is-signed-in.guard";
 import {AuthGuard} from "./guard/auth.guard";
 import {ErrorComponent} from "./component/error/error.component";
+import {FeesComponent} from "./pages/fees/fees.component";
 
 const routes: Routes = [
   { path: '', redirectTo: "/login" , pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'locations', component: LocationsComponent,  canActivate: [AuthGuard]},
   { path: 'reports', component: ReportsComponent,  canActivate: [AuthGuard]},
   { path: 'Supports', component: SupportsComponent,  canActivate: [AuthGuard]},
+  { path: 'Fees', component: FeesComponent,  canActivate: [AuthGuard]},
   {
     path: '**',
    component: ErrorComponent

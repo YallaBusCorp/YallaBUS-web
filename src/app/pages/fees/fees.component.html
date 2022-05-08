@@ -1,0 +1,98 @@
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h2>Fees</h2>
+    <div class="col-lg-12">
+
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex justify-content-between">
+          <div class="left-card " style="flex-grow: 1;display: flex;">
+            <select  class="form-select search-card-style"[(ngModel)]="filterFees">
+              <option value="Pending">Pending Fees</option>
+              <option value="All">All Fees</option>
+              <option value="Approved">Approved Fees</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+                <table class="table table-borderless">
+                  <thead style="border-bottom: 1px solid #b3b3b3">
+                  <tr>
+                    <th>#id</th>
+                    <th>model#capacity</th>
+                    <th>phone</th>
+                    <th>fee Name</th>
+                    <th>price</th>
+                    <th>fessDate</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                  <ng-container  *ngIf="filterFees == 'Pending'">
+                  <tr *ngFor="let Fee of PendingFees;let i = index;">
+                    <td><strong>{{i+1}}</strong></td>
+                    <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>
+                    <td>
+                      {{Fee.bus.phone}}
+                    </td>
+                    <td>{{Fee.feesLk.lkNameAr}}</td>
+                    <td>{{Fee.price}}</td>
+                    <td>
+                      <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
+                    <td>
+                      <div >
+                        <button (click)="ApprovedFee(Fee.id)"  type="button" class="btn btn-success"
+                                style="margin-right: 10px; border-radius: 15px;">Agree</button>
+                        <button type="button" class="btn btn-danger" style="border-radius: 15px;">Refuse</button>
+                      </div>
+                    </td>
+                  </tr>
+                  </ng-container>
+                  <ng-container  *ngIf="filterFees == 'All'">
+                    <tr *ngFor="let Fee of AllFees;let i = index;">
+                      <td><strong>{{i+1}}</strong></td>
+                      <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>
+                      <td>
+                        {{Fee.bus.phone}}
+                      </td>
+                      <td>{{Fee.feesLk.lkNameAr}}</td>
+                      <td>{{Fee.price}}</td>
+                      <td>
+                        <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
+                      <td>
+                        <div *ngIf="Fee.isApproved == 'Y'">
+                          <span class="badge bg-label-success me-1">Approved</span>
+                        </div>
+                        <div *ngIf="Fee.isApproved == 'N'">
+                          <span class="badge bg-label-danger me-1">refused</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <ng-container  *ngIf="filterFees == 'Approved'">
+                    <tr *ngFor="let Fee of ApprovedFees;let i = index;">
+                      <td><strong>{{i+1}}</strong></td>
+                      <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>
+                      <td>
+                        {{Fee.bus.phone}}
+                      </td>
+                      <td>{{Fee.feesLk.lkNameAr}}</td>
+                      <td>{{Fee.price}}</td>
+                      <td>
+                        <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
+                      <td>
+                          <span class="badge bg-label-success me-1">Approved</span>
+                      </td>
+                    </tr>
+                  </ng-container>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+    </div>
+  </div>
+  <!-- Content wrapper -->
+</div>
+

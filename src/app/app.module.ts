@@ -22,6 +22,7 @@ import {ToastrModule} from "ngx-toastr";
 import { LoginComponent } from './pages/login/login.component';
 import { DatePipe } from '@angular/common';
 import { ErrorComponent } from './component/error/error.component';
+import { FeesComponent } from './pages/fees/fees.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { ErrorComponent } from './component/error/error.component';
     BusesComponent,
     AppointmentsComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    FeesComponent
   ],
   imports: [
     BrowserModule,
