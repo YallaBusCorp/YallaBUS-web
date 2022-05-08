@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-error',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private router : Router) { }
+  id1 : any;
+  id2 : any;
   ngOnInit(): void {
+    this.id1 = document.getElementById("layout-menu");
+    this.id1?.classList.add("layout-menu-remove");
+    this.id2 = document.getElementById("layout-wrapper");
+    this.id2?.classList.add("layout-without-menu");
   }
+  //
 
+  goHome() {
+    this.id1?.classList.remove("layout-menu-remove");
+    this.id2?.classList.remove("layout-without-menu");
+    this.router.navigate(['home']);
+  }
 }

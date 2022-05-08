@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {EmployeeModule} from "../../models/employee/employee.module";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 import {FeesModule} from "../../models/fees/fees.module";
@@ -48,5 +47,16 @@ export class FeesService {
       .pipe(map((res:any)=>{
         return res;
       }));
+  }
+
+  getAllfeesByBus(id :any) {
+    return this.http.get<FeesModule>(`${environment.UrlWebsite}/fee/bus/get-all?id=`
+      +id
+    ).pipe(
+      map((res:any)=>{
+          return res;
+
+        }
+      ));
   }
 }

@@ -23,6 +23,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { DatePipe } from '@angular/common';
 import { ErrorComponent } from './component/error/error.component';
 import { FeesComponent } from './pages/fees/fees.component';
+import { FeeByBusComponent } from './pages/fees/fee-by-bus/fee-by-bus.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { FeesComponent } from './pages/fees/fees.component';
     AppointmentsComponent,
     LoginComponent,
     ErrorComponent,
-    FeesComponent
+    FeesComponent,
+    FeeByBusComponent
   ],
   imports: [
     BrowserModule,

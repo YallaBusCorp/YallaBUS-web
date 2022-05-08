@@ -31,7 +31,6 @@ export class FeesComponent implements OnInit , AfterViewInit{
     this.api.getPendingfees()
       .subscribe( (res : any) => {
           this.PendingFees = res;
-          console.log(res);
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
@@ -42,7 +41,6 @@ export class FeesComponent implements OnInit , AfterViewInit{
     this.api.getApprovedfees()
       .subscribe( (res : any) => {
           this.ApprovedFees = res;
-          console.log(res);
 
         },
         (err : any) => {
@@ -54,16 +52,13 @@ export class FeesComponent implements OnInit , AfterViewInit{
     this.api.getAllfees()
       .subscribe( (res : any) => {
           this.AllFees = res;
-          console.log(res);
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
         }
       )
   }
-
   ApprovedFee(id : any) {
-    console.log(id);
     this.api.ApprovedFee(id)
       .subscribe(() =>{
           this.toastr.success('Approved Successfully');

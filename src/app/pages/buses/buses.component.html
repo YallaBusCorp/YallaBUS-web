@@ -45,6 +45,8 @@
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
                     <a class="dropdown-item" href="javascript:void(0);"
                        data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(bus)">Edit</a>
+                    <a class="dropdown-item" routerLink="../Fees/bus/{{bus.id}}"
+                      >Fees</a>
                     <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteBus(bus.id)">Delete</a>
                   </div>
                 </div>

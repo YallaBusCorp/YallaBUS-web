@@ -1,0 +1,50 @@
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h2>Fees</h2>
+    <div class="col-lg-12">
+
+      <div class="card" style="margin-top: 10px">
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>model#capacity</th>
+              <th>phone</th>
+              <th>fee Name</th>
+              <th>price</th>
+              <th>fessDate</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+              <tr *ngFor="let Fee of AllFees;let i = index;">
+                <td><strong>{{i+1}}</strong></td>
+                <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>
+                <td>
+                  {{Fee.bus.phone}}
+                </td>
+                <td>{{Fee.feesLk.lkNameAr}}</td>
+                <td>{{Fee.price}}</td>
+                <td>
+                  <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
+                <td>
+                  <div *ngIf="Fee.isApproved == 'Y'">
+                    <span class="badge bg-label-success me-1">Approved</span>
+                  </div>
+                  <div *ngIf="Fee.isApproved == 'N'">
+                    <span class="badge bg-label-danger me-1">refused</span>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Content wrapper -->
+</div>
+

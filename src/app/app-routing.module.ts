@@ -14,22 +14,27 @@ import {IsSignedInGuard} from "./guard/is-signed-in.guard";
 import {AuthGuard} from "./guard/auth.guard";
 import {ErrorComponent} from "./component/error/error.component";
 import {FeesComponent} from "./pages/fees/fees.component";
+import {FeeByBusComponent} from "./pages/fees/fee-by-bus/fee-by-bus.component";
 
 const routes: Routes = [
   { path: '', redirectTo: "/login" , pathMatch: 'full' },
-  // { path: '', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'login', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'Dashboard', component: HomeComponent ,  canActivate: [IsSignedInGuard]},
   { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},
   { path: 'Students', component: StudentsComponent ,  canActivate: [AuthGuard] },
   { path: 'Appointments', component: AppointmentsComponent ,  canActivate: [AuthGuard]},
-  { path: 'Buses', component: BusesComponent,  canActivate: [AuthGuard]},
+  { path: 'Buses', component: BusesComponent,canActivate: [AuthGuard]
+  },
   { path: 'Complaints', component: ComplaintsComponent,  canActivate: [AuthGuard]},
   { path: 'Employees', component: EmployeesComponent,  canActivate: [AuthGuard]},
   { path: 'locations', component: LocationsComponent,  canActivate: [AuthGuard]},
   { path: 'reports', component: ReportsComponent,  canActivate: [AuthGuard]},
   { path: 'Supports', component: SupportsComponent,  canActivate: [AuthGuard]},
-  { path: 'Fees', component: FeesComponent,  canActivate: [AuthGuard]},
+  {
+    path: 'Fees', component: FeesComponent, canActivate: [AuthGuard],
+  },
+  {path: 'Fees/bus/:id' , component: FeeByBusComponent ,  canActivate: [AuthGuard] },
+
   {
     path: '**',
    component: ErrorComponent
