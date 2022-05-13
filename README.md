@@ -10,15 +10,16 @@ Students table
 - Renew subscription
 - Add Student
 
-4- employees Page
+4- employees Page                                                          --Finished
 employees Table
 - Edit Employee
 - Delete Employee
-- Salary details
+- Salary details                   --NOT
 - Add Employee (Admin - driver - supervisor)
 
 
-5- buses Page
+
+5- buses Page                                                               --Finished
 - Table All buses
 - Add buses
 - Edit buses
@@ -29,7 +30,7 @@ employees Table
 - Add Points (longitude and latitude and Title)
 - Edit Points
 
-8- Appointment Page                                                           --Finished
+8- Appointment Page                                                     --Finished
 - Table All Appointments
 - Add Appointment
 - Edit Appointment
@@ -40,18 +41,14 @@ employees Table
 - Edit University OR Town      --not
 - Delete
 
-10- Appointment Page
-- Table All Appointments
-- Add Appointment
-- Edit Appointment
-
 11- Suggestion Page
 - Add Daily Scheduled ride  (bus And Appointment And Driver Name)
 
 12- Complaints Page
 
-13 - Fees Page
+13 - Fees Page                                                             --Finished
 
+14 - Payment Page
 
 
 

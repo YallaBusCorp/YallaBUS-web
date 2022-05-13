@@ -12,7 +12,7 @@ export class FeesService {
   constructor(private http: HttpClient) { }
 
   getPendingfees() {
-    return this.http.get<FeesModule>(`${environment.UrlWebsite}/fee/company/get-all-NotApproved?id=`
+    return this.http.get<FeesModule>(`${environment.UrlWebsite}/fee/company/get-all-Pending?id=`
       +environment.Token
     ).pipe(
       map((res:any)=>{
@@ -42,8 +42,9 @@ export class FeesService {
       ));
   }
 
-  ApprovedFee(id:any) {
-    return this.http.put<FeesModule>(`${environment.UrlWebsite}/fee/approve-by-fee-id?id=`+id,true)
+  ApprovedFee(id:any,bool :boolean) {
+    return this.http.put<FeesModule>(`${environment.UrlWebsite}/fee/approve-by-fee-id?feeId=`+id
+      +'&isApproved='+bool,true)
       .pipe(map((res:any)=>{
         return res;
       }));

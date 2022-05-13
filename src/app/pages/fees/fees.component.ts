@@ -58,10 +58,10 @@ export class FeesComponent implements OnInit , AfterViewInit{
         }
       )
   }
-  ApprovedFee(id : any) {
-    this.api.ApprovedFee(id)
+  ApprovedFee(id : any,bool : boolean) {
+    this.api.ApprovedFee(id,bool)
       .subscribe(() =>{
-          this.toastr.success('Approved Successfully');
+        this.toastr.success('Approved Successfully');
         this.getPendingfees();
         this.getApprovedfees();
         },

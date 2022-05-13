@@ -41,9 +41,9 @@
                       <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
                     <td>
                       <div >
-                        <button (click)="ApprovedFee(Fee.id)"  type="button" class="btn btn-success"
+                        <button (click)="ApprovedFee(Fee.id,true)"  type="button" class="btn btn-success"
                                 style="margin-right: 10px; border-radius: 15px;">Agree</button>
-                        <button type="button" class="btn btn-danger" style="border-radius: 15px;">Refuse</button>
+                        <button (click)="ApprovedFee(Fee.id,false)" type="button" class="btn btn-danger" style="border-radius: 15px;">Refuse</button>
                       </div>
                     </td>
                   </tr>
@@ -60,10 +60,10 @@
                       <td>
                         <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
                       <td>
-                        <div *ngIf="Fee.isApproved == 'Y'">
+                        <div *ngIf="Fee.isApproved == true">
                           <span class="badge bg-label-success me-1">Approved</span>
                         </div>
-                        <div *ngIf="Fee.isApproved == 'N'">
+                        <div *ngIf="Fee.isApproved == false">
                           <span class="badge bg-label-danger me-1">refused</span>
                         </div>
                       </td>

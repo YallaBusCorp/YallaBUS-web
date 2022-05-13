@@ -20,12 +20,12 @@ export class FeeByBusComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
-    console.log(this.id);
     this.getAllfeesByBus(this.id);
   }
   private getAllfeesByBus(id : any) {
     this.api.getAllfeesByBus(id)
       .subscribe( (res : any) => {
+        console.log(res);
           this.AllFees = res;
         },
         (err : any) => {
@@ -33,5 +33,16 @@ export class FeeByBusComponent implements OnInit {
         }
       )
   }
-
+  ApprovedFee(id : any,bool : boolean) {
+    this.api.ApprovedFee(id,bool)
+      .subscribe(() =>{
+          this.toastr.success('Approved Successfully');
+          this.getAllfeesByBus(this.id);
+        },
+        (err : any)=>{
+        console.log(err);
+          this.toastr.warning(err.statusText);
+        }
+      )
+  }
 }
