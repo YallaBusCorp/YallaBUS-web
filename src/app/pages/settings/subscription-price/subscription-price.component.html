@@ -1,0 +1,84 @@
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex align-items-center justify-content-between">
+<!--          <div class="left-card ">-->
+<!--            <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 20px;" type="search"placeholder="Search" >-->
+<!--            <button type="button"-->
+<!--                    class="btn btn-sm btn-primary " >search</button>-->
+<!--          </div>-->
+          <div class="right-card">
+            <button type="button"
+                    class="btn btn-sm btn-info" data-bs-target="#exLargeModal"
+                    data-bs-toggle="modal"
+                    (click)="AddNewsubscription()">Add New subscription Price</button>
+          </div>
+
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>subscription Price</th>
+              <th>subscription Start Date</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr *ngFor="let subscriptionPrice of subscriptionPrices;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{subscriptionPrice.subscriptionPrice}}</td>
+              <td  >
+                {{subscriptionPrice.subscriptionStartDate}}
+              </td>
+              <td *ngIf="subscriptionPrice.subscriptionEndDate == null" >
+                <span class="badge  bg-label-success me-1"> Active </span>
+              </td>
+              <td *ngIf="subscriptionPrice.subscriptionEndDate != null">
+                <span class="badge bg-label-danger me-11"> Not Active </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+  <!-- Content wrapper -->
+</div>
+
+
+<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValues" (ngSubmit)="SaveSubscriptionPrice() ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel4">ADD New Subscription Price</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2 mb-3">
+            <div class="col mb-0">
+              <label for="nameExLarge" class="form-label">Subscription Price</label>
+              <input type="text" id="nameExLarge" class="form-control" formControlName="subscriptionPrice">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="close-button">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

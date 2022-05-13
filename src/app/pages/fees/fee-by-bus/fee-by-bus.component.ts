@@ -36,7 +36,11 @@ export class FeeByBusComponent implements OnInit {
   ApprovedFee(id : any,bool : boolean) {
     this.api.ApprovedFee(id,bool)
       .subscribe(() =>{
-          this.toastr.success('Approved Successfully');
+          if(bool ==true)
+            this.toastr.success('Approved Successfully');
+          else
+            this.toastr.success(' Not Approved Successfully');
+
           this.getAllfeesByBus(this.id);
         },
         (err : any)=>{

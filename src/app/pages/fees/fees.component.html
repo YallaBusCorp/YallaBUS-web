@@ -66,6 +66,9 @@
                         <div *ngIf="Fee.isApproved == false">
                           <span class="badge bg-label-danger me-1">refused</span>
                         </div>
+                        <div *ngIf="Fee.isApproved == null">
+                          <span class="badge bg-label-info me-1">Pending</span>
+                        </div>
                       </td>
                     </tr>
                   </ng-container>

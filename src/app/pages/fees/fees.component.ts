@@ -61,9 +61,15 @@ export class FeesComponent implements OnInit , AfterViewInit{
   ApprovedFee(id : any,bool : boolean) {
     this.api.ApprovedFee(id,bool)
       .subscribe(() =>{
+        if(bool ==true)
         this.toastr.success('Approved Successfully');
-        this.getPendingfees();
+        else
+          this.toastr.success(' Not Approved Successfully');
+
+          this.getPendingfees();
         this.getApprovedfees();
+          this.getAllfees();
+
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);

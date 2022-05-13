@@ -16,6 +16,7 @@ import {ErrorComponent} from "./component/error/error.component";
 import {FeesComponent} from "./pages/fees/fees.component";
 import {FeeByBusComponent} from "./pages/fees/fee-by-bus/fee-by-bus.component";
 import {AssignmentComponent} from "./pages/assignment/assignment.component";
+import {SettingsComponent} from "./pages/settings/settings.component";
 
 const routes: Routes = [
   { path: '', redirectTo: "/login" , pathMatch: 'full' },
@@ -36,6 +37,9 @@ const routes: Routes = [
   },
   {
     path: 'Assignments', component: AssignmentComponent, canActivate: [AuthGuard],
+  },
+  {
+    path: 'Settings', component: SettingsComponent, canActivate: [AuthGuard],
   },
   {path: 'Fees/bus/:id' , component: FeeByBusComponent ,  canActivate: [AuthGuard] },
 

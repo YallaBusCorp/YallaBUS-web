@@ -103,6 +103,14 @@
               </li>
 
               <!-- Settings -->
+              <li class="menu-item" routerLinkActive="active"  (click)="removeNav()">
+                <a routerLink="Settings" class="menu-link">
+                  <i class="menu-icon tf-icons bx bxs-plus-circle"></i>
+                  <div data-i18n="Analytics">Settings</div>
+                </a>
+              </li>
+
+              <!-- Logout -->
               <li class="menu-item" routerLinkActive="active" (click)="logout()">
                 <a routerLink="login" class="menu-link" (click)="logout()">
                   <i class="menu-icon tf-icons bx bxs-log-out "></i>
