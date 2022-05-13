@@ -24,6 +24,7 @@ import { DatePipe } from '@angular/common';
 import { ErrorComponent } from './component/error/error.component';
 import { FeesComponent } from './pages/fees/fees.component';
 import { FeeByBusComponent } from './pages/fees/fee-by-bus/fee-by-bus.component';
+import { AssignmentComponent } from './pages/assignment/assignment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { FeeByBusComponent } from './pages/fees/fee-by-bus/fee-by-bus.component'
     LoginComponent,
     ErrorComponent,
     FeesComponent,
-    FeeByBusComponent
+    FeeByBusComponent,
+    AssignmentComponent
   ],
   imports: [
     BrowserModule,

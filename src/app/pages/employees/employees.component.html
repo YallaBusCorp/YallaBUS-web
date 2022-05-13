@@ -171,14 +171,15 @@
                 {{LK_Employee.lkName}}
               </option>
             </select>
+            <ng-container *ngIf="ShowAddbutton == false">
             <input class="form-control"  formControlName="empLk"
-                   [hidden]="ShowAddbutton == false">
+                   [hidden]="true">
             <span *ngFor="let LK_Employee of LK_Employees">
                     <input class="form-control" type="text"
-                           [readOnly]="ShowAddbutton == false" *ngIf="LK_Employee.id == this.empLk.value"
+                           [readOnly]="true" *ngIf="LK_Employee.id == this.empLk.value"
                            value="{{ LK_Employee.lkName }}">
             </span>
-
+            </ng-container>
           </div>
         </div>
         <div class="row g-2 mb-3">

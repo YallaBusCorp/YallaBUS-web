@@ -1,0 +1,31 @@
+.card-info-text {
+  background: #fff;
+  color: #000;
+  padding: 6px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.card-info-text:hover {
+  color: #fff;
+  background-color: #788393;
+  border-color: #788393;
+  box-shadow: 0 0.125rem 0.25rem 0 rgb(133 146 163 / 40%);
+  transform: translateY(-1px);
+}
+.card-info-text.active,
+.card-info-text:focus,
+.card-info-text:active{
+  background-color: #EB671A  !important;
+  border-color: #EB671A  !important;
+  color: #fff;
+}
+
+.card-info-text .bx-info-circle{
+
+}
+.card-body-group{
+  background: #e7e7ff !important;
+  padding: 14px 0;
+  border-radius: 20px;
+}
+
