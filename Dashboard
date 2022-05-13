@@ -4,18 +4,18 @@
 2- Home Page
 
 3- Students Page                                                          --Finished
-      -Students table
       - Edit Student
       - Delete Student
       - Renew subscription
       - Add Student
+      - Students table
 
 4- employees Page                                                          --Finished
-        -employees Table
         - Edit Employee
         - Delete Employee
         - Salary details                   --NOT
         - Add Employee (Admin - driver - supervisor)
+        - employees Table
 
 
 
