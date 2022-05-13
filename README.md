@@ -4,14 +4,14 @@
 2- Home Page
 
 3- Students Page                                                          --Finished
-Students table
+-Students table
 - Edit Student
 - Delete Student
 - Renew subscription
 - Add Student
 
 4- employees Page                                                          --Finished
-employees Table
+-employees Table
 - Edit Employee
 - Delete Employee
 - Salary details                   --NOT
