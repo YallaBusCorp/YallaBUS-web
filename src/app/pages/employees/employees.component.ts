@@ -7,6 +7,7 @@ import {EmployeeService} from "../../servies/Employee/employee.service";
 import {environment} from "../../../environments/environment";
 import {AdminModule} from "../../models/employee/admin/admin.module";
 import {DriverModule} from "../../models/employee/driver/driver.module";
+import {HelperService} from "../../Helper/helper.service";
 
 @Component({
   selector: 'app-employees',
@@ -27,6 +28,7 @@ export class EmployeesComponent implements OnInit {
     private api: EmployeeService,
     private toastr: ToastrService,
     private  datePipe:DatePipe,
+    private hepler : HelperService
   ) { }
 
   ngOnInit(): void {
@@ -156,7 +158,9 @@ export class EmployeesComponent implements OnInit {
       this.EmployeeModule.empSalary : this.empSalary.value;
     this.EmployeeModule.empStartDate =  this.EmployeeModule.empStartDate !=null ?
       this.EmployeeModule.empStartDate : this.empStartDate.value;
-    this.EmployeeModule.empLk = { "id" : this.empLk?.value };
+    let  lkName= this.hepler.searshItem(this.LK_Employees , this.empLk?.value) ;
+    // @ts-ignore
+    this.EmployeeModule.empLk = { "id" : this.empLk?.value , "lkName" :   lkName.lkName  };
     this.EmployeeModule.company = { "id" :  environment.Token };
   }
   getAdminDetails() {
@@ -174,7 +178,6 @@ export class EmployeesComponent implements OnInit {
 
   }
   //End Get All Details
-
   SaveEmployee() {
     this.EmployeeModule = new EmployeeModule;
     this.getEmpDetails();
@@ -202,7 +205,7 @@ export class EmployeesComponent implements OnInit {
           this.toastr.success('Added Successfully');
           let ref = document.getElementById('close-button');
           ref?.click();
-          this.getSuperVisors();
+          this.SuperVisors.push(this.EmployeeModule);
         },
         (err : any) => {
           console.log(err);
@@ -220,7 +223,7 @@ export class EmployeesComponent implements OnInit {
             this.toastr.success('Added Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getAdmins();
+            this.Admins.push(this.AdminModule);
           },
           (err : any) => {
             console.log(err);
@@ -239,7 +242,7 @@ export class EmployeesComponent implements OnInit {
           this.toastr.success('Added Successfully');
           let ref = document.getElementById('close-button');
           ref?.click();
-          this.getDrivers();
+          this.Drivers.push(this.DriverModule);
         },
         (err : any) => {
           console.log(err);
@@ -321,7 +324,8 @@ export class EmployeesComponent implements OnInit {
           this.toastr.success('Updated Successfully');
           let ref = document.getElementById('close-button');
           ref?.click();
-          this.getSuperVisors();
+          this.SuperVisors.splice(this.hepler.findIndex(this.SuperVisors ,this.EmployeeModule.id),1);
+          this.SuperVisors.push(this.EmployeeModule);
         },
         (err : any) => {
           console.log(err);
@@ -339,7 +343,8 @@ export class EmployeesComponent implements OnInit {
             this.toastr.success('Updated Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getAdmins();
+            this.Admins.splice(this.hepler.findIndex(this.Admins ,this.AdminModule.id),1);
+            this.Admins.push(this.AdminModule);
           },
           (err : any) => {
             console.log(err);
@@ -358,7 +363,8 @@ export class EmployeesComponent implements OnInit {
             this.toastr.success('Updated Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getDrivers();
+            this.Drivers.splice(this.hepler.findIndex(this.Admins ,this.DriverModule.id),1);
+            this.Drivers.push(this.DriverModule);
           },
           (err : any) => {
             console.log(err);
@@ -379,12 +385,12 @@ export class EmployeesComponent implements OnInit {
       .subscribe((res:any) =>{
           this.toastr.success('Delete Successfully');
           if((row.empLk && row.empLk.id ==2))
-            this.getSuperVisors();
+            this.SuperVisors.splice(this.hepler.findIndex(this.Admins ,row.id),1);
           else{
             if((row.emp.empLk.id ==3))
-              this.getDrivers();
+              this.Drivers.splice(this.hepler.findIndex(this.Admins ,row.id),1);
             else if((row.emp.empLk.id ==1))
-              this.getAdmins();
+              this.Admins.splice(this.hepler.findIndex(this.Admins ,row.id),1);
             else
               this.toastr.warning("sorry Can't Delete");
 

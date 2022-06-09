@@ -3,6 +3,8 @@ import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HomeComponent} from "../home/home.component";
+import {auth} from "firebase";
+import {AuthService} from "../../servies/Auth/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private toastr: ToastrService,
-    private router : Router
+    private router : Router,
+    private api : AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -31,37 +34,43 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-  //  console.log(this.loginForm);
-    // this.http.post<any>()
     if (this.loginForm.status != "INVALID"){
-    //  this.authApi.LoginUser()
-       // .subscribe(res => {
-       //      const  user = res.find((a:any) => {
-       //        return a.email == this.loginForm.value.email && a.password == this.loginForm.value.password
-       //      });
-            if(this.username.value == "unibus" && this.password.value == "123456789"){
-              this.toastr.success('Register Successfully');
-              // this.loginForm.reset();
-              localStorage.setItem('token','1');
-               history : HomeComponent;
-               history.go(0);
-             // this.router.navigate(['/home']);
-            }else if(this.username.value == "Sarkees" && this.password.value == "123456789"){
-              this.toastr.success('Register Successfully');
-              // this.loginForm.reset();
-              localStorage.setItem('token','2');
-              history : HomeComponent;
-              history.go(0);
-            //  this.router.navigate(['/home']);
-            }else{
-              this.toastr.info("Company Not Found");
-            }
+      this.api.Login(this.username.value , this.password.value)
+        .subscribe((res : any) => {
+              if(res == null){
+                this.toastr.info("Company Not Found");
+              }else{
+                this.toastr.success('Register Successfully');
+                localStorage.setItem('token',res.emp.company.id);
+                history : HomeComponent;
+                history.go(0);
+              }
+          },
+          (err : any) => {
+            console.log(err);
+            this.toastr.warning(err.error ? err.error : "wrong in Server");
+          }
+        )
 
-          // },
-          // res => {
-          //   this.toastr.info('Please fill in the data correctly');
-          // }
-   //     );
+
+
+            // if(this.username.value == "unibus" && this.password.value == "123456789"){
+            //   this.toastr.success('Register Successfully');
+            //   // this.loginForm.reset();
+            //   localStorage.setItem('token','1');
+            //    history : HomeComponent;
+            //    history.go(0);
+            //  // this.router.navigate(['/home']);
+            // }else if(this.username.value == "Sarkees" && this.password.value == "123456789"){
+            //   this.toastr.success('Register Successfully');
+            //   // this.loginForm.reset();
+            //   localStorage.setItem('token','2');
+            //   history : HomeComponent;
+            //   history.go(0);
+            // //  this.router.navigate(['/home']);
+            // }else{
+            //   this.toastr.info("Company Not Found");
+            // }
     }else{
       this.toastr.info('Please fill in the data correctly');
     }

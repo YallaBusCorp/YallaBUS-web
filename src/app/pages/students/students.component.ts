@@ -10,6 +10,7 @@ import {environment} from "../../../environments/environment";
 import * as firebase from 'firebase';
 import {auth} from "firebase";
 import {FirebaseService} from "../../servies/firebase/firebase.service";
+import {HelperService} from "../../Helper/helper.service";
 
 // import {getAuth} from "@angular/fire/auth";
 // import {signOut} from "@angular/fire/auth";
@@ -21,7 +22,7 @@ import {FirebaseService} from "../../servies/firebase/firebase.service";
 })
 export class StudentsComponent implements OnInit {
 
-  students: any;
+  students: any ;
   Towns: any;
   Universities: any;
   theDateNow: any = new Date;
@@ -34,6 +35,7 @@ export class StudentsComponent implements OnInit {
     private TownsApi: TownService,
     private toastr: ToastrService,
     private UniversityApi: UniversityService,
+    private hepler : HelperService
   ) {
   }
 
@@ -53,6 +55,7 @@ export class StudentsComponent implements OnInit {
   isRecaptchaValid() {
     return (this.windowRef.recaptchaVerifier.getResponse(this.windowRef.recaptchaWidgetId).length > 0);
   }
+
 
 
   getStudents() {
@@ -80,10 +83,12 @@ export class StudentsComponent implements OnInit {
       )
   }
 
+
   getUniversities() {
     this.UniversityApi.getUniversities(Number(environment.Token))
       .subscribe((res : any) => {
           this.Universities = res;
+
         },
         (err : any) => {
           this.toastr.warning((err.statusText ? err.statusText :(err.status ? err.status:
@@ -151,6 +156,7 @@ export class StudentsComponent implements OnInit {
 
   //Start Get All Details
   getDetails() {
+
     let SubscriptionDate = new Date(this.endSubscriptionDate.value);
     let pipe = new DatePipe('en-US');
      this.StudentModule.id = this.StudentModule.id ? this.StudentModule.id :null;
@@ -158,8 +164,13 @@ export class StudentsComponent implements OnInit {
       this.StudentModule.stdUid = this.StudentModule.stdUid ? this.StudentModule.stdUid : this.codeUser;
       this.StudentModule.stdPhone = this.stdPhone?.value[0] != '+' &&this.stdPhone?.value[1] != '2'  ?
                                             "+2" + this.stdPhone?.value : this.stdPhone?.value ;
-      this.StudentModule.town = { "id" : this.town?.value };
-      this.StudentModule.university = { "id" : this.university?.value };
+    let  townName= this.hepler.searshItem(this.Towns , this.town?.value);
+      // @ts-ignore
+      this.StudentModule.town = this.town?.value ? { "id" : this.town?.value , "townName" : townName.townName }: null;
+      let  universityName= this.hepler.searshItem(this.Universities , this.university?.value) ;
+
+    // @ts-ignore
+    this.StudentModule.university = this.university?.value ? { "id" : this.university?.value ,"universityName" : universityName.universityName }: null;
       this.StudentModule.company = { "id" :  environment.Token };
       this.StudentModule.endSubscriptionDate = this.endSubscriptionDate.value ?
             pipe.transform(
@@ -171,16 +182,19 @@ export class StudentsComponent implements OnInit {
 
   //Start Save Student
   SaveStudent() {
-    this.StudentModule = new StudentModule;
-    this.getDetails();
     if (this.codeUser != null) {
+      this.StudentModule = new StudentModule;
+      this.getDetails();
       if (this.validation(this.StudentModule)) {
         this.StudentApi.PostStudents(this.StudentModule)
           .subscribe((res : any) => {
               this.toastr.success('Added Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.getStudents();
+              this.StudentModule.id = res.id;
+              this.students.push(this.StudentModule);
+              console.log(this.students);
+             // this.getStudents();
             },
             (err : any) => {
               console.log(err);
@@ -216,14 +230,14 @@ export class StudentsComponent implements OnInit {
   }
   UpdateStudent() {
     this.getDetails();
-    console.log(this.StudentModule);
       if (this.validation(this.StudentModule)) {
         this.StudentApi.UpdateStudents(this.StudentModule)
           .subscribe((res : any) => {
               this.toastr.success('Updated Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.getStudents();
+                this.students.splice(this.hepler.findIndex(this.students ,this.StudentModule.id),1);
+                this.students.push(this.StudentModule);
             },
             (err : any) => {
               console.log(err);
@@ -239,7 +253,8 @@ export class StudentsComponent implements OnInit {
     this.StudentApi.DeleteStudent(id)
       .subscribe(res =>{
           this.toastr.success('Delete Successfully');
-          this.getStudents();
+          this.students.splice(this.hepler.findIndex(this.students ,id),1);
+
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);
@@ -311,7 +326,6 @@ export class StudentsComponent implements OnInit {
     let SubscriptionDate = new Date(this.endSubscriptionDateRenew.value);
     let pipe = new DatePipe('en-US');
     this.StudentModule.id = this.StudentModule.id ? this.StudentModule.id :null;
-    // this.StudentModule.company = { "id" :  environment.Token };
     this.StudentModule.endSubscriptionDate = this.endSubscriptionDateRenew.value ?
       pipe.transform(
         (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null;
@@ -329,7 +343,8 @@ export class StudentsComponent implements OnInit {
             this.toastr.success('Renew Student Successfully');
             let ref = document.getElementById('close-button-Renew');
             ref?.click();
-            this.getStudents();
+            this.students.splice(this.hepler.findIndex(this.students ,this.StudentModule.id),1);
+            this.students.push(this.StudentModule);
           },
           (err : any) => {
             console.log(err);

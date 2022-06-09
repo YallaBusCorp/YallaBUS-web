@@ -4,12 +4,15 @@ export interface StudentInterface {
   "stdPhone": string;
   "town": {
     "id" : number,
+    "townName" : string
   };
   "university": {
     "id" : number,
+    "universityName" : string
   };
   "company":  {
     "id" : number,
+    "name" : string
   };
   "endSubscriptionDate": Date | null;
   "isSubscribed" : boolean,
@@ -17,7 +20,7 @@ export interface StudentInterface {
 }
 
 export class StudentModule {
-  // "id": any = null;
+   "id": any = null;
   "stdUid": string;
   "stdName": string;
   "stdPhone": string;
