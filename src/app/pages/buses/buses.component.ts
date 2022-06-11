@@ -8,6 +8,7 @@ import {DatePipe} from "@angular/common";
 import {auth} from "firebase";
 import {BusModule} from "../../models/bus/bus.module";
 import {FirebaseService} from "../../servies/firebase/firebase.service";
+import {HelperService} from "../../Helper/helper.service";
 
 @Component({
   selector: 'app-buses',
@@ -25,6 +26,7 @@ export class BusesComponent implements OnInit {
     private BusApi: BusService,
     private toastr: ToastrService,
     private FirebaseService : FirebaseService,
+    private hepler : HelperService
   ) {
   }
 
@@ -65,7 +67,7 @@ export class BusesComponent implements OnInit {
   }
 
   formValues = new FormGroup({
-    busCode: new FormControl('', ),
+    busUid: new FormControl('', ),
     OTP: new FormControl(),
     phone: new FormControl('', [Validators.required]),
     model: new FormControl('', [Validators.required]),
@@ -74,8 +76,8 @@ export class BusesComponent implements OnInit {
     busLicenceExpirationDate: new FormControl(null, [Validators.required]),
   });
 
-  get busCode(): any {
-    return this.formValues.get('busCode');
+  get busUid(): any {
+    return this.formValues.get('busUid');
   }
   get OTP(): any {
     return this.formValues.get('OTP');
@@ -104,7 +106,7 @@ export class BusesComponent implements OnInit {
     }
 
     if (this.formValues.status == "VALID" &&
-      validationEmpty(this.codeUser || bus.busCode)
+      validationEmpty(this.codeUser || bus.busUid)
     ) {
       return true;
     }
@@ -120,7 +122,7 @@ export class BusesComponent implements OnInit {
     this.BusModule.capacity = this.capacity?.value;
     this.BusModule.busLicenceNumber = this.busLicenceNumber?.value;
     this.BusModule.busLicenceExpirationDate = this.busLicenceExpirationDate?.value;
-    this.BusModule.busCode = this.BusModule.busCode ? this.BusModule.busCode : this.codeUser;
+    this.BusModule.busUid = this.BusModule.busUid ? this.BusModule.busUid : this.codeUser;
     this.BusModule.phone = this.phone?.value[0] != '+' &&this.phone?.value[1] != '2'  ?
       "+2" + this.phone?.value : this.phone?.value ;
     this.BusModule.company = { "id" :  environment.Token };
@@ -132,6 +134,7 @@ export class BusesComponent implements OnInit {
   //Start Save Bus
   SaveBus() {
     this.BusModule = new BusModule;
+    console.log(this.BusModule);
     this.getDetails();
     if (this.codeUser != null) {
       if (this.validation(this.BusModule)) {
@@ -140,7 +143,8 @@ export class BusesComponent implements OnInit {
               this.toastr.success('Added Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.getbus();
+              this.BusModule.id = res.id;
+              this.buses.push(this.BusModule);
             },
             (err : any) => {
               console.log(err);
@@ -162,7 +166,7 @@ export class BusesComponent implements OnInit {
     this.BusModule.id = Number(row.id);
     this.formValues.controls['phone'].setValue(row.phone);
     this.formValues.controls['model'].setValue(row.model);
-    this.BusModule.busCode = row.busCode;
+    this.BusModule.busUid = row.busUid;
     this.formValues.controls['capacity'].setValue(row.capacity);
     this.formValues.controls['busLicenceNumber'].setValue(row.busLicenceNumber);
     this.formValues.controls['busLicenceExpirationDate'].setValue(row.busLicenceExpirationDate);
@@ -176,7 +180,10 @@ export class BusesComponent implements OnInit {
             this.toastr.success('Updated Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getbus();
+            this.buses.splice(this.hepler.findIndex(this.buses ,this.BusModule.id),1);
+            this.buses.push(this.BusModule);
+            console.log(this.buses);
+
           },
           (err : any) => {
             console.log(err);
@@ -192,7 +199,8 @@ export class BusesComponent implements OnInit {
     this.BusApi.DeleteBus(id)
       .subscribe(res =>{
           this.toastr.success('Delete Successfully');
-          this.getbus();
+          this.buses.splice(this.hepler.findIndex(this.buses ,id),1);
+          console.log(this.buses);
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);

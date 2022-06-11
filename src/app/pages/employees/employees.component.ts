@@ -205,6 +205,7 @@ export class EmployeesComponent implements OnInit {
           this.toastr.success('Added Successfully');
           let ref = document.getElementById('close-button');
           ref?.click();
+          this.EmployeeModule.id = res.id;
           this.SuperVisors.push(this.EmployeeModule);
         },
         (err : any) => {
@@ -223,6 +224,7 @@ export class EmployeesComponent implements OnInit {
             this.toastr.success('Added Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
+            this.AdminModule.id = res.id;
             this.Admins.push(this.AdminModule);
           },
           (err : any) => {
@@ -242,6 +244,7 @@ export class EmployeesComponent implements OnInit {
           this.toastr.success('Added Successfully');
           let ref = document.getElementById('close-button');
           ref?.click();
+          this.DriverModule.id = res.id;
           this.Drivers.push(this.DriverModule);
         },
         (err : any) => {
@@ -289,8 +292,6 @@ export class EmployeesComponent implements OnInit {
       }else if(row.emp.empLk && row.emp.empLk.id == 1){
         this.AdminModule = new AdminModule();
         this.AdminModule.id = Number(row.id);
-        console.log(this.AdminModule.id, row.id);
-
         this.formValues.controls['username'].setValue(row.username);
         this.formValues.controls['password'].setValue(row.password);
         this.valueempLk = 1;
@@ -325,6 +326,7 @@ export class EmployeesComponent implements OnInit {
           let ref = document.getElementById('close-button');
           ref?.click();
           this.SuperVisors.splice(this.hepler.findIndex(this.SuperVisors ,this.EmployeeModule.id),1);
+         // this.EmployeeModule.id = res.id;
           this.SuperVisors.push(this.EmployeeModule);
         },
         (err : any) => {
@@ -344,6 +346,7 @@ export class EmployeesComponent implements OnInit {
             let ref = document.getElementById('close-button');
             ref?.click();
             this.Admins.splice(this.hepler.findIndex(this.Admins ,this.AdminModule.id),1);
+           // this.AdminModule.id = res.id;
             this.Admins.push(this.AdminModule);
           },
           (err : any) => {
@@ -364,6 +367,7 @@ export class EmployeesComponent implements OnInit {
             let ref = document.getElementById('close-button');
             ref?.click();
             this.Drivers.splice(this.hepler.findIndex(this.Admins ,this.DriverModule.id),1);
+          //  this.DriverModule.id = res.id;
             this.Drivers.push(this.DriverModule);
           },
           (err : any) => {

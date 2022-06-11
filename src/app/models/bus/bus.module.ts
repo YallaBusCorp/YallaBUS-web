@@ -2,7 +2,7 @@ import {CompanyModule} from "../company/company.module";
 
 export class BusModule {
   "id" : any | null;
-  "busCode": string;
+  "busUid": string;
   "phone": string;
   "model" : string;
   "capacity": string;

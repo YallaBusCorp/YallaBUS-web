@@ -17,29 +17,28 @@
         - Add Employee (Admin - driver - supervisor)
         - employees Table
 
-
--------------
 5- buses Page                                                               --Finished
        - Table All buses
        - Add buses
        - Edit buses
        - Fees View approved
 
-7- Points Page
+7- Who has support? Page                                --Finished
+          - Table All universities And Towns
+          - Add University OR Town
+          - Delete
+
+
+-------------
+8- Points Page
           - Table All Points -- Map
           - Add Points (longitude and latitude and Title)
           - Edit Points
 
-8- Appointment Page                                                     --Finished
+9- Appointment Page                                                     --Finished
           - Table All Appointments
           - Add Appointment
           - Edit Appointment
-
-9- Who has support? Page
-          - Table All universities And Towns       --Finished
-          - Add University OR Town       --Finished
-          - Edit University OR Town      --not
-          - Delete
 
 11- Suggestion Page
           - Add Daily Scheduled ride  (bus And Appointment And Driver Name)

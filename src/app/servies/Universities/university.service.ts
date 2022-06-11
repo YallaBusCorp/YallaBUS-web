@@ -33,4 +33,16 @@ export class UniversityService {
         return res;
       }));
   }
+
+  DeleteUniversity(id:number) {
+    return this.http.put(`${environment.UrlWebsite}/lkUniversity/delete-lk-university?id=`+id,true)
+      .pipe(map((res:any)=>{
+            return res;
+          },
+          (err : any)=>{
+            return err;
+          }
+        )
+      );
+  }
 }

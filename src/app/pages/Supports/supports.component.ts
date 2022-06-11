@@ -6,6 +6,7 @@ import {TownService} from "../../servies/Towns/town.service";
 import {environment} from "../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UniversityService} from "../../servies/Universities/university.service";
+import {HelperService} from "../../Helper/helper.service";
 
 @Component({
   selector: 'app-Supports',
@@ -24,6 +25,7 @@ export class SupportsComponent implements OnInit {
     private UniversityApi: UniversityService,
     private TownApi: TownService,
     private toastr: ToastrService,
+    private hepler : HelperService
   ) {
   }
   ngOnInit(): void {
@@ -38,7 +40,6 @@ export class SupportsComponent implements OnInit {
           this.Universities = res;
         },
         (err : any) => {
-          console.log(err);
           this.toastr.warning((err.statusText ? "Internal Server Error" : (err.error ? err.error : "Internal Server Error")));
 
         }
@@ -51,7 +52,6 @@ export class SupportsComponent implements OnInit {
           this.Towns = res;
         },
         (err : any) => {
-          console.log(err.error);
           this.toastr.warning((err.statusText ? "Internal Server Error" : (err.error ? err.error : "Internal Server Error")));
         }
       )
@@ -116,10 +116,10 @@ export class SupportsComponent implements OnInit {
 
     if( this.Town_Uni == 1){
         this.SaveUniversity();
-      console.log(this.UniversityModule);
+      console.log(this.Universities);
     }else{
         this.SaveTwon();
-      console.log(this.TownModule);
+      console.log(this.Towns);
 
     }
 
@@ -133,7 +133,8 @@ export class SupportsComponent implements OnInit {
             this.toastr.success('Added Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getUniversities();
+            this.UniversityModule.id = res.id;
+            this.Universities.push(this.UniversityModule);
           },
           (err : any) => {
             this.toastr.warning(err.error ? err.error : "wrong in Server");
@@ -152,10 +153,10 @@ export class SupportsComponent implements OnInit {
             this.toastr.success('Added Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getTowns();
+            this.TownModule.id = res.id;
+            this.Towns.push(this.TownModule);
           },
           (err : any) => {
-            console.log(err);
             this.toastr.warning(err.error ? err.error : "wrong in Server");
           }
         )
@@ -165,7 +166,39 @@ export class SupportsComponent implements OnInit {
   }
 
   //End Save Appointment
-  Update() {
+  Delete(id : number, fb : number ) {
+    this.Town_Uni = fb;
+    if( this.Town_Uni == 1){
+      this.DeleteUniversity(id);
+      console.log(this.Universities);
+    }else{
+      this.DeleteTwon(id);
+      console.log(this.Towns);
 
+    }
+  }
+
+  private DeleteUniversity(id : number) {
+    this.UniversityApi.DeleteUniversity(id)
+      .subscribe(res =>{
+          this.toastr.success('Delete Successfully');
+          this.Universities.splice(this.hepler.findIndex(this.Universities ,id),1);
+        },
+        (err : any)=>{
+          this.toastr.warning(err.statusText);
+        }
+      )
+  }
+
+  private DeleteTwon(id : number) {
+    this.TownApi.DeleteTown(id)
+      .subscribe(res =>{
+          this.toastr.success('Delete Successfully');
+          this.Towns.splice(this.hepler.findIndex(this.Towns ,id),1);
+        },
+        (err : any)=>{
+          this.toastr.warning(err.statusText);
+        }
+      )
   }
 }

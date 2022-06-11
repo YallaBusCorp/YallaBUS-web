@@ -32,4 +32,16 @@ export class TownService {
         return res;
       }));
   }
+
+  DeleteTown(id:number) {
+    return this.http.put(`${environment.UrlWebsite}/lkTown/delete-lk-town?id=`+id,true)
+      .pipe(map((res:any)=>{
+            return res;
+          },
+          (err : any)=>{
+            return err;
+          }
+        )
+      );
+  }
 }

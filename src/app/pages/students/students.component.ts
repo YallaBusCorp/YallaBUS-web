@@ -193,7 +193,6 @@ export class StudentsComponent implements OnInit {
               ref?.click();
               this.StudentModule.id = res.id;
               this.students.push(this.StudentModule);
-              console.log(this.students);
              // this.getStudents();
             },
             (err : any) => {
@@ -247,6 +246,8 @@ export class StudentsComponent implements OnInit {
       } else {
         this.toastr.info('Please fill in the data correctly');
       }
+    console.log(this.students);
+
   }
 
   DeleteStudent(id:number){
