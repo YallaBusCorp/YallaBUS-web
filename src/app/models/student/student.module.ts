@@ -54,5 +54,13 @@ export interface company {
     "imgURL": string,
     "facebookURL": string
 }
+export class SubscriptionRenew {
+  "std": stdRenew;
 
-
+}
+export interface stdRenew {
+  "id": number | null,
+  "endSubscriptionDate": Date | string,
+  "isSubscribed" : true,
+  "isActive" : true
+}

@@ -1,19 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentService} from "../../servies/Student/student.service";
-import {StudentInterface, StudentModule} from "../../models/student/student.module";
+import {StudentInterface, StudentModule, SubscriptionRenew} from "../../models/student/student.module";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TownService} from "../../servies/Towns/town.service";
 import {UniversityService} from "../../servies/Universities/university.service";
 import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
 import {environment} from "../../../environments/environment";
-import * as firebase from 'firebase';
-import {auth} from "firebase";
+
 import {FirebaseService} from "../../servies/firebase/firebase.service";
 import {HelperService} from "../../Helper/helper.service";
 
-// import {getAuth} from "@angular/fire/auth";
-// import {signOut} from "@angular/fire/auth";
+import firebase from "firebase";
+import initializeApp = firebase.initializeApp;
+import getFirestore  = firebase.firestore;
+import getAnalytics  = firebase.analytics;
+import auth = firebase.auth;
+let app;
+if (!firebase.apps.length) {
+  app = initializeApp(environment.firebase);
+}else {
+  app =  firebase.app(); // if already initialized, use that one
+}
+const analytisc = getAnalytics(app);
+const db = getFirestore(app);
 
 @Component({
   selector: 'app-students',
@@ -323,29 +333,36 @@ export class StudentsComponent implements OnInit {
     return this.formValuesRenew.get('endSubscriptionDate');
   }
 
+  DataRenew :SubscriptionRenew | any;
   private getRenewDetails() {
     let SubscriptionDate = new Date(this.endSubscriptionDateRenew.value);
     let pipe = new DatePipe('en-US');
-    this.StudentModule.id = this.StudentModule.id ? this.StudentModule.id :null;
-    this.StudentModule.endSubscriptionDate = this.endSubscriptionDateRenew.value ?
+    this.DataRenew.std = {
+    "id" : this.StudentModule.id ? this.StudentModule.id :null,
+    "endSubscriptionDate" : this.endSubscriptionDateRenew.value ?
       pipe.transform(
-        (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null;
-    this.StudentModule.isSubscribed = true;
-    this.StudentModule.isActive = true;
+        (SubscriptionDate.setDate(SubscriptionDate.getDate() + 30)), 'yyyy-MM-dd') : null,
+      "isSubscribed" : true,
+      "isActive" : true
+    }
+    this.StudentModule.id = this.DataRenew.std.id;
+    this.StudentModule.SubscriptionDate = this.DataRenew.std.endSubscriptionDate;
   }
 
 
   RenewStudent() {
+    this.DataRenew = new SubscriptionRenew;
     this.getRenewDetails();
-    console.log(this.StudentModule);
     if (this.formValuesRenew.status == "VALID") {
-      this.StudentApi.RenewStudents(this.StudentModule)
+      this.StudentApi.RenewStudents(this.DataRenew)
         .subscribe((res : any) => {
             this.toastr.success('Renew Student Successfully');
             let ref = document.getElementById('close-button-Renew');
             ref?.click();
-            this.students.splice(this.hepler.findIndex(this.students ,this.StudentModule.id),1);
-            this.students.push(this.StudentModule);
+            let index = this.hepler.findIndex(this.students ,this.StudentModule.id);
+            this.students[index].endSubscriptionDate = this.DataRenew.std.endSubscriptionDate;
+            this.students[index].isSubscribed = this.DataRenew.std.isSubscribed;
+            this.students[index].isActive = this.DataRenew.std.isActive;
           },
           (err : any) => {
             console.log(err);

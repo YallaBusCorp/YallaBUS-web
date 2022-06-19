@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {StudentInterface, StudentModule} from "../../models/student/student.module";
+import {StudentInterface, StudentModule, SubscriptionRenew} from "../../models/student/student.module";
 import {map} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 
@@ -39,7 +39,7 @@ export class StudentService {
   }
 
   RenewStudents(data:any) {
-    return this.http.put<StudentModule>(`${environment.UrlWebsite}/student/subscription`,
+    return this.http.post<SubscriptionRenew>(`${environment.UrlWebsite}/payment/save-payment`,
       data
     )
       .pipe(map((res:any)=>{

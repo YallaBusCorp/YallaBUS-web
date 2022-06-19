@@ -3,7 +3,6 @@ import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HomeComponent} from "../home/home.component";
-import {auth} from "firebase";
 import {AuthService} from "../../servies/Auth/auth.service";
 
 @Component({
@@ -51,26 +50,6 @@ export class LoginComponent implements OnInit {
             this.toastr.warning(err.error ? err.error : "wrong in Server");
           }
         )
-
-
-
-            // if(this.username.value == "unibus" && this.password.value == "123456789"){
-            //   this.toastr.success('Register Successfully');
-            //   // this.loginForm.reset();
-            //   localStorage.setItem('token','1');
-            //    history : HomeComponent;
-            //    history.go(0);
-            //  // this.router.navigate(['/home']);
-            // }else if(this.username.value == "Sarkees" && this.password.value == "123456789"){
-            //   this.toastr.success('Register Successfully');
-            //   // this.loginForm.reset();
-            //   localStorage.setItem('token','2');
-            //   history : HomeComponent;
-            //   history.go(0);
-            // //  this.router.navigate(['/home']);
-            // }else{
-            //   this.toastr.info("Company Not Found");
-            // }
     }else{
       this.toastr.info('Please fill in the data correctly');
     }

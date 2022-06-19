@@ -27,6 +27,9 @@ import { FeeByBusComponent } from './pages/fees/fee-by-bus/fee-by-bus.component'
 import { AssignmentComponent } from './pages/assignment/assignment.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SubscriptionPriceComponent } from './pages/settings/subscription-price/subscription-price.component';
+import {environment} from "../environments/environment";
+
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,9 +61,7 @@ import { SubscriptionPriceComponent } from './pages/settings/subscription-price/
     FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-
-
-],
+  ],
   providers: [DatePipe],
   bootstrap: [
     AppComponent

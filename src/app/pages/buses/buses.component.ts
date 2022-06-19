@@ -1,14 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import {BusService} from "../../servies/Bus/Bus.service";
 import {ToastrService} from "ngx-toastr";
-import * as firebase from "firebase";
 import {environment} from "../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DatePipe} from "@angular/common";
-import {auth} from "firebase";
 import {BusModule} from "../../models/bus/bus.module";
 import {FirebaseService} from "../../servies/firebase/firebase.service";
 import {HelperService} from "../../Helper/helper.service";
+
+import firebase from "firebase";
+import initializeApp = firebase.initializeApp;
+import getFirestore  = firebase.firestore;
+import getAnalytics  = firebase.analytics;
+import auth = firebase.auth;
+let app;
+if (!firebase.apps.length) {
+   app = initializeApp(environment.firebase);
+}else {
+   app =  firebase.app(); // if already initialized, use that one
+}
+
+const analytisc = getAnalytics(app);
+const db = getFirestore(app);
+
 
 @Component({
   selector: 'app-buses',
