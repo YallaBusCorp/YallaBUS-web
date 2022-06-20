@@ -8,10 +8,12 @@ import {ToastrService} from "ngx-toastr";
   templateUrl: './fees.component.html',
   styleUrls: ['./fees.component.css']
 })
-export class FeesComponent implements OnInit , AfterViewInit{
-  filterFees : any = "Pending";
+export class FeesComponent implements OnInit {
+  //AfterViewInit
+  filterFees : any = "All";
   PendingFees : any;
   ApprovedFees : any;
+  NotApprovedFees : any;
   AllFees : any;
   constructor(
     private api: FeesService,
@@ -19,13 +21,16 @@ export class FeesComponent implements OnInit , AfterViewInit{
   ) { }
 
   ngOnInit(): void {
-    this.getPendingfees();
-
-  }
-  ngAfterViewInit(){
+    //this.getPendingfees();
     this.getApprovedfees();
     this.getAllfees();
+    this.getNotApprovedfees();
+
   }
+  // ngAfterViewInit(){
+  //   this.getApprovedfees();
+  //   this.getAllfees();
+  // }
 
   private getPendingfees() {
     this.api.getPendingfees()
@@ -58,6 +63,16 @@ export class FeesComponent implements OnInit , AfterViewInit{
         }
       )
   }
+  private getNotApprovedfees() {
+    this.api.getNotApprovedfees()
+      .subscribe( (res : any) => {
+          this.NotApprovedFees = res;
+        },
+        (err : any) => {
+          this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
+        }
+      )
+  }
   ApprovedFee(id : any,bool : boolean) {
     this.api.ApprovedFee(id,bool)
       .subscribe(() =>{
@@ -66,7 +81,7 @@ export class FeesComponent implements OnInit , AfterViewInit{
         else
           this.toastr.success(' Not Approved Successfully');
 
-          this.getPendingfees();
+        this.getPendingfees();
         this.getApprovedfees();
           this.getAllfees();
 

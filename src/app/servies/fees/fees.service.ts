@@ -31,6 +31,16 @@ export class FeesService {
         }
       ));
   }
+  getNotApprovedfees(){
+    return this.http.get<FeesModule>(`${environment.UrlWebsite}/fee/company/get-all-NotApproved?id=`
+      +environment.Token
+    ).pipe(
+      map((res:any)=>{
+          return res;
+
+        }
+      ));
+  }
   getAllfees() {
     return this.http.get<FeesModule>(`${environment.UrlWebsite}/fee/company/get-all?id=`
       +environment.Token

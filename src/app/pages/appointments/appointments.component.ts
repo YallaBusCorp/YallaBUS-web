@@ -7,6 +7,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppointmentModule} from "../../models/appointment/appointment.module";
 import {AppointmentService} from "../../servies/Appointments/appointment.service";
 import { DatePipe } from '@angular/common';
+import {HelperService} from "../../Helper/helper.service";
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
@@ -22,6 +23,7 @@ export class AppointmentsComponent implements OnInit {
     private AppointmentApi: AppointmentService,
     private toastr: ToastrService,
     private  datePipe:DatePipe,
+    private hepler : HelperService
   ) {
   }
 
@@ -78,14 +80,22 @@ export class AppointmentsComponent implements OnInit {
 
   //Start Get All Details
   getDetails() {
-    let Now =  this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    let time = new Date(Now + 'T' +this.appointmentStartTime.value);
-    let timeFormat =  this.datePipe.transform(time, 'HH:MM:SS');
+    // let Now =  this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    // let time = new Date(Now + 'T' +this.appointmentStartTime.value);
+    // let timeFormat =  this.datePipe.transform(time, 'HH:MM:SS');
 
     this.AppointmentModule.id = this.AppointmentModule.id ? this.AppointmentModule.id :null;
-    this.AppointmentModule.appointmentStartTime =  this.AppointmentModule.appointmentStartTime !=null ?
-      this.AppointmentModule.appointmentStartTime : this.appointmentStartTime.value;
-
+    if(this.ShowAddbutton == true)
+      this.AppointmentModule.appointmentStartTime =this.appointmentStartTime.value + ':00';
+    else{
+     // let Now =  this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+     // let time = new Date(Now + 'T' +this.appointmentStartTime.value);
+     // let timeFormat =  this.datePipe.transform(time, 'HH:MM:SS');
+      console.log(this.appointmentStartTime.value , this.AppointmentModule.appointmentStartTime )
+      this.AppointmentModule.appointmentStartTime =
+        (this.AppointmentModule.appointmentStartTime == this.appointmentStartTime.value ) ?
+      this.AppointmentModule.appointmentStartTime  :this.appointmentStartTime.value + ':00';
+    }
     this.AppointmentModule.appointmentType = this.appointmentType?.value;
     this.AppointmentModule.isActive = (this.ShowAddbutton == true) ? true :
       (this.isActive?.value != null && this.isActive?.value != false ) ? true : false;
@@ -96,15 +106,17 @@ export class AppointmentsComponent implements OnInit {
   //Start Save Appointment
   SaveAppointment() {
     this.AppointmentModule = new AppointmentModule;
-    this.getDetails();
      console.log(this.AppointmentModule);
       if (this.validation()) {
+        this.getDetails();
         this.AppointmentApi.PostAppointments(this.AppointmentModule)
           .subscribe((res : any) => {
               this.toastr.success('Added Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.getAppointments();
+              this.AppointmentModule.id = res.id;
+              this.Appointments.push(this.AppointmentModule);
+              //this.getAppointments();
             },
             (err : any) => {
               console.log(err);
@@ -124,10 +136,12 @@ export class AppointmentsComponent implements OnInit {
     this.AppointmentModule = new AppointmentModule;
     this.AppointmentModule.id = Number(row.id);
     this.formValues.controls['appointmentStartTime'].setValue(row.appointmentStartTime);
+    this.AppointmentModule.appointmentStartTime = row.appointmentStartTime;
     this.formValues.controls['appointmentType'].setValue(row.appointmentType);
     this.formValues.controls['isActive'].setValue(row.isActive);
     this.isActiveButton =row.isActive;
   }
+
   UpdateAppointment() {
     this.getDetails();
     if (this.validation()) {
@@ -136,7 +150,9 @@ export class AppointmentsComponent implements OnInit {
               this.toastr.success('Updated Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.getAppointments();
+              this.Appointments.splice(this.hepler.findIndex(this.Appointments ,this.AppointmentModule.id),1);
+              this.Appointments.push(this.AppointmentModule);
+           //   this.getAppointments();
             },
             (err:any) => {
               this.toastr.warning(err.error ? err.error : "wrong in Server");
@@ -152,7 +168,7 @@ export class AppointmentsComponent implements OnInit {
     this.AppointmentApi.DeleteAppointment(id)
       .subscribe((res:any) =>{
           this.toastr.success('Delete Successfully');
-          this.getAppointments();
+          this.Appointments.splice(this.hepler.findIndex(this.Appointments ,id),1);
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);

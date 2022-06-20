@@ -150,3 +150,7 @@
     </form>
   </div>
 </div>
+
+<div class="container-xxl flex-grow-1 " *ngIf="Complaints.length == 0 && ComplaintsFinished.length == 0">
+  <div class="alert alert-primary" role="alert">Not found Complaint</div>
+</div>

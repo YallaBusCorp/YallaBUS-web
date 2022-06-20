@@ -7,9 +7,10 @@
         <div class="card-header d-flex justify-content-between">
           <div class="left-card " style="flex-grow: 1;display: flex;">
             <select  class="form-select search-card-style"[(ngModel)]="filterFees">
-              <option value="Pending">Pending Fees</option>
+<!--              <option value="Pending">Pending Fees</option>-->
               <option value="All">All Fees</option>
               <option value="Approved">Approved Fees</option>
+              <option value="NotApprovedFees">Not Approved Fees</option>
             </select>
           </div>
 
@@ -24,30 +25,31 @@
                     <th>fee Name</th>
                     <th>price</th>
                     <th>fee Date</th>
-                    <th>{{filterFees =='Pending' ? "Actions" : "Status" }}</th>
+<!--                    <th>{{filterFees =='Pending' ? "Actions" : "Status" }}</th>-->
+                    <th> Status </th>
                   </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-                  <ng-container  *ngIf="filterFees == 'Pending'">
-                  <tr *ngFor="let Fee of PendingFees;let i = index;">
-                    <td><strong>{{i+1}}</strong></td>
-                    <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>
-                    <td>
-                      {{Fee.bus.phone}}
-                    </td>
-                    <td>{{Fee.feesLk.lkNameAr}}</td>
-                    <td>{{Fee.price}}</td>
-                    <td>
-                      <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
-                    <td>
-                      <div >
-                        <button (click)="ApprovedFee(Fee.id,true)"  type="button" class="btn btn-success"
-                                style="margin-right: 10px; border-radius: 15px;">Agree</button>
-                        <button (click)="ApprovedFee(Fee.id,false)" type="button" class="btn btn-danger" style="border-radius: 15px;">Refuse</button>
-                      </div>
-                    </td>
-                  </tr>
-                  </ng-container>
+<!--                  <ng-container  *ngIf="filterFees == 'Pending'">-->
+<!--                  <tr *ngFor="let Fee of PendingFees;let i = index;">-->
+<!--                    <td><strong>{{i+1}}</strong></td>-->
+<!--                    <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>-->
+<!--                    <td>-->
+<!--                      {{Fee.bus.phone}}-->
+<!--                    </td>-->
+<!--                    <td>{{Fee.feesLk.lkNameAr}}</td>-->
+<!--                    <td>{{Fee.price}}</td>-->
+<!--                    <td>-->
+<!--                      <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>-->
+<!--                    <td>-->
+<!--                      <div >-->
+<!--                        <button (click)="ApprovedFee(Fee.id,true)"  type="button" class="btn btn-success"-->
+<!--                                style="margin-right: 10px; border-radius: 15px;">Agree</button>-->
+<!--                        <button (click)="ApprovedFee(Fee.id,false)" type="button" class="btn btn-danger" style="border-radius: 15px;">Refuse</button>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                  </tr>-->
+<!--                  </ng-container>-->
                   <ng-container  *ngIf="filterFees == 'All'">
                     <tr *ngFor="let Fee of AllFees;let i = index;">
                       <td><strong>{{i+1}}</strong></td>
@@ -84,7 +86,23 @@
                       <td>
                         <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
                       <td>
-                          <span class="badge bg-label-success me-1">Approved</span>
+                        <span class="badge bg-label-success me-1">Approved</span>
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <ng-container  *ngIf="filterFees == 'NotApprovedFees'">
+                    <tr *ngFor="let Fee of NotApprovedFees;let i = index;">
+                      <td><strong>{{i+1}}</strong></td>
+                      <td>{{Fee.bus.model}}#{{Fee.bus.capacity}}</td>
+                      <td>
+                        {{Fee.bus.phone}}
+                      </td>
+                      <td>{{Fee.feesLk.lkNameAr}}</td>
+                      <td>{{Fee.price}}</td>
+                      <td>
+                        <span class="badge bg-label-warning me-1">{{Fee.fessDate}}</span></td>
+                      <td>
+                        <span class="badge bg-label-danger me-1">Not ApprovedFees</span>
                       </td>
                     </tr>
                   </ng-container>
