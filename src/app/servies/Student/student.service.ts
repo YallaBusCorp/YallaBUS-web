@@ -20,6 +20,15 @@ export class StudentService {
     }
     ));
   }
+  getStudentByUID(data:any) {
+    return this.http.get(`${environment.UrlWebsite}/student/get-by-uid?stdUid=`
+      +data
+    ).pipe(
+      map((res:any)=>{
+          return res;
+        }
+      ));
+  }
   PostStudents(data:any) {
     return this.http.post<StudentModule>(`${environment.UrlWebsite}/student/save-student`,
          data
