@@ -162,6 +162,7 @@ export class ComplaintsComponent implements OnInit,OnDestroy {
   }
   ComplaintInterface : ComplaintInterface | null;
   onEdit(row: any){
+    this.formValues.reset();
     this.ComplaintInterface = new ComplaintInterface;
     this.ComplaintInterface.complaintID = row.complaintID;
     this.ComplaintInterface.message = row.message;

@@ -1,0 +1,59 @@
+
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h2>Payments</h2>
+    <div class="col-lg-12">
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="left-card ">
+            <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 20px;" type="search"placeholder="Search" >
+            <button type="button"
+                    class="btn btn-sm btn-primary " >search</button>
+          </div>
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>start Date</th>
+              <th>End Date</th>
+              <th>Price</th>
+              <th>payment Method Type</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr *ngFor="let Payment of Payments;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{Payment.std.stdName  }}</td>
+              <td>{{Payment.std.stdPhone  }}</td>
+              <td  >
+                <span class="badge  bg-label-primary me-1"> {{Payment.paymentStartDate}}</span>
+              </td>
+              <td >
+                <span class="badge  bg-label-danger me-1">  {{Payment.paymentEndDate}} </span>
+              </td>
+              <td>{{Payment.paymentPrice  }}</td>
+
+              <td *ngIf="Payment.paymentMethodType == 'O'" >
+                <span class="badge  bg-label-success me-1"> Online Payment </span>
+              </td>
+              <td *ngIf="Payment.paymentMethodType == 'C'">
+                <span class="badge bg-label-info me-11"> Cash Payment</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+  <!-- Content wrapper -->
+</div>
+

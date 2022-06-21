@@ -28,6 +28,7 @@ import { AssignmentComponent } from './pages/assignment/assignment.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SubscriptionPriceComponent } from './pages/settings/subscription-price/subscription-price.component';
 import {environment} from "../environments/environment";
+import { PaymentComponent } from './pages/payment/payment.component';
 
 // @ts-ignore
 @NgModule({
@@ -51,7 +52,8 @@ import {environment} from "../environments/environment";
     FeeByBusComponent,
     AssignmentComponent,
     SettingsComponent,
-    SubscriptionPriceComponent
+    SubscriptionPriceComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
