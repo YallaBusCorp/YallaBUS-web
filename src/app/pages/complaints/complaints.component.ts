@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import firebase from "firebase";
 import initializeApp = firebase.initializeApp;
 import getFirestore  = firebase.firestore;
@@ -31,7 +31,7 @@ const db = getFirestore(app);
 
 
 
-export class ComplaintsComponent implements OnInit {
+export class ComplaintsComponent implements OnInit,OnDestroy {
   Complaints :any | null = [];
   ComplaintsFinished :any | null = [];
   Company : any;
@@ -66,7 +66,6 @@ export class ComplaintsComponent implements OnInit {
     //     console.error("Error updating document: ", error);
     //   });
 
-
     // Add company
 
    // db.collection("company").doc('unibus').set({
@@ -77,10 +76,14 @@ export class ComplaintsComponent implements OnInit {
 
  // this.getComplaints();
   }
+  public ngOnDestroy() {
 
+    this.washingtonRef.unsubscribe();
+  }
+  fb :any;
   getComplaints() {
 
-    db.collection("company").doc(this.Company.companyName)
+   this.fb = db.collection("company").doc(this.Company.companyName)
       .collection("complaint").orderBy("msgTimestamp", "desc")
       .onSnapshot({
         includeMetadataChanges: true
@@ -93,7 +96,7 @@ export class ComplaintsComponent implements OnInit {
           else
             this.Complaints.push(doc.data());
         });
-
+        this.fb.unsubscribe();
         console.log(this.ComplaintsFinished);
         console.log(this.Complaints);
 
@@ -123,11 +126,11 @@ export class ComplaintsComponent implements OnInit {
         }
       )
   }
-
+   washingtonRef : any;
   SendReplyComplaint(data : any) {
-    let washingtonRef =db.collection("company").doc(this.Company.companyName)
+    this.washingtonRef =db.collection("company").doc(this.Company.companyName)
       .collection("complaint").doc(data.complaintID);
-    washingtonRef.update({
+    this.washingtonRef.update({
       response : data.response,
      // resTimestamp : data.resTimestamp,
     })
@@ -136,7 +139,7 @@ export class ComplaintsComponent implements OnInit {
         let ref = document.getElementById('close-button');
         ref?.click();
       })
-      .catch((error) => {
+      .catch((error :any) => {
         this.toastr.error("Error updating document:", error);
       });
 

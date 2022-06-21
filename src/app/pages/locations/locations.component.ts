@@ -5,6 +5,7 @@ import {MapPointService} from "../../servies/mapPoint/map-point.service";
 import {ToastrService} from "ngx-toastr";
 import {MapPointModule} from "../../models/map-point/map-point.module";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {HelperService} from "../../Helper/helper.service";
 @Component({
   selector: 'app-locations',
   templateUrl: './locations.component.html',
@@ -14,6 +15,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class LocationsComponent implements OnInit   {
   markers : any = [];
   markerMap : any = [];
+  markersMap : any = [];
   map: any;
   mapAll: any;
   loader:any;
@@ -23,7 +25,8 @@ export class LocationsComponent implements OnInit   {
   ShowAddbutton : boolean =true;
   constructor(
     private api : MapPointService ,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private hepler : HelperService
   ) {
     this.getMapPoints();
     this.loader = new Loader({
@@ -32,7 +35,6 @@ export class LocationsComponent implements OnInit   {
 
   }
   ngOnInit(): void {
-    console.log(this.markers);
     this.loader.load().then(() => {
       this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
         center:
@@ -62,10 +64,10 @@ export class LocationsComponent implements OnInit   {
         scale: 0.075,
       };
        google.maps.event.addListener(this.map , "click", (event : any) => {
-         if(this.markerPoint !=null){
-           this.markerMap[0].setMap(null);
+         for (let i = 0; i <  this.markerMap.length; i++) {
+           this.markerMap[i].setMap(null);
          }
-        this.markerMap[0] = this.addMarker(event.latLng, this.map);
+        this.markerMap[0]=this.addMarker(event.latLng, this.map);
           this.markerPoint = JSON.parse( JSON.stringify(this.markerMap[0].position.toJSON(), null, 2));
       console.log(this.markerPoint);
 
@@ -75,30 +77,11 @@ export class LocationsComponent implements OnInit   {
   }
   // Adds a marker to the map.
 
-  public addMarker(location : any, map : any) {
-     return new google.maps.Marker({
-       position: location,
-       map: map,
-       icon: this.icon,
-     });
-
-  }
-
   getMapPoints() {
      this.api.getMapPoints()
       .subscribe( (res : any) => {
           this.markers = res;
-          this.loader.load().then(() => {
-            res.forEach( (location : any) => {
-              new google.maps.Marker({
-                position: new google.maps.LatLng(location.latitude, location.longitude),
-                map: this.mapAll,
-                icon: this.icon,
-                title: location.mapPointTitleAr,
-              });
-            });
-          });
-
+          this.AddAllPoints(res);
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
@@ -106,15 +89,59 @@ export class LocationsComponent implements OnInit   {
         }
       );
   }
+  AddAllPoints(res : any){
+    this.loader.load().then(() => {
+      res.forEach( (location : any) => {
+          this.markerPoint = this.AllPoints(location);
+          this.markersMap.push(this.markerPoint);
+
+      });
+    });
+  }
+  AllPoints(location : any){
+    return new  google.maps.Marker({
+      position: new google.maps.LatLng(location.latitude, location.longitude),
+      map: this.mapAll,
+      icon: this.icon,
+      title: location.mapPointTitleAr,
+    })
+  }
+  AddPoint(res : any){
+    this.loader.load().then(() => {
+        this.PointMarker(res);
+    });
+
+  }
+  PointMarker(res : any){
+  return  new google.maps.Marker({
+      position: new google.maps.LatLng(res.latitude, res.longitude),
+      map: this.mapAll,
+      icon: this.icon,
+      title: res.mapPointTitleAr,
+    });
+
+  }
+  public addMarker(location : any, map : any) {
+    return new google.maps.Marker({
+      position: location,
+      map: map,
+      icon: this.icon,
+    });
+
+  }
 
 
   formValues = new FormGroup({
     mapPointTitleAr: new FormControl('', [Validators.required]),
+    mapPointTitleEn: new FormControl('', [Validators.required]),
     mapPointType: new FormControl('', [Validators.required]),
     isActive : new FormControl(''),
   });
   get mapPointTitleAr(): any {
     return this.formValues.get('mapPointTitleAr');
+  }
+  get mapPointTitleEn(): any {
+    return this.formValues.get('mapPointTitleEn');
   }
 
   get mapPointType(): any {
@@ -135,12 +162,17 @@ export class LocationsComponent implements OnInit   {
   }
   //Start Get All Details
   getDetails() {
-
     this.MapPointModule.id = this.MapPointModule.id ? this.MapPointModule.id :null;
     this.MapPointModule.mapPointTitleAr =  this.MapPointModule.mapPointTitleAr !=null ?
       this.MapPointModule.mapPointTitleAr : this.mapPointTitleAr.value;
-    this.MapPointModule.longitude = this.markerPoint !=null ? this.markerPoint.lng : null;
-    this.MapPointModule.latitude = this.markerPoint !=null ? this.markerPoint.lat : null;
+    this.MapPointModule.mapPointTitleEn =  this.MapPointModule.mapPointTitleEn !=null ?
+      this.MapPointModule.mapPointTitleEn : this.mapPointTitleEn.value;
+
+    if(this.markerPoint != null)
+    this.MapPointModule.longitude = this.markerPoint.lng ;
+
+    if(this.markerPoint != null)
+    this.MapPointModule.latitude = this.markerPoint.lat;
 
     this.MapPointModule.mapPointType = this.mapPointType?.value;
     this.MapPointModule.isActive = (this.ShowAddbutton == true) ? true :
@@ -148,17 +180,7 @@ export class LocationsComponent implements OnInit   {
     this.MapPointModule.company = { "id" :  environment.Token };
   }
   //End Get All Details
-  DeleteMarker(id : any) {
-    this.api.DeleteMapPoint(id)
-      .subscribe((res:any) =>{
-          this.toastr.success('Delete Successfully');
-          this.getMapPoints();
-        },
-        (err : any)=>{
-          this.toastr.warning(err.statusText);
-        }
-      )
-  }
+
 
   public isActiveButton :boolean = true;
   onEdit(row: any) {
@@ -166,24 +188,27 @@ export class LocationsComponent implements OnInit   {
     this.MapPointModule = new MapPointModule;
     this.MapPointModule.id = Number(row.id);
     this.formValues.controls['mapPointTitleAr'].setValue(row.mapPointTitleAr);
+    this.formValues.controls['mapPointTitleEn'].setValue(row.mapPointTitleEn);
     this.formValues.controls['mapPointType'].setValue(row.mapPointType);
     this.formValues.controls['isActive'].setValue(row.isActive);
+    this.MapPointModule.longitude = row.longitude;
+    this.MapPointModule.latitude = row.latitude;
     this.isActiveButton =row.isActive;
     if(this.markerMap[0] !=null){
       this.markerMap[0].setMap(null);
+      this.markerMap[0] = null;
     }
     this.markerMap[0] = this.addMarker(new google.maps.LatLng(row.latitude,row.longitude),
       this.map);
     this.markerPoint =null;
-
 
   }
 
   AddButton() {
     this.ShowAddbutton = true;
     this.formValues.reset();
-    if(this.markerMap[0] !=null){
-      this.markerMap[0].setMap(null);
+    for (let i = 0; i <  this.markerMap.length; i++) {
+      this.markerMap[i].setMap(null);
     }
     this.markerPoint =null;
 
@@ -191,35 +216,44 @@ export class LocationsComponent implements OnInit   {
 
   SavePoint() {
     this.MapPointModule = new MapPointModule;
-    this.getDetails();
-    console.log(this.MapPointModule);
-    if (this.validation(this.MapPointModule)) {
-      this.api.PostMapPoint(this.MapPointModule)
+     if (this.validation(this.MapPointModule)) {
+       this.getDetails();
+       console.log(this.MapPointModule);
+         this.api.PostMapPoint(this.MapPointModule)
         .subscribe((res : any) => {
             this.toastr.success('Added Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
+            for (let i = 0; i <  this.markersMap.length; i++) {
+              this.markersMap[i].setMap(null);
+            }
             this.getMapPoints();
+
           },
           (err : any) => {
             console.log(err);
             this.toastr.warning(err.error ? err.error : "wrong in Server");
           }
         )
-    } else {
-      this.toastr.info('Please fill in the data correctly');
-    }
+     } else {
+       this.toastr.info('Please fill in the data correctly');
+     }
   }
 
   UpdatePoint() {
     this.getDetails();
-    if (this.validation(this.MapPointModule)) {
+    console.log(this.MapPointModule);
+    if (this.formValues.status == "VALID" ) {
       this.api.UpdateMapPoint(this.MapPointModule)
         .subscribe((res:any) => {
+            for (let i = 0; i <  this.markersMap.length; i++) {
+              this.markersMap[i].setMap(null);
+            }
+            this.getMapPoints();
             this.toastr.success('Updated Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.getMapPoints();
+
           },
           (err:any) => {
             this.toastr.warning(err.error ? err.error : "wrong in Server");
@@ -229,5 +263,21 @@ export class LocationsComponent implements OnInit   {
       this.toastr.info('Please fill in the data correctly');
     }
 
+  }
+
+  DeleteMarker(id : any) {
+    this.api.DeleteMapPoint(id)
+      .subscribe((res:any) =>{
+          for (let i = 0; i <  this.markersMap.length; i++) {
+            this.markersMap[i].setMap(null);
+          }
+          this.getMapPoints();
+          this.toastr.success('Delete Successfully');
+
+        },
+        (err : any)=>{
+          this.toastr.warning(err.statusText);
+        }
+      )
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.css']
 })
-export class ErrorComponent implements OnInit {
+export class ErrorComponent implements OnInit ,OnDestroy{
 
   constructor(private router : Router) { }
   id1 : any;
@@ -18,10 +18,11 @@ export class ErrorComponent implements OnInit {
     this.id2?.classList.add("layout-without-menu");
   }
   //
-
-  goHome() {
+  public ngOnDestroy() {
     this.id1?.classList.remove("layout-menu-remove");
     this.id2?.classList.remove("layout-without-menu");
+  }
+  goHome() {
     this.router.navigate(['home']);
   }
 }
