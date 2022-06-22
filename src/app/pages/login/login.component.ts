@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
               }
           },
           (err : any) => {
-            console.log(err);
-            this.toastr.warning(err.error ? err.error : "wrong in Server");
+            this.toastr.warning("wrong in Server");
           }
         )
     }else{
