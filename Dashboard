@@ -73,21 +73,4 @@ Home And Yalla Bus Dashboard -- firebase Complaints
 
 
 
-=============================================
-"node_modules/ngx-toastr/toastr.css",
-"src/assets/vendor/css/core.css" ,
-"src/assets/vendor/css/theme-default.css",
-"src/assets/css/demo.css",
-"src/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css",
-"src/assets/vendor/libs/apex-charts/apex-charts.css"
-------------
-"src/assets/vendor/libs/jquery/jquery.js",
-"src/assets/vendor/libs/popper/popper.js",
-"src/assets/vendor/js/bootstrap.js",
-"src/assets/vendor/js/helpers.js",
-"src/assets/js/config.js",
-"src/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js",
-"src/assets/vendor/js/menu.js",
-"src/assets/vendor/libs/apex-charts/apexcharts.js",
-"src/assets/js/main.js",
-"src/assets/js/dashboards-analytics.js"
+
