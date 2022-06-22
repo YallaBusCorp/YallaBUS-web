@@ -1,0 +1,23 @@
+.menu-inner{
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+/* Track */
+.menu-inner::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 20px;
+  height: 11px;
+  width: 11px;
+}
+
+/* Handle */
+.menu-inner::-webkit-scrollbar  {
+  background: none;
+  width: 5px;
+  height: 10px;
+}
+
+/* Handle on hover */
+.menu-inner::-webkit-scrollbar-track {
+  background: none;
+}
