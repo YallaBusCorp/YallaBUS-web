@@ -27,10 +27,15 @@ import { FeeByBusComponent } from './pages/fees/fee-by-bus/fee-by-bus.component'
 import { AssignmentComponent } from './pages/assignment/assignment.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SubscriptionPriceComponent } from './pages/settings/subscription-price/subscription-price.component';
-import {environment} from "../environments/environment";
 import { PaymentComponent } from './pages/payment/payment.component';
-
-// @ts-ignore
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { TestComponent } from './pages/test/test.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +58,8 @@ import { PaymentComponent } from './pages/payment/payment.component';
     AssignmentComponent,
     SettingsComponent,
     SubscriptionPriceComponent,
-    PaymentComponent
+    PaymentComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +69,16 @@ import { PaymentComponent } from './pages/payment/payment.component';
     FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+  ],
+  exports :[
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [DatePipe],
   bootstrap: [

@@ -6,9 +6,13 @@
       <div class="card" style="margin-top: 10px">
         <div class="card-header d-flex align-items-center justify-content-between">
           <div class="left-card ">
-            <input class="form-control p-1"style="width:300px;display: inline-block;margin-right: 20px;" type="search"placeholder="Search" >
-            <button type="button"
-                    class="btn btn-sm btn-primary " >search</button>
+            <mat-form-field appearance="standard" style="width:257px">
+              <mat-label>Search</mat-label>
+              <input type="search"
+                     class="form-control p-1"
+                     matInput (keyup)="
+                     applyFilter($event)" placeholder="Search" #input>
+            </mat-form-field>
           </div>
           <div class="right-card">
             <button type="button"
@@ -18,78 +22,72 @@
 
 
         </div>
+
         <div class="card-body table-responsive text-nowrap">
-          <table class="table table-borderless">
-            <thead style="border-bottom: 1px solid #b3b3b3">
-            <tr>
-              <th>#id</th>
-              <th>Title</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-            <tr *ngFor="let marker of markers;let i = index;">
-              <td><strong>{{i+1}}</strong></td>
-              <td>{{marker.mapPointTitleAr}}</td>
-              <td *ngIf="marker.mapPointType == 'P'" >
-                <span class="badge  bg-label-primary me-1"> Pick up </span>
-              </td>
-              <td *ngIf="marker.mapPointType == 'D'" >
-                <span class="badge  bg-label-success me-1"> Drop off </span>
-              </td>
+          <div >
+            <table mat-table [dataSource]="dataSource" matSort>
 
-              <td *ngIf="marker.isActive == true" >
-                <span class="badge  bg-label-success me-1"> Active </span>
-              </td>
-              <td *ngIf="marker.isActive != true">
-                <span class="badge bg-label-danger me-11"> Not Active </span>
-              </td>
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef=" let i = index;"> <strong>{{i+1}}</strong></td>
+              </ng-container>
 
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
-                    <a class="dropdown-item" href="javascript:void(0);"
-                       data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(marker)">Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteMarker(marker.id)">Delete</a>
+              <!-- START TIME Column -->
+              <ng-container matColumnDef="mapPointTitleAr">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                <td mat-cell *matCellDef="let row"> {{row.mapPointTitleAr}} </td>
+              </ng-container>
+
+              <!-- TYPE Column -->
+              <ng-container matColumnDef="mapPointType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>
+                <td  mat-cell *matCellDef="let row">
+                  <span *ngIf="row.mapPointType == 'P'"  class="badge  bg-label-primary me-1"> Pick up </span>
+                  <span  *ngIf="row.mapPointType == 'D'"  class="badge  bg-label-success me-1"> Drop off </span>
+                </td>
+              </ng-container>
+
+              <!-- STATUS Column -->
+              <ng-container matColumnDef="isActive">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </th>
+                <td  mat-cell *matCellDef="let row">
+                  <span *ngIf="row.isActive == true" class="badge  bg-label-success me-1"> Active </span>
+                  <span *ngIf="row.isActive != true" class="badge bg-label-danger me-11"> Not Active </span>
+                </td>
+              </ng-container>
+
+              <!-- STATUS Column -->
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td  mat-cell *matCellDef="let row">
+                  <div class="dropdown">
+                    <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
+                      <a class="dropdown-item" href="javascript:void(0);"
+                         data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(row)">Edit</a>
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteMarker(row.id)">Delete</a>
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </ng-container>
 
-            </tbody>
-          </table>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+
+            <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                            aria-label="Select page"></mat-paginator>
+          </div>
         </div>
 
-<!--        <nav aria-label="Page navigation " class=" d-flex justify-content-center">-->
-<!--          <ul class="pagination">-->
-<!--            <li class="page-item prev">-->
-<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>-->
-<!--            </li>-->
-<!--            <li class="page-item active">-->
-<!--              <a class="page-link" href="javascript:void(0);">1</a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--              <a class="page-link" href="javascript:void(0);">2</a>-->
-<!--            </li>-->
-<!--            <li class="page-item ">-->
-<!--              <a class="page-link" href="javascript:void(0);">3</a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--              <a class="page-link" href="javascript:void(0);">4</a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--              <a class="page-link" href="javascript:void(0);">5</a>-->
-<!--            </li>-->
-<!--            <li class="page-item next">-->
-<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </nav>-->
       </div>
 
     </div>

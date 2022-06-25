@@ -34,6 +34,17 @@ export class EmployeeService {
         }
       ));
   }
+  getAvailableDrivers() {
+    return this.http.get<DriverModule>(`${environment.UrlWebsite}/employee/company/driver/available?id=`
+      +environment.Token
+    ).pipe(
+      map((res:any)=>{
+          return res;
+
+        }
+      ));
+  }
+
   getAdmins() {
     return this.http.get<AdminModule>(`${environment.UrlWebsite}/admin/company/active?id=`
       +environment.Token

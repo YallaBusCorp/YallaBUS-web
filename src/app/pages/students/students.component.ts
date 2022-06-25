@@ -16,6 +16,7 @@ import initializeApp = firebase.initializeApp;
 import getFirestore  = firebase.firestore;
 import getAnalytics  = firebase.analytics;
 import auth = firebase.auth;
+import {LoginComponent} from "../login/login.component";
 let app;
 if (!firebase.apps.length) {
   app = initializeApp(environment.firebase);
@@ -51,6 +52,7 @@ export class StudentsComponent implements OnInit {
 
   windowRef: any;
   ngOnInit(): void {
+
     this.getStudents();
     this.getTwons();
     this.getUniversities();

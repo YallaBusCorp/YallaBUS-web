@@ -78,7 +78,7 @@ export class ComplaintsComponent implements OnInit,OnDestroy {
   }
   public ngOnDestroy() {
 
-    this.washingtonRef.unsubscribe();
+    //this.washingtonRef.unsubscribe();
   }
   fb :any;
   getComplaints() {
@@ -96,7 +96,7 @@ export class ComplaintsComponent implements OnInit,OnDestroy {
           else
             this.Complaints.push(doc.data());
         });
-        this.fb.unsubscribe();
+       // this.fb.unsubscribe();
         console.log(this.ComplaintsFinished);
         console.log(this.Complaints);
 

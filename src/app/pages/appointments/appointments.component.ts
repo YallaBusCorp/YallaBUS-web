@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TownService} from "../../servies/Towns/town.service";
 import {ToastrService} from "ngx-toastr";
 import {UniversityService} from "../../servies/Universities/university.service";
 import {environment} from "../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AppointmentModule} from "../../models/appointment/appointment.module";
+import {AppointmentInterface, AppointmentModule} from "../../models/appointment/appointment.module";
 import {AppointmentService} from "../../servies/Appointments/appointment.service";
 import { DatePipe } from '@angular/common';
 import {HelperService} from "../../Helper/helper.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {UserData} from "../test/test.component";
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css']
 })
 export class AppointmentsComponent implements OnInit {
-
-  Appointments: any;
+  displayedColumns: string[] = ['id', 'appointmentStartTime', 'appointmentType', 'isActive' ,'Action'];
+  dataSource: MatTableDataSource<AppointmentInterface>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  Appointments: any = [];
   theDateNow: any = new Date;
   AppointmentModule: AppointmentModule | any;
   ShowAddbutton : boolean =true;
@@ -25,19 +32,31 @@ export class AppointmentsComponent implements OnInit {
     private  datePipe:DatePipe,
     private hepler : HelperService
   ) {
+
   }
 
   ngOnInit(): void {
     this.getAppointments();
-
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  SearchAndPagination (){
+    this.dataSource = new MatTableDataSource(this.Appointments);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   getAppointments() {
     this.AppointmentApi.getAppointments()
       .subscribe( (res : any) => {
           this.Appointments = res;
-
+          this.SearchAndPagination ();
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
@@ -80,10 +99,6 @@ export class AppointmentsComponent implements OnInit {
 
   //Start Get All Details
   getDetails() {
-    // let Now =  this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    // let time = new Date(Now + 'T' +this.appointmentStartTime.value);
-    // let timeFormat =  this.datePipe.transform(time, 'HH:MM:SS');
-
     this.AppointmentModule.id = this.AppointmentModule.id ? this.AppointmentModule.id :null;
     if(this.ShowAddbutton == true)
       this.AppointmentModule.appointmentStartTime =this.appointmentStartTime.value + ':00';
@@ -116,7 +131,7 @@ export class AppointmentsComponent implements OnInit {
               ref?.click();
               this.AppointmentModule.id = res.id;
               this.Appointments.push(this.AppointmentModule);
-              //this.getAppointments();
+              this.SearchAndPagination ();
             },
             (err : any) => {
               console.log(err);
@@ -150,9 +165,10 @@ export class AppointmentsComponent implements OnInit {
               this.toastr.success('Updated Successfully');
               let ref = document.getElementById('close-button');
               ref?.click();
-              this.Appointments.splice(this.hepler.findIndex(this.Appointments ,this.AppointmentModule.id),1);
-              this.Appointments.push(this.AppointmentModule);
-           //   this.getAppointments();
+             this.Appointments.splice(this.hepler.findIndex(this.Appointments ,this.AppointmentModule.id),1);
+             this.Appointments.push(this.AppointmentModule);
+              this.SearchAndPagination ();
+              //   this.getAppointments();
             },
             (err:any) => {
               this.toastr.warning(err.error ? err.error : "wrong in Server");
@@ -169,6 +185,7 @@ export class AppointmentsComponent implements OnInit {
       .subscribe((res:any) =>{
           this.toastr.success('Delete Successfully');
           this.Appointments.splice(this.hepler.findIndex(this.Appointments ,id),1);
+          this.SearchAndPagination ();
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);

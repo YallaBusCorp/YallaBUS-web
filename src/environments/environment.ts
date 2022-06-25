@@ -15,9 +15,9 @@ export const environment = {
     appId: "1:403200399686:web:ca1beba529afe23baded47",
     measurementId: "G-N7F1D1KVV5"
   },
-  //UrlWebsite:'http://localhost:9000/api/v1',
-  UrlWebsite:'https://yalla-bus.herokuapp.com/api/v1',
-  //UrlWebsite:'https://yallabus.live/api/v1',
+ // UrlWebsite:'http://localhost:9000/api/v1',
+ // UrlWebsite:'https://yalla-bus.herokuapp.com/api/v1',
+  UrlWebsite:'https://yallabus.azurewebsites.net/api/v1',
   httpOptions : {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

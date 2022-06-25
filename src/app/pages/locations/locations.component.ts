@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {Loader} from "@googlemaps/js-api-loader";
 import {MapPointService} from "../../servies/mapPoint/map-point.service";
@@ -6,6 +6,9 @@ import {ToastrService} from "ngx-toastr";
 import {MapPointModule} from "../../models/map-point/map-point.module";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HelperService} from "../../Helper/helper.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 @Component({
   selector: 'app-locations',
   templateUrl: './locations.component.html',
@@ -75,12 +78,29 @@ export class LocationsComponent implements OnInit   {
 
     });
   }
-  // Adds a marker to the map.
+  displayedColumns: string[] = ['id', 'mapPointTitleAr', 'mapPointType', 'isActive' ,'Action'];
+  dataSource: MatTableDataSource<MapPointModule>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  SearchAndPagination (){
+    this.dataSource = new MatTableDataSource(this.markers);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   getMapPoints() {
      this.api.getMapPoints()
       .subscribe( (res : any) => {
           this.markers = res;
+          this.SearchAndPagination();
           this.AddAllPoints(res);
         },
         (err : any) => {
@@ -106,21 +126,21 @@ export class LocationsComponent implements OnInit   {
       title: location.mapPointTitleAr,
     })
   }
-  AddPoint(res : any){
-    this.loader.load().then(() => {
-        this.PointMarker(res);
-    });
-
-  }
-  PointMarker(res : any){
-  return  new google.maps.Marker({
-      position: new google.maps.LatLng(res.latitude, res.longitude),
-      map: this.mapAll,
-      icon: this.icon,
-      title: res.mapPointTitleAr,
-    });
-
-  }
+  // AddPoint(res : any){
+  //   this.loader.load().then(() => {
+  //       this.PointMarker(res);
+  //   });
+  //
+  // }
+  // PointMarker(res : any){
+  // return  new google.maps.Marker({
+  //     position: new google.maps.LatLng(res.latitude, res.longitude),
+  //     map: this.mapAll,
+  //     icon: this.icon,
+  //     title: res.mapPointTitleAr,
+  //   });
+  //
+  // }
   public addMarker(location : any, map : any) {
     return new google.maps.Marker({
       position: location,
@@ -228,6 +248,7 @@ export class LocationsComponent implements OnInit   {
               this.markersMap[i].setMap(null);
             }
             this.getMapPoints();
+            this.SearchAndPagination();
 
           },
           (err : any) => {
@@ -253,6 +274,7 @@ export class LocationsComponent implements OnInit   {
             this.toastr.success('Updated Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
+            this.SearchAndPagination();
 
           },
           (err:any) => {
@@ -272,6 +294,7 @@ export class LocationsComponent implements OnInit   {
             this.markersMap[i].setMap(null);
           }
           this.getMapPoints();
+          this.SearchAndPagination();
           this.toastr.success('Delete Successfully');
 
         },

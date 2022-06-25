@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmployeeModule} from "../../models/employee/employee.module";
 import {ToastrService} from "ngx-toastr";
@@ -8,6 +8,10 @@ import {environment} from "../../../environments/environment";
 import {AdminModule} from "../../models/employee/admin/admin.module";
 import {DriverModule} from "../../models/employee/driver/driver.module";
 import {HelperService} from "../../Helper/helper.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {AppointmentInterface} from "../../models/appointment/appointment.module";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-employees',
@@ -30,17 +34,21 @@ export class EmployeesComponent implements OnInit {
     private  datePipe:DatePipe,
     private hepler : HelperService
   ) { }
-
+  data : any = [];
   ngOnInit(): void {
     this.getSuperVisors();
     this.getAdmins();
     this.getDrivers();
     this.getLK_Employees();
+    console.log(this.data);
   }
   getSuperVisors() {
     this.api.getSupervisors()
       .subscribe( (res : any) => {
           this.SuperVisors = res;
+          this.data["SuperVisors"] = res;
+          console.log(this.data);
+
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
@@ -52,6 +60,10 @@ export class EmployeesComponent implements OnInit {
     this.api.getAdmins()
       .subscribe( (res : any) => {
           this.Admins = res;
+          this.data["Admins"] =res;
+          console.log(this.data);
+
+
         },
         (err : any) => {
           this.toastr.warning((err.statusText ?err.statusText : (err.error ? err.error : "Internal Server Error")));
@@ -63,6 +75,8 @@ export class EmployeesComponent implements OnInit {
     this.api.getDrivers()
       .subscribe( (res : any) => {
           this.Drivers = res;
+          this.data["Drivers"] =res;
+          console.log(this.data);
 
         },
         (err : any) => {
@@ -83,6 +97,12 @@ export class EmployeesComponent implements OnInit {
         }
       )
   }
+
+  displayedColumns: string[] = ['id', 'appointmentStartTime', 'appointmentType', 'isActive' ,'Action'];
+  dataSource: MatTableDataSource<AppointmentInterface>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
 
   AddButton() {
     this.ShowAddbutton = true;
@@ -180,8 +200,8 @@ export class EmployeesComponent implements OnInit {
   //End Get All Details
   SaveEmployee() {
     this.EmployeeModule = new EmployeeModule;
-    this.getEmpDetails();
     if (this.validation()) {
+      this.getEmpDetails();
       if(this.empLk.value ==1){
         this.AdminModule = new AdminModule;
         this.getAdminDetails();

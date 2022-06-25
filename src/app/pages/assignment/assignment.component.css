@@ -20,12 +20,53 @@
   color: #fff;
 }
 
-.card-info-text .bx-info-circle{
-
-}
 .card-body-group{
-  background: #e7e7ff !important;
-  padding: 14px 0;
+  background: #eaecf1 !important;
+  padding: 14px 10px;
   border-radius: 20px;
 }
+.card-info.mb-4{
+  overflow-x: scroll;
+  display: grid;
+}
+/* Track */
+.card-info.mb-4::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 20px;
+  height: 11px;
+  width: 11px;
+}
 
+/* Handle */
+.card-info.mb-4::-webkit-scrollbar  {
+  background: none;
+  width: 5px;
+  height: 10px;
+}
+
+/* Handle on hover */
+.card-info.mb-4::-webkit-scrollbar-track {
+  background: none;
+}
+
+i.AssignmentIcon{
+  display: block;
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 12px;
+  color: #EB671A !important;
+}
+
+.AppointmentDetails{
+  display: block;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.AddTOAssignment {
+  color: #fff;
+  background-color: #788393;
+  border-color: #788393;
+  box-shadow: 0 0.125rem 0.25rem 0 rgb(133 146 163 / 40%);
+  transform: translateY(-1px);
+}

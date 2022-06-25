@@ -1,28 +1,31 @@
-<div class="container-xxl flex-grow-1 ">
+<div class="container-xxl flex-grow-1 "
+     *ngIf="Assignments.length !=0 || AllNotAssignedAppointments.length !=0 ">
   <div class="row">
     <h2>Assignment</h2>
-    <div class="col-lg-8">
+    <div class="col-lg-8" >
 <!--      <div class="alert alert-primary" role="alert">Not Found Any Assignments</div>-->
 
-      <div class="card" style="margin-top: 10px">
+      <div class="card" *ngIf="AllNotAssignedAppointments.length !=0 " style="margin-top: 10px">
 
         <div class="card-body table-responsive text-nowrap">
           <h5>Availavle Rides</h5>
           <div class="card-info mb-4">
             <div class="card-body-group">
             <ul class="p-0 m-0 d-flex justify-content-center align-items-center" style="list-style: none;">
-              <li class="me-3 card-info-text ">
-                <i class="bx bx-time"></i>
-                08.00 AM
-              </li>
-              <li class="me-3 card-info-text">
-                <i class="bx bx-time"></i>
-                08.00 AM
-              </li>
-             <li class="me-3 card-info-text">
-               <i class="bx bx-time"></i>
-               08.00 AM
-              </li>
+              <div  *ngFor="let AllNotAssignedAppointment of AllNotAssignedAppointments;">
+                <li class="me-3 card-info-text "
+                    *ngIf="AllNotAssignedAppointment != null && AllNotAssignedAppointment?.rideStatus == 'process'"
+                    (click)="AddTOAssignment('Appointment',AllNotAssignedAppointment)"
+                    [ngClass]="Appointmentstatus == AllNotAssignedAppointment.appointment.id ? 'AddTOAssignment' : ''"
+                >
+
+                  <i class="AssignmentIcon bx bx-time"></i>
+                  <span class="AppointmentDetails"> {{AllNotAssignedAppointment.appointment.appointmentStartTime  }}
+                    {{AllNotAssignedAppointment.appointment.appointmentType  }}</span>
+                  <span style="font-size: 11px; color: #034D00; font-weight: 500;" class="AppointmentDetails">
+                    {{ students[AllNotAssignedAppointment.appointment.id] ? students[AllNotAssignedAppointment.appointment.id]  : "0"  }} booked</span>
+                </li>
+              </div>
             </ul>
             </div>
 
@@ -31,18 +34,16 @@
           <div class="card-info mb-4">
             <div class="card-body-group">
               <ul class="p-0 m-0 d-flex justify-content-center align-items-center" style="list-style: none;">
-                <li class="me-3 card-info-text">
-                  <i class="bx bx-bus"></i>
-                  Yasser Model
+                <li class="me-3 card-info-text" *ngFor="let Bus of Buses;"
+                    (mouseover)="showDataBus(Bus)"
+                    (mouseleave)="RemoveDataBus()"
+                    (click)="AddTOAssignment('Bus',Bus)"
+                    [ngClass]="Busstatus == Bus.id ? 'AddTOAssignment' : ''"
+                >
+                  <i class="AssignmentIcon bx bx-bus"></i>
+                  <span class="AppointmentDetails">  {{Bus.model}} </span>
                 </li>
-                <li class="me-3 card-info-text">
-                  <i class="bx bx-bus"></i>
-                  Yasser Model
-                </li>
-                <li class="me-3 card-info-text">
-                  <i class="bx bx-bus"></i>
-                    Yasser Model
-                </li>
+
               </ul>
             </div>
 
@@ -51,30 +52,29 @@
           <div class="card-info mb-4">
             <div class="card-body-group">
               <ul class="p-0 m-0 d-flex justify-content-center align-items-center" style="list-style: none;">
-                <li class="me-3 card-info-text">
-                  <i class="bx bx-user"></i>
-                    Yasser Driver
-                </li>
-                <li class="me-3 card-info-text">
-                  <i class="bx bx-user"></i>
-                  Yasser Driver
-                </li>
-                <li class="me-3 card-info-text">
-                  <i class="bx bx-user"></i>
-                  Yasser Driver
+                <li class="me-3 card-info-text"
+                    *ngFor="let Driver of Drivers;"
+                    (click)="AddTOAssignment('Driver',Driver)"
+                    [ngClass]="Driverstatus == Driver.id ? 'AddTOAssignment' : ''"
+                >
+                  <i class="AssignmentIcon bx bx-user"></i>
+                  <span class="AppointmentDetails"> {{Driver.empName}}</span>
                 </li>
               </ul>
             </div>
           </div>
-          <button class="btn btn-sm btn-primary text-center me-2" disabled>Add</button>
+<!--          <button class="btn btn-sm btn-primary text-center me-2" disabled *ngIf="Appointmentstatus != 3">Add</button>-->
+          <button class="btn btn-sm btn-primary text-center me-2"(click)="AddAssignment()" [disabled]="AssignmentCount != 3">Add</button>
+          <button class="btn btn-sm btn-outline-secondary text-center me-2" (click)="ClearAssignment()">Clear All</button>
 
         </div>
 
-      </div>
-
+      </div >
+      <div  *ngIf="AllNotAssignedAppointments.length ==0 "
+            class="alert alert-warning" role="alert">Not Found Assignments</div>
     </div>
     <div class="col-lg-4">
-      <div class="card mb-4">
+      <div class="card mb-4" >
         <div class="card-header d-flex align-items-center justify-content-between pb-0">
           <div class="card-title mb-0">
             <h5 class="m-0 me-2">Assignments</h5>
@@ -87,26 +87,32 @@
 
               </div></div><div class="contract-trigger"></div></div></div>
           <ul class="p-0 m-0">
-            <li class="d-flex mb-4 pb-1">
+            <li class="d-flex mb-4 pb-1"  *ngFor="let Assignment of Assignments;">
               <div class="avatar flex-shrink-0 me-3">
                 <span class="avatar-initial rounded bg-label-primary bg-label-primary-color"><i class="bx bx-bus"></i></span>
               </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2"
+
+              >
                 <div class="me-2">
-                  <h6 class="mb-0">bus 1 #55</h6>
-                  <small class="text-muted">Yasser Driver</small>
+                  <h6 class="mb-0">{{Assignment.model}} #{{Assignment.capacity}}</h6>
+                  <small class="text-muted">{{Assignment.DriverName}}</small>
                 </div>
                 <div class="user-progress">
-                  <b class="fw-semibold">08:00 AM</b>
+                  <b class="fw-semibold">{{Assignment.AppointmentTime}}</b>
                 </div>
               </div>
             </li>
-
-            <button type="button"  class="btn btn-sm btn-outline-secondary "> Clear All </button>
+            <div  *ngIf="Assignments.length == 0" class="alert alert-warning" role="alert">Not Found Assignments</div>
+            <button type="button"
+                    class="btn btn-sm btn-outline-secondary "
+                    *ngIf="Assignments.length != 0"
+                      (click)="ReturnAllAssignment()"
+                    > Clear All </button>
           </ul>
         </div>
       </div>
-      <div class="card mb-4">
+      <div class="card mb-4" *ngIf="busInformation">
         <div class="card-header d-flex align-items-center justify-content-between pb-0">
           <div class="card-title mb-0">
             <h5 class="m-0 me-2">Bus</h5>
@@ -125,7 +131,7 @@
                   <h6 class="mb-0">CAPACITY</h6>
                 </div>
                 <div class="user-progress">
-                  <b class="fw-semibold">50</b>
+                  <b class="fw-semibold">{{BusData?.capacity}}</b>
                 </div>
               </div>
             </li>
@@ -135,7 +141,7 @@
                   <h6 class="mb-0">Model</h6>
                 </div>
                 <div class="user-progress">
-                  <b class="fw-semibold">Yasser Model</b>
+                  <b class="fw-semibold">{{BusData?.model}}</b>
                 </div>
               </div>
             </li>
@@ -146,7 +152,7 @@
                   <h6 class="mb-0">Phone</h6>
                 </div>
                 <div class="user-progress">
-                  <b class="fw-semibold">0125466314</b>
+                  <b class="fw-semibold">{{BusData?.phone}}</b>
                 </div>
 
               </div>
@@ -155,46 +161,10 @@
         </div>
       </div>
     </div>
-
-
-
-
   </div>
   <!-- Content wrapper -->
 </div>
 
+  <div  *ngIf="Assignments.length ==0 && AllNotAssignedAppointments.length ==0 "
+        class="alert alert-warning" role="alert">Not Found Assignments</div>
 
-<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel4">Appointment
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2 mb-3">
-            <div class="col mb-0">
-              <label for="nameExLarge" class="form-label">START TIME	</label>
-              <input type="time" id="nameExLarge" class="form-control" readonly value="08:00">
-            </div>
-            <div class="col mb-0">
-              <label for="nameExLarge" class="form-label">TYPE</label>
-              <input type="text"  class="form-control" value="PM"readonly>
-            </div>
-          </div>
-          <div class="form-check form-switch mb-2" >
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-            >
-            <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="close-button">
-            Close
-          </button>
-        </div>
-      </div>
-  </div>
-</div>

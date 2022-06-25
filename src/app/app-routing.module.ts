@@ -18,15 +18,17 @@ import {FeeByBusComponent} from "./pages/fees/fee-by-bus/fee-by-bus.component";
 import {AssignmentComponent} from "./pages/assignment/assignment.component";
 import {SettingsComponent} from "./pages/settings/settings.component";
 import {PaymentComponent} from "./pages/payment/payment.component";
+import {TestComponent} from "./pages/test/test.component";
+import {TestGuard} from "./guard/test.guard";
 
 const routes: Routes = [
   { path: '', redirectTo: "/login" , pathMatch: 'full' },
   { path: 'login', component: LoginComponent , pathMatch: 'full' ,  canActivate: [IsSignedInGuard]},
   { path: 'Dashboard', component: HomeComponent ,  canActivate: [IsSignedInGuard]},
-  { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard]},
-  { path: 'Students', component: StudentsComponent ,  canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent ,  canActivate: [AuthGuard ]},
+  { path: 'Students', component: StudentsComponent ,  canActivate: [AuthGuard ] },
   { path: 'Appointments', component: AppointmentsComponent ,  canActivate: [AuthGuard]},
-  { path: 'Buses', component: BusesComponent,canActivate: [AuthGuard]
+  { path: 'Buses', component: BusesComponent,canActivate: [AuthGuard ]
   },
   { path: 'Complaints', component: ComplaintsComponent,  canActivate: [AuthGuard]},
   { path: 'Employees', component: EmployeesComponent,  canActivate: [AuthGuard]},
@@ -34,6 +36,7 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent,  canActivate: [AuthGuard]},
   { path: 'Supports', component: SupportsComponent,  canActivate: [AuthGuard]},
   { path: 'Payments', component: PaymentComponent,  canActivate: [AuthGuard]},
+  { path: 'Test', component: TestComponent,  canActivate: [AuthGuard]},
   {
     path: 'Fees', component: FeesComponent, canActivate: [AuthGuard],
   },

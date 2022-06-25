@@ -22,6 +22,15 @@ export class AppointmentService {
         }
       ));
   }
+  getAppointmentById(id : number) {
+    return this.http.get<AppointmentModule>(`${environment.UrlWebsite}/appointment/get-by-id?id=`
+      +id
+    ).pipe(
+      map((res:any)=>{
+          return res;
+        }
+      ));
+  }
   PostAppointments(data:any) {
     return this.http.post<AppointmentModule>(`${environment.UrlWebsite}/appointment/save-appointment`,
       data

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BusService} from "../../servies/Bus/Bus.service";
 import {ToastrService} from "ngx-toastr";
 import {environment} from "../../../environments/environment";
@@ -13,6 +13,10 @@ import initializeApp = firebase.initializeApp;
 import getFirestore  = firebase.firestore;
 import getAnalytics  = firebase.analytics;
 import auth = firebase.auth;
+import {MatTableDataSource} from "@angular/material/table";
+import {AppointmentInterface} from "../../models/appointment/appointment.module";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 let app;
 if (!firebase.apps.length) {
    app = initializeApp(environment.firebase);
@@ -55,6 +59,24 @@ export class BusesComponent implements OnInit {
     },2000);
 
   }
+
+  displayedColumns: string[] = ['id', 'model', 'phone', 'capacity' ,'Action'];
+  dataSource: MatTableDataSource<BusModule>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  SearchAndPagination (){
+    this.dataSource = new MatTableDataSource(this.buses);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   isRecaptchaValid() {
     return (this.windowRef.recaptchaVerifier.getResponse(this.windowRef.recaptchaWidgetId).length > 0);
   }
@@ -64,6 +86,8 @@ export class BusesComponent implements OnInit {
     this.BusApi.getBuses()
       .subscribe((res : any) => {
           this.buses = res;
+          this.SearchAndPagination();
+
         },
         (err : any) => {
           this.toastr.warning((err.statusText ? err.statusText :(err.status ? err.status:
@@ -159,6 +183,7 @@ export class BusesComponent implements OnInit {
               ref?.click();
               this.BusModule.id = res.id;
               this.buses.push(this.BusModule);
+              this.SearchAndPagination();
             },
             (err : any) => {
               console.log(err);
@@ -196,7 +221,8 @@ export class BusesComponent implements OnInit {
             ref?.click();
             this.buses.splice(this.hepler.findIndex(this.buses ,this.BusModule.id),1);
             this.buses.push(this.BusModule);
-            console.log(this.buses);
+            this.SearchAndPagination();
+
 
           },
           (err : any) => {
@@ -214,16 +240,14 @@ export class BusesComponent implements OnInit {
       .subscribe(res =>{
           this.toastr.success('Delete Successfully');
           this.buses.splice(this.hepler.findIndex(this.buses ,id),1);
-          console.log(this.buses);
+          this.SearchAndPagination();
+
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);
         }
       )
   }
-
-
-
   SendOTP() {
     let appVerifier = this.windowRef.recaptchaVerifier;
     if (this.phone.value != null) {
@@ -245,17 +269,12 @@ export class BusesComponent implements OnInit {
       (res: any) => {
         this.codeUser = res.user.uid;
         this.toastr.success('confirmation Result Successfully');
-        //console.log(res);
         auth().signOut().then(
           (result :any) => {
-            // console.log(result, auth());
-            //  this.toastr.success('sign Out Successfully');
           }).catch((error : any) => {
             this.toastr.info(error);
           }
         )
-        // signOut(res.user.uid).then(() => {
-        // });
       }).catch((err: any) => {
       console.log(err);
     });

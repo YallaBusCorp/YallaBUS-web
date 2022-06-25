@@ -46,6 +46,7 @@ export class FeesComponent implements OnInit {
     this.api.getApprovedfees()
       .subscribe( (res : any) => {
           this.ApprovedFees = res;
+          console.log(this.ApprovedFees )
 
         },
         (err : any) => {
@@ -76,13 +77,13 @@ export class FeesComponent implements OnInit {
   ApprovedFee(id : any,bool : boolean) {
     this.api.ApprovedFee(id,bool)
       .subscribe(() =>{
-        if(bool ==true)
-        this.toastr.success('Approved Successfully');
-        else
-          this.toastr.success(' Not Approved Successfully');
+          if(bool ==true)
+            this.toastr.success('Approved Successfully');
+          else
+            this.toastr.success(' Not Approved Successfully');
 
-        this.getPendingfees();
-        this.getApprovedfees();
+          this.getPendingfees();
+          this.getApprovedfees();
           this.getAllfees();
 
         },
