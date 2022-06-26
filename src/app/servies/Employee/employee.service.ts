@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {empLkInterface, EmployeeModule} from "../../models/employee/employee.module";
 import {DriverModule} from "../../models/employee/driver/driver.module";
 import {AdminModule} from "../../models/employee/admin/admin.module";
+import {StudentModule} from "../../models/student/student.module";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,15 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
+  getCountEmployees() {
+    return this.http.get<StudentModule>(`${environment.UrlWebsite}/employee/get-count/company/active?id=`
+      +environment.Token
+    ).pipe(
+      map((res:any)=>{
+          return res;
+        }
+      ));
+  }
   getSupervisors() {
     return this.http.get<EmployeeModule>(`${environment.UrlWebsite}/employee/company/supervisor/active?id=`
       +environment.Token

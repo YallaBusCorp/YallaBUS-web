@@ -20,6 +20,15 @@ export class StudentService {
     }
     ));
   }
+  getCountStudents() {
+    return this.http.get<StudentModule>(`${environment.UrlWebsite}/student/get-count/company/active?id=`
+      +environment.Token
+    ).pipe(
+      map((res:any)=>{
+          return res;
+        }
+      ));
+  }
   getStudentByUID(data:any) {
     return this.http.get(`${environment.UrlWebsite}/student/get-by-uid?stdUid=`
       +data

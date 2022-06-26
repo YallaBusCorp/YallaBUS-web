@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 import {BusModule} from "../../models/bus/bus.module";
+import {StudentModule} from "../../models/student/student.module";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,15 @@ export class BusService {
       map((res:any)=>{
           return res;
 
+        }
+      ));
+  }
+  getCountBuses() {
+    return this.http.get<StudentModule>(`${environment.UrlWebsite}/bus/get-count/company/active?id=`
+      +environment.Token
+    ).pipe(
+      map((res:any)=>{
+          return res;
         }
       ));
   }

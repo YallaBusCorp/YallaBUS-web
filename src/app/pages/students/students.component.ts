@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StudentService} from "../../servies/Student/student.service";
 import {StudentInterface, StudentModule, SubscriptionRenew} from "../../models/student/student.module";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -17,6 +17,10 @@ import getFirestore  = firebase.firestore;
 import getAnalytics  = firebase.analytics;
 import auth = firebase.auth;
 import {LoginComponent} from "../login/login.component";
+import {MatTableDataSource} from "@angular/material/table";
+import {AppointmentInterface} from "../../models/appointment/appointment.module";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 let app;
 if (!firebase.apps.length) {
   app = initializeApp(environment.firebase);
@@ -52,7 +56,6 @@ export class StudentsComponent implements OnInit {
 
   windowRef: any;
   ngOnInit(): void {
-
     this.getStudents();
     this.getTwons();
     this.getUniversities();
@@ -67,13 +70,30 @@ export class StudentsComponent implements OnInit {
   isRecaptchaValid() {
     return (this.windowRef.recaptchaVerifier.getResponse(this.windowRef.recaptchaWidgetId).length > 0);
   }
+  displayedColumns: string[] = ['id', 'stdName', 'stdPhone', 'universityName','endSubscriptionDate' ,'Action'];
+  dataSource: MatTableDataSource<StudentInterface>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  SearchAndPagination(){
+    this.dataSource = new MatTableDataSource(this.students);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
 
   getStudents() {
     this.StudentApi.getStudents()
       .subscribe((res : any) => {
           this.students = res;
+          this.SearchAndPagination();
         },
         (err : any) => {
           this.toastr.warning((err.statusText ? err.statusText :(err.status ? err.status:
@@ -205,7 +225,8 @@ export class StudentsComponent implements OnInit {
               ref?.click();
               this.StudentModule.id = res.id;
               this.students.push(this.StudentModule);
-             // this.getStudents();
+              this.SearchAndPagination();
+
             },
             (err : any) => {
               console.log(err);
@@ -249,6 +270,7 @@ export class StudentsComponent implements OnInit {
               ref?.click();
                 this.students.splice(this.hepler.findIndex(this.students ,this.StudentModule.id),1);
                 this.students.push(this.StudentModule);
+                this.SearchAndPagination();
             },
             (err : any) => {
               console.log(err);
@@ -267,7 +289,7 @@ export class StudentsComponent implements OnInit {
       .subscribe(res =>{
           this.toastr.success('Delete Successfully');
           this.students.splice(this.hepler.findIndex(this.students ,id),1);
-
+          this.SearchAndPagination();
         },
         (err : any)=>{
           this.toastr.warning(err.statusText);
@@ -365,6 +387,7 @@ export class StudentsComponent implements OnInit {
             this.students[index].endSubscriptionDate = this.DataRenew.std.endSubscriptionDate;
             this.students[index].isSubscribed = this.DataRenew.std.isSubscribed;
             this.students[index].isActive = this.DataRenew.std.isActive;
+            this.SearchAndPagination();
           },
           (err : any) => {
             console.log(err);

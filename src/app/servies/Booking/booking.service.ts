@@ -11,15 +11,6 @@ export class BookingService {
 
   constructor(private http: HttpClient) { }
 
-  getNotAssignedWhenDead() {
-    return this.http.get(`${environment.UrlWebsite}/txBooking/company/get-all-not-assigned-WithinDeadLine?id=`
-      +environment.Token
-    ).pipe(
-      map((res:any)=>{
-          return res;
-        }
-      ));
-  }
 
   getAppointmentInProcess() {
     return this.http.get(`${environment.UrlWebsite}/txRide/company/status/get-all?id=`
@@ -44,16 +35,17 @@ export class BookingService {
 
   }
 
-  canceledRide(RideId : any) {
+
+
+  AssignBooking(Data : any){
     return this.http.put(
-      `${environment.UrlWebsite}/txRide/canceled?id=`
-      +RideId , true
+      `${environment.UrlWebsite}/txBooking/assign`, Data
     ).pipe(
       map((res:any)=>{
           return res;
         }
       ));
-
   }
+
 }
 

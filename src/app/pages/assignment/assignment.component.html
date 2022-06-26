@@ -64,7 +64,8 @@
             </div>
           </div>
 <!--          <button class="btn btn-sm btn-primary text-center me-2" disabled *ngIf="Appointmentstatus != 3">Add</button>-->
-          <button class="btn btn-sm btn-primary text-center me-2"(click)="AddAssignment()" [disabled]="AssignmentCount != 3">Add</button>
+          <button class="btn btn-sm btn-primary text-center me-2"(click)="AddAssignment()"
+                  [disabled]="AssignmentCount != 3">Add</button>
           <button class="btn btn-sm btn-outline-secondary text-center me-2" (click)="ClearAssignment()">Clear All</button>
 
         </div>
@@ -105,10 +106,18 @@
             </li>
             <div  *ngIf="Assignments.length == 0" class="alert alert-warning" role="alert">Not Found Assignments</div>
             <button type="button"
+                    class="btn btn-sm btn-primary me-2 "
+                    *ngIf="Assignments.length != 0"
+                    (click)="AddBooking()"
+            > Add All Assignment </button>
+
+            <button type="button"
                     class="btn btn-sm btn-outline-secondary "
                     *ngIf="Assignments.length != 0"
                       (click)="ReturnAllAssignment()"
                     > Clear All </button>
+
+
           </ul>
         </div>
       </div>

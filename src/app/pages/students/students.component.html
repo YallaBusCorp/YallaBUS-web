@@ -5,9 +5,13 @@
       <div class="card" style="margin-top: 10px">
         <div class="card-header d-flex align-items-center justify-content-between">
           <div class="left-card ">
-            <input class="form-control p-1 search-card-style" type="search"placeholder="Search" >
-            <button type="button" style="width:100px;"
-                    class="btn btn-sm btn-primary " >search</button>
+            <mat-form-field appearance="standard" style="width:257px">
+              <mat-label>Search</mat-label>
+              <input type="search"
+                     class="form-control p-1"
+                     matInput (keyup)="
+                     applyFilter($event)" placeholder="Search" #input>
+            </mat-form-field>
           </div>
           <div class="right-card">
             <button type="button" style="width:100px;"
@@ -20,92 +24,138 @@
 
         </div>
         <div class="card-body table-responsive text-nowrap">
-          <table class="table table-hover">
-            <thead style="border-bottom: 1px solid #b3b3b3">
-            <tr>
-              <th>#id</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>University</th>
-              <th>End Subscriped Date</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-            <tr *ngFor="let student of students;let i = index;">
-              <td><strong>{{i+1}}</strong></td>
-              <td>{{student.stdName}}</td>
-              <td>
-                {{student.stdPhone}}
-              </td>
-              <td>{{student.university.universityName}}</td>
+<!--          <table class="table table-hover">-->
+<!--            <thead style="border-bottom: 1px solid #b3b3b3">-->
+<!--            <tr>-->
+<!--              <th>#id</th>-->
+<!--              <th>Name</th>-->
+<!--              <th>Phone</th>-->
+<!--              <th>University</th>-->
+<!--              <th>End Subscriped Date</th>-->
+<!--              <th>Actions</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody class="table-border-bottom-0">-->
+<!--            <tr *ngFor="let student of students;let i = index;">-->
+<!--              <td><strong>{{i+1}}</strong></td>-->
+<!--              <td>{{student.stdName}}</td>-->
+<!--              <td>-->
+<!--                {{student.stdPhone}}-->
+<!--              </td>-->
+<!--              <td>{{student.university.universityName}}</td>-->
 
-              <ng-container [ngSwitch]="true">
-                <td *ngSwitchCase="student.endSubscriptionDate ==null
-                  ||  student.isSubscribed == null
-                  ||  student.endSubscriptionDate == 0
-              " >
-                <span class="badge bg-label-warning me-1">
-                  Not Activated yet</span>
-                </td>
-                <td  *ngSwitchCase="( student.endSubscriptionDate != null  )
-                  && student.isSubscribed == true " >
-                  <span class="badge bg-label-success me-1">
-                    {{ student.endSubscriptionDate | date : "longDate"}}</span>
+<!--              <ng-container [ngSwitch]="true">-->
+<!--                <td *ngSwitchCase="student.endSubscriptionDate ==null-->
+<!--                  ||  student.isSubscribed == null-->
+<!--                  ||  student.endSubscriptionDate == 0-->
+<!--              " >-->
+<!--                <span class="badge bg-label-warning me-1">-->
+<!--                  Not Activated yet</span>-->
+<!--                </td>-->
+<!--                <td  *ngSwitchCase="( student.endSubscriptionDate != null  )-->
+<!--                  && student.isSubscribed == true " >-->
+<!--                  <span class="badge bg-label-success me-1">-->
+<!--                    {{ student.endSubscriptionDate | date : "longDate"}}</span>-->
 
-                </td>
-                <td  *ngSwitchCase="( student.endSubscriptionDate != null
-                  && student.isSubscribed == false)" >
+<!--                </td>-->
+<!--                <td  *ngSwitchCase="( student.endSubscriptionDate != null-->
+<!--                  && student.isSubscribed == false)" >-->
 
-                  <span class="badge bg-label-danger me-11"> SUBSCRIPTION EXPIRED</span>
+<!--                  <span class="badge bg-label-danger me-11"> SUBSCRIPTION EXPIRED</span>-->
+<!--                </td>-->
+<!--              </ng-container>-->
+<!--              <td>-->
+<!--                <div class="dropdown">-->
+<!--                  <button class="btn p-0" type="button" id="orederStatistics"-->
+<!--                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    <i class="bx bx-dots-vertical-rounded"></i>-->
+<!--                  </button>-->
+<!--                  <div class="dropdown-menu dropdown-menu-end"-->
+<!--                       aria-labelledby="orederStatistics" style="">-->
+<!--                    <a class="dropdown-item" href="javascript:void(0);"-->
+<!--                       data-bs-target="#exLargeModal" data-bs-toggle="modal"-->
+<!--                       (click)="onEdit(student)">Edit</a>-->
+<!--                    <a class="dropdown-item"  data-bs-target="#exLargeModal2" data-bs-toggle="modal"-->
+<!--                       href="javascript:void(0);" (click)="onRenew(student.id)">renew Subscription</a>-->
+<!--                    <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteStudent(student.id)">Delete</a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+          <div >
+            <table mat-table [dataSource]="dataSource" matSort>
+
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef=" let i = index;"> <strong>{{i+1}}</strong></td>
+              </ng-container>
+
+              <!-- START TIME Column -->
+              <ng-container matColumnDef="stdName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 	Name</th>
+                <td mat-cell *matCellDef="let row"> {{row.stdName}} </td>
+              </ng-container>
+              <!-- Phone Column -->
+              <ng-container matColumnDef="stdPhone">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> 	Phone</th>
+                <td mat-cell *matCellDef="let row"> {{row.stdPhone}} </td>
+              </ng-container>
+              <!-- University Column -->
+              <ng-container matColumnDef="universityName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> University </th>
+                <td mat-cell *matCellDef="let row"> {{row.university.universityName}} </td>
+              </ng-container>
+              <!-- End Subscriped Date Column -->
+              <ng-container  matColumnDef="endSubscriptionDate" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> End Subscriped Date </th>
+                <td mat-cell *matCellDef="let row" >
+                  <span class="badge bg-label-warning me-1" *ngIf="row.endSubscriptionDate ==null
+                    ||  row.isSubscribed == null
+                    ||  row.endSubscriptionDate == 0">
+                    Not Activated yet</span>
+                  <span class="badge bg-label-success me-1"  *ngIf="( row.endSubscriptionDate != null  )
+                    && row.isSubscribed == true ">
+                      {{ row.endSubscriptionDate | date : "longDate"}}</span>
+                  <span class="badge bg-label-danger me-11" *ngIf="( row.endSubscriptionDate != null
+                    && row.isSubscribed == false)" > SUBSCRIPTION EXPIRED</span>
                 </td>
               </ng-container>
-              <td>
-                <div class="dropdown">
-                  <button class="btn p-0" type="button" id="orederStatistics"
-                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-end"
-                       aria-labelledby="orederStatistics" style="">
-                    <a class="dropdown-item" href="javascript:void(0);"
-                       data-bs-target="#exLargeModal" data-bs-toggle="modal"
-                       (click)="onEdit(student)">Edit</a>
-                    <a class="dropdown-item"  data-bs-target="#exLargeModal2" data-bs-toggle="modal"
-                       href="javascript:void(0);" (click)="onRenew(student.id)">renew Subscription</a>
-                    <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteStudent(student.id)">Delete</a>
+              <!-- Action Column -->
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td  mat-cell *matCellDef="let row">
+                  <div class="dropdown">
+                    <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics" style="">
+                      <a class="dropdown-item" href="javascript:void(0);"
+                         data-bs-target="#exLargeModal" data-bs-toggle="modal" (click)="onEdit(row)">Edit</a>
+                      <a class="dropdown-item"  data-bs-target="#exLargeModal2" data-bs-toggle="modal"
+                            href="javascript:void(0);" (click)="onRenew(row.id)">
+                                  renew Subscription</a>
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="DeleteStudent(row.id)">Delete</a>
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+
+            <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                            aria-label="Select page"></mat-paginator>
+          </div>
         </div>
-<!--        <nav aria-label="Page navigation " class=" d-flex justify-content-center">-->
-<!--          <ul class="pagination">-->
-<!--            <li class="page-item prev">-->
-<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>-->
-<!--            </li>-->
-<!--            <li class="page-item active">-->
-<!--              <a class="page-link" href="javascript:void(0);">1</a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--              <a class="page-link" href="javascript:void(0);">2</a>-->
-<!--            </li>-->
-<!--            <li class="page-item ">-->
-<!--              <a class="page-link" href="javascript:void(0);">3</a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--              <a class="page-link" href="javascript:void(0);">4</a>-->
-<!--            </li>-->
-<!--            <li class="page-item">-->
-<!--              <a class="page-link" href="javascript:void(0);">5</a>-->
-<!--            </li>-->
-<!--            <li class="page-item next">-->
-<!--              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </nav>-->
       </div>
 
     </div>
