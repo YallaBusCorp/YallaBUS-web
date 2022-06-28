@@ -2106,25 +2106,25 @@ progress {
 }
 
 .table-responsive {
-  overflow-x: inherit;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 575.98px) {
   .table-responsive-sm {
-    overflow-x: inherit;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 767.98px) {
   .table-responsive-md {
-    overflow-x: inherit;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 991.98px) {
   .table-responsive-lg {
-    overflow-x: inherit;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
