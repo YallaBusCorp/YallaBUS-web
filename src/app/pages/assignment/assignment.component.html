@@ -1,8 +1,9 @@
 <div class="container-xxl flex-grow-1 "
-     *ngIf="Assignments.length !=0 || AllNotAssignedAppointments.length !=0 ">
+     *ngIf="Assignments.length !=0 || AllNotAssignedAppointments.length !=0
+      || countNotAssign != AllNotAssignedAppointments.length">
   <div class="row">
     <h2>Assignment</h2>
-    <div class="col-lg-8" >
+    <div class="col-lg-12" >
 <!--      <div class="alert alert-primary" role="alert">Not Found Any Assignments</div>-->
 
       <div class="card" *ngIf="AllNotAssignedAppointments.length !=0 " style="margin-top: 10px">
@@ -13,18 +14,20 @@
             <div class="card-body-group">
             <ul class="p-0 m-0 d-flex justify-content-center align-items-center" style="list-style: none;">
               <div  *ngFor="let AllNotAssignedAppointment of AllNotAssignedAppointments;">
-                <li class="me-3 card-info-text "
-                    *ngIf="AllNotAssignedAppointment != null && AllNotAssignedAppointment?.rideStatus == 'process'"
-                    (click)="AddTOAssignment('Appointment',AllNotAssignedAppointment)"
-                    [ngClass]="Appointmentstatus == AllNotAssignedAppointment.appointment.id ? 'AddTOAssignment' : ''"
-                >
+                <div *ngIf="students[AllNotAssignedAppointment.appointment['id']] != 0">
+                  <li class="me-3 card-info-text "
+                      *ngIf="AllNotAssignedAppointment != null && AllNotAssignedAppointment?.rideStatus == 'process'"
+                      (click)="AddTOAssignment('Appointment',AllNotAssignedAppointment)"
+                      [ngClass]="Appointmentstatus == AllNotAssignedAppointment.appointment.id ? 'AddTOAssignment' : ''"
+                  >
 
-                  <i class="AssignmentIcon bx bx-time"></i>
-                  <span class="AppointmentDetails"> {{AllNotAssignedAppointment.appointment.appointmentStartTime  }}
-                    {{AllNotAssignedAppointment.appointment.appointmentType  }}</span>
-                  <span style="font-size: 11px; color: #034D00; font-weight: 500;" class="AppointmentDetails">
+                    <i class="AssignmentIcon bx bx-time"></i>
+                    <span class="AppointmentDetails"> {{AllNotAssignedAppointment.appointment.appointmentStartTime  }}
+                      {{AllNotAssignedAppointment.appointment.appointmentType  }}</span>
+                    <span style="font-size: 11px; color: #034D00; font-weight: 500;" class="AppointmentDetails">
                     {{ students[AllNotAssignedAppointment.appointment.id] ? students[AllNotAssignedAppointment.appointment.id]  : "0"  }} booked</span>
-                </li>
+                  </li>
+                </div>
               </div>
             </ul>
             </div>
@@ -42,6 +45,8 @@
                 >
                   <i class="AssignmentIcon bx bx-bus"></i>
                   <span class="AppointmentDetails">  {{Bus.model}} </span>
+                  <span style="font-size: 11px; color: #034D00; font-weight: 500;" class="AppointmentDetails">{{Bus.phone}}  </span>
+                  <span style="font-size: 11px; color: #034D00; font-weight: 500;" class="AppointmentDetails">capacity: {{Bus.capacity}}  </span>
                 </li>
 
               </ul>
@@ -71,109 +76,67 @@
         </div>
 
       </div >
-      <div  *ngIf="AllNotAssignedAppointments.length ==0 "
-            class="alert alert-warning" role="alert">Not Found Assignments</div>
-    </div>
-    <div class="col-lg-4">
-      <div class="card mb-4" >
-        <div class="card-header d-flex align-items-center justify-content-between pb-0">
-          <div class="card-title mb-0">
-            <h5 class="m-0 me-2">Assignments</h5>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
-            <div class="resize-triggers"><div class="expand-trigger">
-              <div style="width: 253px; height: 139px;">
+<!--    <div class="col-lg-2">-->
+<!--      <div class="card mb-4" *ngIf="busInformation">-->
+<!--        <div class="card-header d-flex align-items-center justify-content-between pb-0">-->
+<!--          <div class="card-title mb-0">-->
+<!--            <h5 class="m-0 me-2">Bus</h5>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">-->
+<!--            <div class="resize-triggers"><div class="expand-trigger">-->
+<!--              <div style="width: 253px; height: 139px;">-->
 
-              </div></div><div class="contract-trigger"></div></div></div>
-          <ul class="p-0 m-0">
-            <li class="d-flex mb-4 pb-1"  *ngFor="let Assignment of Assignments;">
-              <div class="avatar flex-shrink-0 me-3">
-                <span class="avatar-initial rounded bg-label-primary bg-label-primary-color"><i class="bx bx-bus"></i></span>
-              </div>
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2"
+<!--              </div></div><div class="contract-trigger"></div></div></div>-->
+<!--          <ul class="p-0 m-0">-->
+<!--            <li class="d-flex mb-4 pb-1">-->
+<!--              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">-->
+<!--                <div class="me-2">-->
+<!--                  <h6 class="mb-0">CAPACITY</h6>-->
+<!--                </div>-->
+<!--                <div class="user-progress">-->
+<!--                  <b class="fw-semibold">{{BusData?.capacity}}</b>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--            <li class="d-flex mb-4 pb-1">-->
+<!--              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">-->
+<!--                <div class="me-2">-->
+<!--                  <h6 class="mb-0">Model</h6>-->
+<!--                </div>-->
+<!--                <div class="user-progress">-->
+<!--                  <b class="fw-semibold">{{BusData?.model}}</b>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--            <li class="d-flex mb-4 pb-1">-->
+<!--              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">-->
 
-              >
-                <div class="me-2">
-                  <h6 class="mb-0">{{Assignment.model}} #{{Assignment.capacity}}</h6>
-                  <small class="text-muted">{{Assignment.DriverName}}</small>
-                </div>
-                <div class="user-progress">
-                  <b class="fw-semibold">{{Assignment.AppointmentTime}}</b>
-                </div>
-              </div>
-            </li>
-            <div  *ngIf="Assignments.length == 0" class="alert alert-warning" role="alert">Not Found Assignments</div>
-            <button type="button"
-                    class="btn btn-sm btn-primary me-2 "
-                    *ngIf="Assignments.length != 0"
-                    (click)="AddBooking()"
-            > Add All Assignment </button>
+<!--                <div class="me-2">-->
+<!--                  <h6 class="mb-0">Phone</h6>-->
+<!--                </div>-->
+<!--                <div class="user-progress">-->
+<!--                  <b class="fw-semibold">{{BusData?.phone}}</b>-->
+<!--                </div>-->
 
-            <button type="button"
-                    class="btn btn-sm btn-outline-secondary "
-                    *ngIf="Assignments.length != 0"
-                      (click)="ReturnAllAssignment()"
-                    > Clear All </button>
+<!--              </div>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+  <!-- Content wrapper -->
+  </div>
+</div>
 
-
-          </ul>
-        </div>
-      </div>
-      <div class="card mb-4" *ngIf="busInformation">
-        <div class="card-header d-flex align-items-center justify-content-between pb-0">
-          <div class="card-title mb-0">
-            <h5 class="m-0 me-2">Bus</h5>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
-            <div class="resize-triggers"><div class="expand-trigger">
-              <div style="width: 253px; height: 139px;">
-
-              </div></div><div class="contract-trigger"></div></div></div>
-          <ul class="p-0 m-0">
-            <li class="d-flex mb-4 pb-1">
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <h6 class="mb-0">CAPACITY</h6>
-                </div>
-                <div class="user-progress">
-                  <b class="fw-semibold">{{BusData?.capacity}}</b>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex mb-4 pb-1">
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                  <h6 class="mb-0">Model</h6>
-                </div>
-                <div class="user-progress">
-                  <b class="fw-semibold">{{BusData?.model}}</b>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex mb-4 pb-1">
-              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-
-                <div class="me-2">
-                  <h6 class="mb-0">Phone</h6>
-                </div>
-                <div class="user-progress">
-                  <b class="fw-semibold">{{BusData?.phone}}</b>
-                </div>
-
-              </div>
-            </li>
-          </ul>
-        </div>
+  <div  *ngIf="Assignments.length ==0 && AllNotAssignedAppointments.length ==0
+  || countNotAssign == AllNotAssignedAppointments.length">
+    <div class="misc-wrapper">
+      <h2 class="mb-2 mx-2">No Appointment To Assign</h2>
+      <div class="mt-3">
+        <img src="../assets/img/illustrations/Loading-rafiki.png" alt="page-misc-error-light" width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png" data-app-light-img="illustrations/page-misc-error-light.png">
       </div>
     </div>
   </div>
-  <!-- Content wrapper -->
-</div>
-
-  <div  *ngIf="Assignments.length ==0 && AllNotAssignedAppointments.length ==0 "
-        class="alert alert-warning" role="alert">Not Found Assignments</div>
-

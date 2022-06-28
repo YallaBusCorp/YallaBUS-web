@@ -76,3 +76,7 @@ table {
   overflow: auto;
   max-height: 500px;
 }
+
+.misc-wrapper {
+  text-align: center;
+}

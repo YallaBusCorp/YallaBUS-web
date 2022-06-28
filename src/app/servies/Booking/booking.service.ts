@@ -13,7 +13,7 @@ export class BookingService {
 
 
   getAppointmentInProcess() {
-    return this.http.get(`${environment.UrlWebsite}/txRide/company/status/get-all?id=`
+    return this.http.get(`${environment.UrlWebsite}/txRide/company/get-rides-need-to-assign?id=`
       +environment.Token +`&status=process`
     ).pipe(
       map((res:any)=>{

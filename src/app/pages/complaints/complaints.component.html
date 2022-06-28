@@ -146,5 +146,10 @@
 </div>
 
 <div class="container-xxl flex-grow-1 " *ngIf="Complaints.length == 0 && ComplaintsFinished.length == 0">
-  <div class="alert alert-primary" role="alert">Not found Complaint</div>
+  <div class="misc-wrapper">
+    <h2 class="mb-2 mx-2">No complaints</h2>
+    <div class="mt-3">
+      <img src="../assets/img/illustrations/Loading-rafiki.png" alt="page-misc-error-light" width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png" data-app-light-img="illustrations/page-misc-error-light.png">
+    </div>
+  </div>
 </div>
