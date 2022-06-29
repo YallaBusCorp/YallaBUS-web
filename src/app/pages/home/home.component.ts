@@ -5,6 +5,8 @@ import {DatePipe} from "@angular/common";
 import {StudentService} from "../../servies/Student/student.service";
 import {BusService} from "../../servies/Bus/bus.service";
 import {EmployeeService} from "../../servies/Employee/employee.service";
+import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
     private EmployeeService : EmployeeService,
     private toastr: ToastrService,
     private  datePipe:DatePipe,
+    private router : Router,
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +30,8 @@ export class HomeComponent implements OnInit {
     this.getCountBuses();
     this.getCountStudents();
     this.getCountEmployees();
+    if(environment.Token == '0')
+      this.router.navigate(['/Company']);
   }
 
   getRides() {

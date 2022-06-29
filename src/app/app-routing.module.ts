@@ -20,6 +20,7 @@ import {SettingsComponent} from "./pages/settings/settings.component";
 import {PaymentComponent} from "./pages/payment/payment.component";
 import {TestComponent} from "./pages/test/test.component";
 import {TestGuard} from "./guard/test.guard";
+import {CompanyComponent} from "./pages/company/company.component";
 
 const routes: Routes = [
   { path: '', redirectTo: "/login" , pathMatch: 'full' },
@@ -45,6 +46,9 @@ const routes: Routes = [
   },
   {
     path: 'Settings', component: SettingsComponent, canActivate: [AuthGuard],
+  },
+  {
+    path: 'Company', component: CompanyComponent, canActivate: [AuthGuard],
   },
   {path: 'Fees/bus/:id' , component: FeeByBusComponent ,  canActivate: [AuthGuard] },
 

@@ -264,22 +264,29 @@ export class BusesComponent implements OnInit {
     this.codeUser = null;
   }
   TestOTP() {
-    let code: string = this.OTP.value;
+    if(this.OTP.value != null){
+      let code: string = this.OTP.value;
     this.windowRef.confirmationResult.confirm(code).then(
       (res: any) => {
         this.codeUser = res.user.uid;
         this.toastr.success('confirmation Result Successfully');
-        auth().signOut().then(
-          (result :any) => {
-          }).catch((error : any) => {
-            this.toastr.info(error);
-          }
-        )
+        db.collection("Users").doc(res.user.uid).set({
+          "role" : 'Bus',
+          "UID" : this.codeUser
+        });
       }).catch((err: any) => {
       console.log(err);
     });
+    }else{
+      this.toastr.info('Please fill in the code correctly');
 
-
+    }
+    auth().signOut().then(
+      (result :any) => {
+      }).catch((error : any) => {
+        this.toastr.info(error);
+      }
+    )
   }
 
   OTPButtonShow() {

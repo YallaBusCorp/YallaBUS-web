@@ -36,6 +36,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { CompanyComponent } from './pages/company/company.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     SettingsComponent,
     SubscriptionPriceComponent,
     PaymentComponent,
-    TestComponent
+    TestComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,

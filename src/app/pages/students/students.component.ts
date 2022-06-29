@@ -212,6 +212,7 @@ export class StudentsComponent implements OnInit {
   }
   //End Get All Details
 
+
   //Start Save Student
   SaveStudent() {
     if (this.codeUser != null) {
@@ -226,7 +227,6 @@ export class StudentsComponent implements OnInit {
               this.StudentModule.id = res.id;
               this.students.push(this.StudentModule);
               this.SearchAndPagination();
-
             },
             (err : any) => {
               console.log(err);
@@ -315,27 +315,29 @@ export class StudentsComponent implements OnInit {
     this.codeUser = null;
   }
   TestOTP() {
-    let code: string = this.OTP.value;
-    this.windowRef.confirmationResult.confirm(code).then(
-      (res: any) => {
-        this.codeUser = res.user.uid;
-        this.toastr.success('confirmation Result Successfully');
-        console.log(res);
-        auth().signOut().then(
-          (result :any) => {
-           // console.log(result, auth());
-          //  this.toastr.success('sign Out Successfully');
-          }).catch((error : any) => {
-            this.toastr.info(error);
-          }
-        )
-        // signOut(res.user.uid).then(() => {
-        // });
-      }).catch((err: any) => {
-      console.log(err);
-    });
-
-
+    if(this.OTP.value != null){
+      let code: string = this.OTP.value;
+      this.windowRef.confirmationResult.confirm(code).then(
+        (res: any) => {
+          db.collection("Users").doc(res.user.uid).set({
+            "role" : 'Student',
+            "UID" : res.user.uid
+          });
+          this.codeUser = res.user.uid;
+          this.toastr.success('confirmation Result Successfully');
+        }).catch((err: any) => {
+        console.log(err);
+      });
+    }else{
+      this.toastr.info('Please fill in the code correctly');
+    }
+    auth().signOut().then(
+      (res2 :any) => {
+        console.log(res2);
+      }).catch((error : any) => {
+        this.toastr.info(error);
+      }
+    )
   }
 
   OTPButtonShow() {

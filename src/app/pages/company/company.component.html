@@ -1,0 +1,118 @@
+<div class="container-xxl flex-grow-1 ">
+  <div class="row">
+    <h2>Companies</h2>
+    <div class="col-lg-12">
+      <div class="card" style="margin-top: 10px">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div class="left-card "> </div>
+          <div class="right-card">
+            <button type="button"
+                    class="btn btn-sm btn-info"data-bs-target="#exLargeModal"
+                    data-bs-toggle="modal"
+                    (click)="AddButton()">Add Company</button>
+          </div>
+
+
+        </div>
+        <div class="card-body table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead style="border-bottom: 1px solid #b3b3b3">
+            <tr>
+              <th>#id</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Location</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            <tr *ngFor="let company of Companies;let i = index;">
+              <td><strong>{{i+1}}</strong></td>
+              <td>{{company.companyName}}</td>
+              <td>
+                {{company.companyPhone}}
+              </td>
+              <td> {{company.companyLocation}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+  <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <form [formGroup]="formValues" (ngSubmit)="SaveCompany()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel4">{{(ShowAddbutton) ? "ADD Company" : "Edit Company" }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2 mb-3">
+            <div class="col mb-0">
+              <label for="nameExLarge" class="form-label">Name</label>
+              <input type="text" id="nameExLarge" class="form-control"
+                     placeholder="Enter Name" formControlName="companyName">
+            </div>
+            <div class="col mb-0">
+              <label for="emailExLarge" class="form-label">Location</label>
+              <input type="text" formControlName="companyLocation"  class="form-control" placeholder="Location">
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col mb-0">
+              <label for="emailExLarge" class="form-label">phone</label>
+              <input type="tel" formControlName="companyPhone"  id="emailExLarge" class="form-control"
+                     placeholder="phone">
+            </div>
+            <div class="col mb-0">
+              <label for="emailExLarge" class="form-label">facebook URL</label>
+              <input type="text"  class="form-control"formControlName="facebookURL"
+                     placeholder="facebook URL">
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col mb-0">
+              <label for="emailExLarge" class="form-label">NationalId</label>
+              <input type="text"  class="form-control"formControlName="empNationalId"
+                     placeholder="NationalId">
+            </div>
+            <div class="col mb-0">
+              <label for="emailExLarge" class="form-label">Start Date To Work</label>
+              <input type="date"  class="form-control"
+                     placeholder="empStartDate" formControlName="empStartDate">
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col mb-0">
+              <label for="emailExLarge" class="form-label">Description</label>
+              <textarea type="tel" formControlName="description"   class="form-control"
+                        placeholder="Description">
+              </textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="close-button">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+

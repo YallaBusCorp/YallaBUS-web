@@ -1,7 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" data-bg-class="bg-menu-theme">
   <div class="app-brand demo">
     <a href="index.html" class="app-brand-link">
-      <img src="assets/img/logo.svg" alt="" style="width: 100%;">
+      <img src="assets/img/logo2.png" alt="" style="width: 100%;">
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none" (click)="removeNav()">
@@ -12,7 +12,7 @@
   <div class="menu-inner-shadow" style="display: none;"></div>
 
 
-  <ul class="menu-inner py-1">
+  <ul *ngIf="token != 0" class="menu-inner py-1">
     <!-- Dashboard -->
     <li class="menu-item " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a routerLink="home" class="menu-link"  (click)="removeNav()">
@@ -22,12 +22,12 @@
     </li>
 
     <!-- Reports -->
-<!--    <li class="menu-item" routerLinkActive="active" (click)="removeNav()" >-->
-<!--      <a routerLink="reports"  class="menu-link">-->
-<!--        <i class="menu-icon tf-icons bx bxs-report"></i>-->
-<!--        <div data-i18n="Analytics">Reports</div>-->
-<!--      </a>-->
-<!--    </li>-->
+    <!--    <li class="menu-item" routerLinkActive="active" (click)="removeNav()" >-->
+    <!--      <a routerLink="reports"  class="menu-link">-->
+    <!--        <i class="menu-icon tf-icons bx bxs-report"></i>-->
+    <!--        <div data-i18n="Analytics">Reports</div>-->
+    <!--      </a>-->
+    <!--    </li>-->
 
     <!-- Student -->
     <li class="menu-item" routerLinkActive="active"   (click)="removeNav()">
@@ -115,6 +115,21 @@
       </a>
     </li>
 
+    <!-- Logout -->
+    <li class="menu-item" routerLinkActive="active" (click)="logout()">
+      <a routerLink="login" class="menu-link" (click)="logout()">
+        <i class="menu-icon tf-icons bx bxs-log-out "></i>
+        <div data-i18n="Analytics">Log Out</div>
+      </a>
+    </li>
+  </ul>
+  <ul *ngIf="token == 0" class="menu-inner py-1">
+    <li class="menu-item" routerLinkActive="active" (click)="removeNav()">
+      <a routerLink="Company" class="menu-link">
+        <i class="menu-icon tf-icons bx bxs-home"></i>
+        <div data-i18n="Analytics">Company</div>
+      </a>
+    </li>
     <!-- Logout -->
     <li class="menu-item" routerLinkActive="active" (click)="logout()">
       <a routerLink="login" class="menu-link" (click)="logout()">

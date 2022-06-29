@@ -7,10 +7,7 @@ import {BookingService} from "../../servies/Booking/booking.service";
 import {EmployeeService} from "../../servies/Employee/employee.service";
 import {AppointmentService} from "../../servies/Appointments/appointment.service";
 import {BusModule} from "../../models/bus/bus.module";
-import {isEmpty} from "rxjs";
 import {AssignmentService} from "../../servies/Assignment/assignment.service";
-import {RideModule} from "../../models/ride/ride.module";
-import {HomeComponent} from "../home/home.component";
 import Swal from 'sweetalert2'
 
 @Component({
@@ -22,7 +19,6 @@ export class AssignmentComponent implements OnInit {
   AllNotAssignedAppointments : any = [];
   Buses : any;
   Drivers : any;
-  appointmentIndex : any  = [];
   Appointments : any = [];
   students : any = [];
   busInformation : boolean = false;
@@ -78,8 +74,6 @@ export class AssignmentComponent implements OnInit {
             }
           )
     });
-    console.log("countNotAssign ; ",this.countNotAssign)
-    console.log("AllNotAssignedAppointments ; ",this.AllNotAssignedAppointments.length)
   }
   getBuses() {
     this.apiBuses.AvailableBuses()
@@ -142,7 +136,6 @@ export class AssignmentComponent implements OnInit {
       }
   }
   ClearAssignment() {
-    console.log(  this.AllNotAssignedAppointments,this.Assignment['rideId']);
     this.AllNotAssignedAppointments.slice(this.Assignment['rideId'],1);
     this.Assignment = [];
     this.Assignments = [];
@@ -188,12 +181,10 @@ export class AssignmentComponent implements OnInit {
       this.students[this.Appointmentstatus] =
         Number(this.students[this.Appointmentstatus]) - Number( this.Assignment['capacity']);
     }
-    console.log(this.Assignment)
     this.getAllStudentNotAssign(this.Assignment.AppointmentID);
           this.AssignmentService.getRideById(this.Assignment.rideId)
             .subscribe((resRideById: any) => {
                 if(resRideById.bus == null && resRideById.emp == null) {
-                    console.log(1111111111);
                     this.dataAssign = {
                       "id":  this.Assignments[0].rideId,
                       "emp": {
@@ -206,10 +197,6 @@ export class AssignmentComponent implements OnInit {
                   this.ArrayDataAssign.push( this.dataAssign);
                   this.AssignmentService.AssignRide(this.ArrayDataAssign)
                     .subscribe((dataAssign: any) => {
-                        console.log( "dataAssign : " );
-                        console.log( dataAssign );
-                        console.log( "booking : " );
-                        console.log( this.booking );
                       for (let i=0;i<this.booking[0].length;i++){
                           this.dataBooking  = {
                             "id": this.booking[0][i].id,
@@ -228,8 +215,6 @@ export class AssignmentComponent implements OnInit {
                             break;
                           }
                       }
-                        console.log("BookingToAssign:")
-                        console.log( this.BookingToAssign );
                         this.AssignBooking(this.BookingToAssign);
                         this.toastr.success('Added Successfully');
                         if(this.countNotAssign  != this.AllNotAssignedAppointments.length)
@@ -243,7 +228,6 @@ export class AssignmentComponent implements OnInit {
                       }
                     )
                 }else{
-                  console.log(2222222);
                   this.dataAssign  = {
                     "rideData": this.myDate,
                     "rideStatus": "process",
@@ -257,11 +241,8 @@ export class AssignmentComponent implements OnInit {
                       "id": this.Assignments[0].Bus
                     }
                   }
-                  console.log( this.dataAssign );
-
                   this.AssignmentService.CreateRide(this.dataAssign)
                     .subscribe((resCreateRide: any) => {
-                      console.log(resCreateRide)
                         for (let i=0;i<this.booking[0].length;i++){
                               this.dataBooking  = {
                             "id": this.booking[0][i].id,
@@ -276,8 +257,6 @@ export class AssignmentComponent implements OnInit {
                           }
                           this.BookingToAssign.push(this.dataBooking);
                         }
-                         console.log( this.BookingToAssign );
-                        console.log( this.dataAssign );
                         this.AssignBooking(this.BookingToAssign);
                         this.toastr.success('Added Successfully');
                         if(this.countNotAssign  != this.AllNotAssignedAppointments.length)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginComponent} from "../../pages/login/login.component";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     public router : Router
   ) { }
-
+  token : any = environment.Token
   ngOnInit(): void {
   }
   logout(){
