@@ -2130,13 +2130,13 @@ progress {
 }
 @media (max-width: 1199.98px) {
   .table-responsive-xl {
-    overflow-x: auto;
+    overflow-x: inherit;
     -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 1399.98px) {
   .table-responsive-xxl {
-    overflow-x: auto;
+    overflow-x: inherit;
     -webkit-overflow-scrolling: touch;
   }
 }
@@ -15096,7 +15096,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   font-size: 0.9375rem;
 }
 .menu-vertical .menu-item.active:not(.open) > .menu-link {
-  font-weight: 600;
+  font-weight: 400;
 }
 .menu-vertical .menu-item .menu-toggle {
   padding-right: calc(1rem + 1.26em);

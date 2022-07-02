@@ -167,8 +167,8 @@ button.list-group-item-primary.active {
 }
 
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-  border-color: #696cff;
-  background-color: #696cff;
+  border-color: #EB671A;
+  background-color: #EB671A;
 }
 
 .alert-primary {
@@ -206,13 +206,13 @@ button.list-group-item-primary.active {
 }
 
 .btn-primary {
-  color: #fff;
+  color: #fff !important;
   background-color: #EB671A;
   border-color: #EB671A;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
 }
 .btn-primary:hover {
-  color: #fff;
+  color: #fff !important;
   background-color: #EB671A;
   border-color: #EB671A;
   transform: translateY(-1px);
