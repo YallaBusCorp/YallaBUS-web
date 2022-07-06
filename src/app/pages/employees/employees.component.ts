@@ -346,7 +346,7 @@ export class EmployeesComponent implements OnInit {
           let ref = document.getElementById('close-button');
           ref?.click();
           this.SuperVisors.splice(this.hepler.findIndex(this.SuperVisors ,this.EmployeeModule.id),1);
-         // this.EmployeeModule.id = res.id;
+          this.EmployeeModule.id = res.id;
           this.SuperVisors.push(this.EmployeeModule);
         },
         (err : any) => {
@@ -366,7 +366,7 @@ export class EmployeesComponent implements OnInit {
             let ref = document.getElementById('close-button');
             ref?.click();
             this.Admins.splice(this.hepler.findIndex(this.Admins ,this.AdminModule.id),1);
-           // this.AdminModule.id = res.id;
+            this.AdminModule.id = res.id;
             this.Admins.push(this.AdminModule);
           },
           (err : any) => {
@@ -386,8 +386,8 @@ export class EmployeesComponent implements OnInit {
             this.toastr.success('Updated Successfully');
             let ref = document.getElementById('close-button');
             ref?.click();
-            this.Drivers.splice(this.hepler.findIndex(this.Admins ,this.DriverModule.id),1);
-          //  this.DriverModule.id = res.id;
+            this.Drivers.splice(this.hepler.findIndex(this.Drivers ,this.DriverModule.id),1);
+            this.DriverModule.id = res.id;
             this.Drivers.push(this.DriverModule);
           },
           (err : any) => {
